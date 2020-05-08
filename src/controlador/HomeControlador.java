@@ -82,7 +82,6 @@ public class HomeControlador implements ActionListener{
                     if (mLib == null) {
                         mLib = new MenuLibroControlador(new MenuLibro());
                         mLib.iniciar();
-                        MenuLibro.__tabla_libros.setModel(MenuLibroControlador.getTabla());
                         MenuLibro.isbnCheckBox.setSelected(true);
                     }
                     break;
