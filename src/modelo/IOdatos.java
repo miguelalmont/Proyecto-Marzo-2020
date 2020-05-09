@@ -19,21 +19,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author migue
  */
 public class IOdatos {
-    
+
     public List<Libro> lecturaArchivoLibros(String ruta) {
-        
+
         String json = "";
         List<Libro> listalibros = new ArrayList<>();
         Gson gson = new Gson();
-        
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+        try ( BufferedReader br = new BufferedReader(new FileReader(ruta))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 json += linea;
@@ -44,45 +42,42 @@ public class IOdatos {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         Libro[] al = gson.fromJson(json, Libro[].class);
-        
+
         listalibros.addAll(Arrays.asList(al));
-        
-                
+
         return listalibros;
     }
-    
-    
-    
+
     public void escrituraArchivoLibros(List<Libro> lista, String ruta) {
-        
+
         Gson gson = new Gson();
         String json = "[";
-        
+
         for (Libro libro : lista) {
-           json += gson.toJson(libro);
-           if (lista.indexOf(libro) < lista.size()-1)
-               json += ",";
+            json += gson.toJson(libro);
+            if (lista.indexOf(libro) < lista.size() - 1) {
+                json += ",";
+            }
         }
-        
+
         json += "]";
-        
+
         FileWriter fw = null;
-        
+
         try {
             fw = new FileWriter(ruta);
         } catch (IOException ex) {
             Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try (BufferedWriter bw = new BufferedWriter(fw)) {
+
+        try ( BufferedWriter bw = new BufferedWriter(fw)) {
             bw.write(json);
             bw.close();
         } catch (IOException ex) {
             Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 }

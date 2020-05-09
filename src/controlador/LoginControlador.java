@@ -16,8 +16,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Hash;
 import modelo.Usuario;
 import modelo.UsuariosJDBC;
-import vista.Home;
-import vista.Login;
+import vista.HomeVista;
+import vista.LoginVista;
 
 /**
  *
@@ -25,7 +25,7 @@ import vista.Login;
  */
 public class LoginControlador implements ActionListener {
 
-    Login vista;
+    LoginVista vista;
     public static Usuario user;
     private final String DATE_FORMATTER = "yyyy-MM-dd HH:mm:ss";
 
@@ -43,7 +43,7 @@ public class LoginControlador implements ActionListener {
      *
      * @param vista Instancia de clase interfaz
      */
-    public LoginControlador(Login vista) {
+    public LoginControlador(LoginVista vista) {
         
         this.vista = vista;
     }
@@ -103,7 +103,7 @@ public class LoginControlador implements ActionListener {
 
                         InicioControlador.vista.setVisible(false);
 
-                        new HomeControlador( new Home() ).iniciar();
+                        new HomeControlador( new HomeVista() ).iniciar();
                         
                     } else {
                         JOptionPane.showMessageDialog(null, "Datos incorrectos.");

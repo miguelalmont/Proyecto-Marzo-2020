@@ -16,8 +16,8 @@ import modelo.Libro;
 import modelo.LibrosJDBC;
 import modelo.Nota;
 import modelo.NotasJDBC;
-import vista.MenuLibro;
-import vista.NuevaNota;
+import vista.LibroVista;
+import vista.NuevaNotaVista;
 
 
 /**
@@ -27,7 +27,7 @@ import vista.NuevaNota;
 public class NuevaNotaControlador implements ActionListener{
     
         /** instancia a nuestra interfaz de usuario*/
-    NuevaNota vista ;
+    NuevaNotaVista vista ;
     Nota nota = new Nota();
     NotasJDBC notaConn = new NotasJDBC();
     Libro libro = new Libro();
@@ -52,7 +52,7 @@ public class NuevaNotaControlador implements ActionListener{
     /** Constrcutor de clase
      * @param vista Instancia de clase interfaz
      */
-    public NuevaNotaControlador( NuevaNota vista )
+    public NuevaNotaControlador( NuevaNotaVista vista )
     {
         this.vista = vista;
     }
@@ -94,7 +94,7 @@ public class NuevaNotaControlador implements ActionListener{
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
                         nota.setContenido(this.vista.contenidoArea.getText());
-                        nota.setIdLibro(libroConn.getId(MenuLibro.isbnBox.getText())); 
+                        nota.setIdLibro(libroConn.getId(LibroVista.isbnBox.getText())); 
                         nota.setIdArticulo(0);
                         
                         notaConn.insertNotaLibro(nota); 
@@ -103,7 +103,7 @@ public class NuevaNotaControlador implements ActionListener{
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
                         nota.setContenido(this.vista.contenidoArea.getText());
-                        nota.setIdLibro(libroConn.getId(MenuLibro.isbnBox.getText())); 
+                        nota.setIdLibro(libroConn.getId(LibroVista.isbnBox.getText())); 
                         nota.setIdArticulo(0);
                         
                         notaConn.insertNotaArticulo(nota);

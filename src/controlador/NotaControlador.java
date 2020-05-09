@@ -17,17 +17,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import modelo.Nota;
 import modelo.NotasJDBC;
-import vista.MenuNota;
-import static vista.MenuNota.__tabla_notas;
+import vista.NotaVista;
+import static vista.NotaVista.__tabla_notas;
 
 /**
  *
  * @author migue
  */
-public class MenuNotaControlador implements ActionListener, MouseListener{
+public class NotaControlador implements ActionListener, MouseListener{
     
     /** instancia a nuestra interfaz de usuario*/
-    MenuNota vista ;
+    NotaVista vista ;
     public static NuevaNotaControlador nuevaNota;
     
     Nota nota = new Nota();
@@ -49,7 +49,7 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
     /** Constrcutor de clase
      * @param vista Instancia de clase interfaz
      */
-    public MenuNotaControlador( MenuNota vista )
+    public NotaControlador( NotaVista vista )
     {
         this.vista = vista;
     }
@@ -78,26 +78,26 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
         this.vista.__VOLVER.setActionCommand( "__VOLVER" );
         this.vista.__VOLVER.addActionListener(this);
         
-        MenuNota.__tabla_notas.addMouseListener(this);
-        MenuNota.__tabla_notas.setModel( new DefaultTableModel() );
+        NotaVista.__tabla_notas.addMouseListener(this);
+        NotaVista.__tabla_notas.setModel( new DefaultTableModel() );
     }
 
     //Eventos que suceden por el mouse
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == 1)//boton izquierdo
         {
-            int fila = MenuNota.__tabla_notas.rowAtPoint(e.getPoint());
+            int fila = NotaVista.__tabla_notas.rowAtPoint(e.getPoint());
             
             if (fila > -1) {
-                this.vista.idNotaBox.setText(String.valueOf(MenuNota.__tabla_notas.getModel().getValueAt(fila, 0)));
+                this.vista.idNotaBox.setText(String.valueOf(NotaVista.__tabla_notas.getModel().getValueAt(fila, 0)));
                 
-                this.vista.temaBox.setText(String.valueOf(MenuNota.__tabla_notas.getValueAt(fila, 0)));
+                this.vista.temaBox.setText(String.valueOf(NotaVista.__tabla_notas.getValueAt(fila, 0)));
                 
-                this.vista.idLibroBox.setText(String.valueOf(MenuNota.__tabla_notas.getValueAt(fila, 1)));
+                this.vista.idLibroBox.setText(String.valueOf(NotaVista.__tabla_notas.getValueAt(fila, 1)));
                 
-                this.vista.idArticBox.setText(String.valueOf(MenuNota.__tabla_notas.getValueAt(fila, 2)));
+                this.vista.idArticBox.setText(String.valueOf(NotaVista.__tabla_notas.getValueAt(fila, 2)));
                 
-                this.vista.contenidoArea.setText(String.valueOf(MenuNota.__tabla_notas.getModel().getValueAt(fila, 4)));
+                this.vista.contenidoArea.setText(String.valueOf(NotaVista.__tabla_notas.getModel().getValueAt(fila, 4)));
                 
             }
         }
@@ -125,7 +125,7 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
                 nota.setContenido(this.vista.contenidoArea.getText());
 
                 notasConn.insert(nota);
-                MenuNota.__tabla_notas.setModel(getTabla());
+                NotaVista.__tabla_notas.setModel(getTabla());
                 //clean();
                 }
                 break;
@@ -146,7 +146,7 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
                             notasConn.updateLibro(nota);
                         }
                         
-                        MenuNota.__tabla_notas.setModel(getTabla());
+                        NotaVista.__tabla_notas.setModel(getTabla());
                 } else {
                     
                     JOptionPane.showMessageDialog(null, "No hay ninguna nota seleccionada.");
@@ -159,7 +159,7 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
                     
                     notasConn.delete(Integer.parseInt(this.vista.idNotaBox.getText()));
 
-                    MenuNota.__tabla_notas.setModel(getTabla());
+                    NotaVista.__tabla_notas.setModel(getTabla());
                     clean();
                 } else {
                     
@@ -211,10 +211,10 @@ public class MenuNotaControlador implements ActionListener, MouseListener{
             
         });
         
-        TableColumnModel tcm = MenuNota.__tabla_notas.getColumnModel();
+        TableColumnModel tcm = NotaVista.__tabla_notas.getColumnModel();
         
         
-        DefaultTableModel modelo = (DefaultTableModel) MenuNota.__tabla_notas.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) NotaVista.__tabla_notas.getModel();
         
         
         

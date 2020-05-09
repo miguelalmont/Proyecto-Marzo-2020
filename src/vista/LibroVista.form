@@ -80,9 +80,9 @@
                               <Component id="__BUSCAR" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="__GUARDAR_RESULT" min="-2" max="-2" attributes="0"/>
+                              <Component id="__GUARDAR_TABLA" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="__CARGAR_RESULT" min="-2" max="-2" attributes="0"/>
+                              <Component id="__CARGAR_TABLA" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -138,8 +138,8 @@
                       <Component id="jScrollPane2" min="-2" pref="138" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="__CARGAR_RESULT" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="__GUARDAR_RESULT" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="__CARGAR_TABLA" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="__GUARDAR_TABLA" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -372,23 +372,23 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="__GUARDAR_RESULT">
+    <Component class="javax.swing.JButton" name="__GUARDAR_TABLA">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Guardar resultado"/>
+        <Property name="text" type="java.lang.String" value="Guardar tabla"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="__CARGAR_RESULT">
+    <Component class="javax.swing.JButton" name="__CARGAR_TABLA">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Century Gothic" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cargar resultado"/>
+        <Property name="text" type="java.lang.String" value="Cargar tabla"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

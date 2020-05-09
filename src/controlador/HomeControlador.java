@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import vista.Home;
-import vista.MenuLibro;
-import vista.MenuNota;
+import vista.HomeVista;
+import vista.LibroVista;
+import vista.NotaVista;
 
 /**
  *
@@ -21,10 +21,10 @@ import vista.MenuNota;
  */
 public class HomeControlador implements ActionListener{
     /** instancia a nuestra interfaz de usuario*/
-    public static Home vista;
-    public static MenuLibroControlador mLib = null;
-    public static MenuArticuloControlador mArt = null;
-    public static MenuNotaControlador mNot = null;
+    public static HomeVista vista;
+    public static LibroControlador mLib = null;
+    public static ArticuloControlador mArt = null;
+    public static NotaControlador mNot = null;
 
     /** instancia a nuestro modelo */
     
@@ -43,7 +43,7 @@ public class HomeControlador implements ActionListener{
     /** Constrcutor de clase
      * @param vista Instancia de clase interfaz
      */
-    public HomeControlador( Home vista )
+    public HomeControlador( HomeVista vista )
     {
         this.vista = vista;
     }
@@ -80,23 +80,23 @@ public class HomeControlador implements ActionListener{
             {
                 case __LIBRO:
                     if (mLib == null) {
-                        mLib = new MenuLibroControlador(new MenuLibro());
+                        mLib = new LibroControlador(new LibroVista());
                         mLib.iniciar();
-                        MenuLibro.isbnCheckBox.setSelected(true);
+                        LibroVista.isbnCheckBox.setSelected(true);
                     }
                     break;
                 case __ARTICULO:
                     /*if(mArt == null) {
-                        mArt = new MenuArticuloControlador(new MenuArticulo());
+                        mArt = new ArticuloControlador(new MenuArticulo());
                         mArt.iniciar();
                     }*/
                     break;
                 case __NOTA:
                     
                     if(mNot == null) {
-                        mNot = new MenuNotaControlador(new MenuNota());
+                        mNot = new NotaControlador(new NotaVista());
                         mNot.iniciar();
-                        MenuNota.__tabla_notas.setModel(MenuNotaControlador.getTabla());
+                        NotaVista.__tabla_notas.setModel(NotaControlador.getTabla());
                     }
                     break;
                 case __CERRAR_SESION:

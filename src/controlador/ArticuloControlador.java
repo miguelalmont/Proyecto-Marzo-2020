@@ -9,6 +9,6 @@ package controlador;
  *
  * @author migue
  */
-public class MenuArticuloControlador {
+public class ArticuloControlador {
     
 }

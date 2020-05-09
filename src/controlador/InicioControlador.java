@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import vista.Inicio;
-import vista.Login;
-import vista.Registro;
+import vista.InicioVista;
+import vista.LoginVista;
+import vista.RegistroVista;
 
 /**
  *
@@ -21,7 +21,7 @@ import vista.Registro;
 public class InicioControlador implements ActionListener{
     
     /** instancia a nuestra interfaz de usuario*/
-    public static Inicio vista;
+    public static InicioVista vista;
     public static LoginControlador log = null;
     public static RegistroControlador reg = null;
 
@@ -40,7 +40,7 @@ public class InicioControlador implements ActionListener{
     /** Constrcutor de clase
      * @param vista Instancia de clase interfaz
      */
-    public InicioControlador( Inicio vista )
+    public InicioControlador( InicioVista vista )
     {
         InicioControlador.vista = vista;
     }
@@ -72,14 +72,14 @@ public class InicioControlador implements ActionListener{
                 case __INICIAR_SESION:
                     
                     if(log == null) {
-                        log = new LoginControlador(new Login());
+                        log = new LoginControlador(new LoginVista());
                         log.iniciar();
                     }
                     break;
                 case __NUEVO_USUARIO:
                     
                     if(reg == null) {
-                        reg = new RegistroControlador(new Registro());
+                        reg = new RegistroControlador(new RegistroVista());
                         reg.iniciar();
                     }
                     break;     

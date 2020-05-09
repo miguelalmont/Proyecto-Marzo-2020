@@ -11,12 +11,12 @@ import controlador.HomeControlador;
  *
  * @author migue
  */
-public class MenuLibro extends javax.swing.JFrame {
+public class LibroVista extends javax.swing.JFrame {
     
     /**
      * Creates new form Libro
      */
-    public MenuLibro() {
+    public LibroVista() {
         initComponents();
     }
 
@@ -54,8 +54,8 @@ public class MenuLibro extends javax.swing.JFrame {
         isbnCheckBox = new javax.swing.JCheckBox();
         __BUSCAR = new javax.swing.JButton();
         busquedaBox = new javax.swing.JTextField();
-        __GUARDAR_RESULT = new javax.swing.JButton();
-        __CARGAR_RESULT = new javax.swing.JButton();
+        __GUARDAR_TABLA = new javax.swing.JButton();
+        __CARGAR_TABLA = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,11 +142,11 @@ public class MenuLibro extends javax.swing.JFrame {
         __BUSCAR.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         __BUSCAR.setText("Buscar");
 
-        __GUARDAR_RESULT.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __GUARDAR_RESULT.setText("Guardar resultado");
+        __GUARDAR_TABLA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA.setText("Guardar tabla");
 
-        __CARGAR_RESULT.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __CARGAR_RESULT.setText("Cargar resultado");
+        __CARGAR_TABLA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA.setText("Cargar tabla");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,9 +178,9 @@ public class MenuLibro extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(__BUSCAR))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(__GUARDAR_RESULT)
+                                .addComponent(__GUARDAR_TABLA)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(__CARGAR_RESULT)))
+                                .addComponent(__CARGAR_TABLA)))
                         .addContainerGap())
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +221,8 @@ public class MenuLibro extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(__CARGAR_RESULT, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(__GUARDAR_RESULT, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(__CARGAR_TABLA, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(__GUARDAR_TABLA, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editorialBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,21 +285,27 @@ public class MenuLibro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibroVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibroVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibroVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibroVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuLibro().setVisible(true);
+                new LibroVista().setVisible(true);
             }
         });
     }
@@ -307,9 +313,9 @@ public class MenuLibro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton __ANIADIR_NOTA;
     public javax.swing.JButton __BUSCAR;
-    public javax.swing.JButton __CARGAR_RESULT;
+    public javax.swing.JButton __CARGAR_TABLA;
     public javax.swing.JButton __ELIMINAR_LIBRO;
-    public javax.swing.JButton __GUARDAR_RESULT;
+    public javax.swing.JButton __GUARDAR_TABLA;
     public javax.swing.JButton __MODIFICAR_LIBRO;
     public javax.swing.JButton __NUEVO_LIBRO;
     public javax.swing.JButton __VOLVER;

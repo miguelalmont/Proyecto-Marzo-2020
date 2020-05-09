@@ -14,7 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Hash;
 import modelo.Usuario;
 import modelo.UsuariosJDBC;
-import vista.Registro;
+import vista.RegistroVista;
 
 /**
  *
@@ -23,7 +23,7 @@ import vista.Registro;
 public class RegistroControlador implements ActionListener{
     
     /** instancia a nuestra interfaz de usuario*/
-    Registro vista ;
+    RegistroVista vista ;
     /** instancia a nuestro modelo */
     Usuario newUser = new Usuario();
 
@@ -40,7 +40,7 @@ public class RegistroControlador implements ActionListener{
     /** Constrcutor de clase
      * @param vista Instancia de clase interfaz
      */
-    public RegistroControlador( Registro vista )
+    public RegistroControlador( RegistroVista vista )
     {
         vista.setVisible(true);
         this.vista = vista;
