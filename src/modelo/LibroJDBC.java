@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author migue
  */
-public class LibrosJDBC extends conexion.Conexion{
+public class LibroJDBC extends conexion.Conexion{
     
     private final String SQL_INSERT
             = "INSERT INTO libros(ISBN, autor, titulo, editorial, anio, n_paginas, user_libro) VALUES(?,?,?,?,?,?,?)";
@@ -31,8 +31,11 @@ public class LibrosJDBC extends conexion.Conexion{
     private final String SQL_SELECT
             = "SELECT ISBN, autor, titulo, editorial, anio, n_paginas FROM libros WHERE user_libro = ? ORDER BY ISBN";
     
-    private final String SQL_GET_ID
+    private final String SQL_SELECT_ID
             = "SELECT id_libro FROM libros WHERE user_libro = ? AND ISBN = ?";
+    
+    private final String SQL_SELECT_ISBN
+            = "SELECT ISBN FROM libros WHERE user_libro = ? AND id_libro = ?";
     
     
     public int insert(Libro libro) {
@@ -217,7 +220,7 @@ public class LibrosJDBC extends conexion.Conexion{
         PreparedStatement stmt = null;
         ResultSet rs = null;
         
-        String sql = SQL_GET_ID;
+        String sql = SQL_SELECT_ID;
         
         try {
             conn = getConnection();
@@ -237,6 +240,38 @@ public class LibrosJDBC extends conexion.Conexion{
         catch (SQLException e){
             e.printStackTrace();
             return -1;
+        } finally {
+            close(rs);
+            close(stmt);
+            close(conn);
+        }
+    }
+    
+    public String getISBN( int user, int id_libro){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        String sql = SQL_SELECT_ISBN;
+        
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(sql);
+            int index = 1;
+            stmt.setInt(index++, user);
+            stmt.setInt(index, id_libro);
+            rs = stmt.executeQuery();
+            
+            if(rs.next()) {
+                return rs.getString(1);
+            }
+            else {
+                return null;
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return null;
         } finally {
             close(rs);
             close(stmt);

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author migue
  */
-public class NotasJDBC extends conexion.Conexion{
+public class NotaJDBC extends conexion.Conexion{
     private final String SQL_INSERT
             = "INSERT INTO notas(tema, contenido, user_nota, id_libro, id_artic) VALUES(?,?,?,?,?)";
 
@@ -30,7 +30,7 @@ public class NotasJDBC extends conexion.Conexion{
             = "DELETE FROM notas WHERE id_nota = ? AND user_nota = ?";
 
     private final String SQL_SELECT
-            = "SELECT id_nota, tema, contenido, id_libro, id_artic FROM notas WHERE user_nota = ? ORDER BY id_nota";
+            = "SELECT id_nota, tema, contenido, id_libro, id_artic, user_nota FROM notas WHERE user_nota = ? ORDER BY id_nota";
     
     /*private final String SQL_getId
             = "SELECT id_nota FROM notas WHERE user_nota = ? AND  = ?";*/
@@ -48,8 +48,18 @@ public class NotasJDBC extends conexion.Conexion{
             stmt.setString(index++, nota.getTema());
             stmt.setString(index++, nota.getContenido());
             stmt.setInt(index++, LoginControlador.user.getId());
-            stmt.setInt(index++, nota.getIdLibro());
-            stmt.setInt(index, nota.getIdArticulo());
+            if (nota.getIdLibro() < 1) {
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            }
+            else {
+                stmt.setInt(index++, nota.getIdLibro());
+            }
+            if (nota.getIdArticulo() < 1) {
+                stmt.setNull(index, java.sql.Types.INTEGER);
+            }
+            else {
+                stmt.setInt(index, nota.getIdArticulo());
+            }
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
@@ -63,6 +73,7 @@ public class NotasJDBC extends conexion.Conexion{
         return rows;
     }
     
+    /*
     public void insertNotaLibro(Nota nota) {
         Connection conn = null;
         PreparedStatement stmt = null;		
@@ -106,6 +117,7 @@ public class NotasJDBC extends conexion.Conexion{
             close(conn);
         }
     }
+    */
     
     public int update(Nota nota) {
         Connection conn = null;
@@ -215,6 +227,7 @@ public class NotasJDBC extends conexion.Conexion{
                 String contenido = rs.getString(3);
                 int idLibro = rs.getInt(4);
                 int idArticulo = rs.getInt(5);
+                int idUser = rs.getInt(6);
                 
                 
                 nota = new Nota();
@@ -223,6 +236,7 @@ public class NotasJDBC extends conexion.Conexion{
                 nota.setContenido(contenido);
                 nota.setIdLibro(idLibro);
                 nota.setIdArticulo(idArticulo);
+                nota.setIdUser(idUser);
                 
                 notas.add(nota);
             }
@@ -294,6 +308,58 @@ public class NotasJDBC extends conexion.Conexion{
             close(stmt);
             close(conn);
         }
+    }
+
+    public int coincidencias(String busqueda) {
+        int i = 0;
+        List<String> lista = new ArrayList<>();
+        List<Nota> notas = select();
+        
+        notas.stream().map((nota) -> {
+            lista.add(Integer.toString(nota.getId()));
+            return nota;
+        }).map((nota) -> {
+            lista.add(nota.getTema());
+            return nota;
+        }).map((nota) -> {
+            lista.add(Integer.toString(nota.getIdLibro()));
+            return nota;
+        }).map((nota) -> {
+            lista.add(Integer.toString(nota.getIdArticulo()));
+            return nota;
+        }).forEachOrdered((nota) -> {
+            lista.add(nota.getContenido());
+        });
+        
+        i = lista.stream().filter((resultado) -> (resultado.contains(busqueda))).map((_item) -> 1).reduce(i, Integer::sum);
+        
+        return i;
+    }
+
+    public List<Nota> buscar(String busqueda) {
+        
+        List<Nota> notas = select();
+        List<Nota> objetivos = new ArrayList<>();
+        
+        notas.forEach((nota) -> {
+            if(Integer.toString(nota.getId()).contains(busqueda)) {
+                objetivos.add(nota);
+            }
+            else if(nota.getTema().contains(busqueda)) {
+                objetivos.add(nota);
+            }
+            else if(Integer.toString(nota.getIdLibro()).contains(busqueda)) {
+                objetivos.add(nota);
+            }
+            else if(Integer.toString(nota.getIdArticulo()).contains(busqueda)) {
+                objetivos.add(nota);
+            }
+            else if(nota.getContenido().contains(busqueda)) {
+                objetivos.add(nota);
+            }
+        });
+        
+        return objetivos;
     }
     
 }

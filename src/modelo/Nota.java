@@ -12,7 +12,7 @@ package modelo;
 public class Nota {
     
     private String tema, contenido;
-    private int id, idArticulo, idLibro;
+    private int id, idArticulo, idLibro, idUser;
 
     public Nota() {
     }
@@ -64,9 +64,17 @@ public class Nota {
         this.contenido = contenido;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
     @Override
     public String toString() {
-        return "Nota{" + "tema=" + tema + ", contenido=" + contenido + ", id=" + id + ", idArticulo=" + idArticulo + ", idLibro=" + idLibro + '}';
+        return "Nota{" + "tema=" + tema + ", contenido=" + contenido + ", id=" + id + ", idArticulo=" + idArticulo + ", idLibro=" + idLibro + ", idUser=" + idUser + '}';
     }
 
 }

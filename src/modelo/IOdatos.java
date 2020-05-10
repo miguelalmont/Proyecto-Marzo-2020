@@ -25,10 +25,10 @@ import java.util.logging.Logger;
  */
 public class IOdatos {
 
-    public List<Libro> lecturaArchivoLibros(String ruta) {
+    public List<Libro> lecturaLibro(String ruta) {
 
         String json = "";
-        List<Libro> listalibros = new ArrayList<>();
+        List<Libro> lista = new ArrayList<>();
         Gson gson = new Gson();
 
         try ( BufferedReader br = new BufferedReader(new FileReader(ruta))) {
@@ -45,12 +45,12 @@ public class IOdatos {
 
         Libro[] al = gson.fromJson(json, Libro[].class);
 
-        listalibros.addAll(Arrays.asList(al));
+        lista.addAll(Arrays.asList(al));
 
-        return listalibros;
+        return lista;
     }
 
-    public void escrituraArchivoLibros(List<Libro> lista, String ruta) {
+    public void escrituraLibro(List<Libro> lista, String ruta) {
 
         Gson gson = new Gson();
         String json = "[";
@@ -58,6 +58,119 @@ public class IOdatos {
         for (Libro libro : lista) {
             json += gson.toJson(libro);
             if (lista.indexOf(libro) < lista.size() - 1) {
+                json += ",";
+            }
+        }
+
+        json += "]";
+
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try ( BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(json);
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public List<Articulo> lecturaArticulo(String ruta) {
+
+        String json = "";
+        List<Articulo> lista = new ArrayList<>();
+        Gson gson = new Gson();
+
+        try ( BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                json += linea;
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        Articulo[] a = gson.fromJson(json, Articulo[].class);
+
+        lista.addAll(Arrays.asList(a));
+
+        return lista;
+    }
+
+    public void escrituraArticulo(List<Articulo> lista, String ruta) {
+
+        Gson gson = new Gson();
+        String json = "[";
+
+        for (Articulo articulo : lista) {
+            json += gson.toJson(articulo);
+            if (lista.indexOf(articulo) < lista.size() - 1) {
+                json += ",";
+            }
+        }
+
+        json += "]";
+
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try ( BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(json);
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public List<Nota> lecturaNota(String ruta) {
+
+        String json = "";
+        List<Nota> lista = new ArrayList<>();
+        Gson gson = new Gson();
+
+        try ( BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                json += linea;
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        Nota[] n = gson.fromJson(json, Nota[].class);
+
+        lista.addAll(Arrays.asList(n));
+        
+        return lista;
+    }
+
+    public void escrituraNota(List<Nota> lista, String ruta) {
+
+        Gson gson = new Gson();
+
+        String json = "[";
+
+        for (Nota nota : lista) {
+            json += gson.toJson(nota);
+            if (lista.indexOf(nota) < lista.size() - 1) {
                 json += ",";
             }
         }

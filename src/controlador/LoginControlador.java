@@ -69,6 +69,7 @@ public class LoginControlador implements ActionListener {
     }
 
     //Control de eventos de los controles que tienen definido un "ActionCommand"
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         switch (AccionMVC.valueOf(e.getActionCommand())) {

@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import vista.HomeVista;
 import vista.LibroVista;
 import vista.NotaVista;
+import vista.ArticuloVista;
 
 /**
  *
@@ -45,7 +46,7 @@ public class HomeControlador implements ActionListener{
      */
     public HomeControlador( HomeVista vista )
     {
-        this.vista = vista;
+        HomeControlador.vista = vista;
     }
 
     /** Inicia el skin y las diferentes variables que se utilizan */
@@ -54,22 +55,22 @@ public class HomeControlador implements ActionListener{
         // Skin tipo WINDOWS
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(this.vista);
-            this.vista.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(HomeControlador.vista);
+            HomeControlador.vista.setVisible(true);
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
 
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__LIBRO.setActionCommand( "__LIBRO" );
-        this.vista.__LIBRO.addActionListener(this);
+        HomeControlador.vista.__LIBRO.setActionCommand( "__LIBRO" );
+        HomeControlador.vista.__LIBRO.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__ARTICULO.setActionCommand( "__ARTICULO" );
-        this.vista.__ARTICULO.addActionListener(this);
+        HomeControlador.vista.__ARTICULO.setActionCommand( "__ARTICULO" );
+        HomeControlador.vista.__ARTICULO.addActionListener(this);
         
-        this.vista.__NOTA.setActionCommand( "__NOTA" );
-        this.vista.__NOTA.addActionListener(this);
+        HomeControlador.vista.__NOTA.setActionCommand( "__NOTA" );
+        HomeControlador.vista.__NOTA.addActionListener(this);
         
-        this.vista.__CERRAR_SESION.setActionCommand( "__CERRAR_SESION" );
-        this.vista.__CERRAR_SESION.addActionListener(this);
+        HomeControlador.vista.__CERRAR_SESION.setActionCommand( "__CERRAR_SESION" );
+        HomeControlador.vista.__CERRAR_SESION.addActionListener(this);
     }
  
     //Control de eventos de los controles que tienen definido un "ActionCommand"
@@ -86,17 +87,18 @@ public class HomeControlador implements ActionListener{
                     }
                     break;
                 case __ARTICULO:
-                    /*if(mArt == null) {
-                        mArt = new ArticuloControlador(new MenuArticulo());
+                    
+                    if(mArt == null) {
+                        mArt = new ArticuloControlador(new ArticuloVista());
                         mArt.iniciar();
-                    }*/
+                    }
                     break;
                 case __NOTA:
                     
                     if(mNot == null) {
                         mNot = new NotaControlador(new NotaVista());
                         mNot.iniciar();
-                        NotaVista.__tabla_notas.setModel(NotaControlador.getTabla());
+                        
                     }
                     break;
                 case __CERRAR_SESION:
@@ -111,10 +113,12 @@ public class HomeControlador implements ActionListener{
                             mLib.vista.dispose();
                             mLib = null;
                         }
-                       /* if (mArt != null) {
+                        
+                        if (mArt != null) {
                             mArt.vista.dispose();
                             mArt = null;
-                        }*/
+                        }
+                        
                         if (mNot != null) {
                             mNot.vista.dispose();
                             mNot = null;
@@ -122,7 +126,7 @@ public class HomeControlador implements ActionListener{
 
                         LoginControlador.user = null;
                         InicioControlador.log = null;
-                        this.vista.dispose();
+                        HomeControlador.vista.dispose();
                         InicioControlador.vista.setVisible(true);
                     }
                     break; 

@@ -1,9 +1,6 @@
 package controlador;
 
-import modelo.Libro;
 import vista.InicioVista;
-import vista.LibroVista;
-
 /**
  *
  * @author migue

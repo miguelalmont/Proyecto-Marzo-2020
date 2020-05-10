@@ -47,6 +47,10 @@ public class NotaVista extends javax.swing.JFrame {
         idArticBox = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        __BUSCAR = new javax.swing.JButton();
+        busquedaBox = new javax.swing.JTextField();
+        __CARGAR_TABLA = new javax.swing.JButton();
+        __GUARDAR_TABLA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -75,30 +79,12 @@ public class NotaVista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tema", "ID Libro", "ID Articulo", "Contenido"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         __tabla_notas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         __tabla_notas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(__tabla_notas);
-        if (__tabla_notas.getColumnModel().getColumnCount() > 0) {
-            __tabla_notas.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         jLabel2.setText("ID");
 
@@ -126,6 +112,15 @@ public class NotaVista extends javax.swing.JFrame {
 
         jLabel5.setText("Articulo");
 
+        __BUSCAR.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR.setText("Buscar");
+
+        __CARGAR_TABLA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA.setText("Cargar tabla");
+
+        __GUARDAR_TABLA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA.setText("Guardar tabla");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -139,10 +134,11 @@ public class NotaVista extends javax.swing.JFrame {
                     .addComponent(__MODIFICAR_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(__GUARDAR_TABLA)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(__CARGAR_TABLA))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -154,7 +150,7 @@ public class NotaVista extends javax.swing.JFrame {
                                     .addComponent(temaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(idLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -165,7 +161,14 @@ public class NotaVista extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(idArticBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(busquedaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(__BUSCAR)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,7 +180,11 @@ public class NotaVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(__GUARDAR_TABLA, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(__CARGAR_TABLA))
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -202,6 +209,10 @@ public class NotaVista extends javax.swing.JFrame {
                         .addComponent(__MODIFICAR_NOTA)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(__ELIMINAR_NOTA)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(__BUSCAR)
+                    .addComponent(busquedaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -261,11 +272,15 @@ public class NotaVista extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton __BUSCAR;
+    public javax.swing.JButton __CARGAR_TABLA;
     public javax.swing.JButton __ELIMINAR_NOTA;
+    public javax.swing.JButton __GUARDAR_TABLA;
     public javax.swing.JButton __MODIFICAR_NOTA;
     public javax.swing.JButton __NUEVA_NOTA;
     public javax.swing.JButton __VOLVER;
     public static javax.swing.JTable __tabla_notas;
+    public static javax.swing.JTextField busquedaBox;
     public javax.swing.JTextArea contenidoArea;
     public javax.swing.JFormattedTextField idArticBox;
     public javax.swing.JFormattedTextField idLibroBox;

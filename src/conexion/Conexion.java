@@ -38,7 +38,6 @@ public class Conexion {
                 DriverManager.registerDriver(driver);
             } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
                 System.out.println("Fallo en cargar el driver JDBC");
-                e.printStackTrace();
             }
             
         }
@@ -52,7 +51,7 @@ public class Conexion {
                 rs.close();
             }
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            System.out.println("Fallo en cerrar el driver JDBC");
         }
     }
 
@@ -63,7 +62,7 @@ public class Conexion {
                 stmt.close();
             }
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            System.out.println("Fallo en cerrar el driver JDBC");
         }
     }
 
@@ -74,7 +73,7 @@ public class Conexion {
                 conn.close();
             }
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            System.out.println("Fallo en cerrar el driver JDBC");
         }
     }
 }

@@ -54,10 +54,7 @@ public class RegistroControlador implements ActionListener{
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(vista);
             vista.setVisible(true);
-        } catch (UnsupportedLookAndFeelException ex) {}
-          catch (ClassNotFoundException ex) {}
-          catch (InstantiationException ex) {}
-          catch (IllegalAccessException ex) {}
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
 
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__CREAR_USUARIO.setActionCommand( "__CREAR_USUARIO" );
@@ -76,7 +73,7 @@ public class RegistroControlador implements ActionListener{
             case __CREAR_USUARIO:
                 
         UsuariosJDBC userCon = new UsuariosJDBC();
-        Usuario newUser = new Usuario();
+        Usuario nuevoUsuario = new Usuario();
 
         String pass = new String(this.vista.txtPassword.getPassword());
         String passConfirm = new String(this.vista.txtConfirmPass.getPassword());
@@ -92,13 +89,13 @@ public class RegistroControlador implements ActionListener{
                     if (userCon.validarEmail(this.vista.txtMail.getText())) {
                         String encrypPass = Hash.sha1(pass);
 
-                        newUser.setUsuario(this.vista.txtUser.getText());
-                        newUser.setPassword(encrypPass);
-                        newUser.setNombre(this.vista.txtName.getText());
-                        newUser.setMail(this.vista.txtMail.getText());
+                        nuevoUsuario.setUsuario(this.vista.txtUser.getText());
+                        nuevoUsuario.setPassword(encrypPass);
+                        nuevoUsuario.setNombre(this.vista.txtName.getText());
+                        nuevoUsuario.setMail(this.vista.txtMail.getText());
                         
 
-                        if (userCon.insert(newUser)) {
+                        if (userCon.insert(nuevoUsuario)) {
                             JOptionPane.showMessageDialog(null, "Usuario registrado con exito.");
                             clean();
                         } else {
@@ -119,6 +116,7 @@ public class RegistroControlador implements ActionListener{
             }
         }
                 break;
+
             case __VOLVER:
                 this.vista.dispose();
                 InicioControlador.reg = null;   

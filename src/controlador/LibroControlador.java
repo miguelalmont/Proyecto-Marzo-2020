@@ -21,7 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import modelo.IOdatos;
 import modelo.Libro;
-import modelo.LibrosJDBC;
+import modelo.LibroJDBC;
 import vista.LibroVista;
 import vista.NuevaNotaVista;
 
@@ -39,7 +39,7 @@ public class LibroControlador implements ActionListener, MouseListener {
     /**
      * instancia a nuestro modelo
      */
-    LibrosJDBC librosConn = new LibrosJDBC();
+    LibroJDBC libroConn = new LibroJDBC();
     IOdatos io = new IOdatos();
     public static FileChooserControlador fcc = null;
 
@@ -107,7 +107,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         //añade e inicia el jtable
         LibroVista.__tabla_libros.addMouseListener(this);
-        LibroVista.__tabla_libros.setModel(crearTabla(librosConn.select()));
+        LibroVista.__tabla_libros.setModel(crearTabla(libroConn.select()));
 
         LibroVista.isbnCheckBox.addActionListener((ActionEvent event) -> {
             JCheckBox cb = (JCheckBox) event.getSource();
@@ -120,6 +120,7 @@ public class LibroControlador implements ActionListener, MouseListener {
     }
 
     //Eventos que suceden por el mouse
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == 1)//boton izquierdo
         {
@@ -139,19 +140,24 @@ public class LibroControlador implements ActionListener, MouseListener {
         }
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
     //Control de eventos de los controles que tienen definido un "ActionCommand"
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         switch (AccionMVC.valueOf(e.getActionCommand())) {
@@ -162,7 +168,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                     JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
                 } else {
 
-                    if (librosConn.existeISBN(LibroVista.isbnBox.getText()) == 0) {
+                    if (libroConn.existeISBN(LibroVista.isbnBox.getText()) == 0) {
 
                         Libro libro = new Libro();
 
@@ -173,8 +179,8 @@ public class LibroControlador implements ActionListener, MouseListener {
                         libro.setAnio(Integer.parseInt(this.vista.anioFormatedBox.getText()));
                         libro.setnPaginas(Integer.parseInt(this.vista.nPaginasFormatedBox.getText()));
 
-                        librosConn.insert(libro);
-                        LibroVista.__tabla_libros.setModel(crearTabla(librosConn.select()));
+                        libroConn.insert(libro);
+                        LibroVista.__tabla_libros.setModel(crearTabla(libroConn.select()));
                         clean();
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISBN ya existe.");
@@ -184,7 +190,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
             case __MODIFICAR_LIBRO:
 
-                if (librosConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
+                if (libroConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
 
                     Libro libro = new Libro();
 
@@ -199,10 +205,10 @@ public class LibroControlador implements ActionListener, MouseListener {
                     int pags = Integer.parseInt(this.vista.nPaginasFormatedBox.getText());
                     libro.setnPaginas(pags);
 
-                    librosConn.update(libro, LibroVista.isbnBox.getText());
+                    libroConn.update(libro, LibroVista.isbnBox.getText());
 
                     clean();
-                    LibroVista.__tabla_libros.setModel(crearTabla(librosConn.select()));
+                    LibroVista.__tabla_libros.setModel(crearTabla(libroConn.select()));
                 } else {
                     JOptionPane.showMessageDialog(null, "El ISBN introducido no esta registrado.");
                 }
@@ -210,10 +216,10 @@ public class LibroControlador implements ActionListener, MouseListener {
 
             case __ELIMINAR_LIBRO:
 
-                if (librosConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
-                    librosConn.delete(LibroVista.isbnBox.getText());
+                if (libroConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
+                    libroConn.delete(LibroVista.isbnBox.getText());
 
-                    LibroVista.__tabla_libros.setModel(crearTabla(librosConn.select()));
+                    LibroVista.__tabla_libros.setModel(crearTabla(libroConn.select()));
                 } else {
                     JOptionPane.showMessageDialog(null, "El ISBN introducido no esta registrado.");
                 }
@@ -221,7 +227,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
             case __ANIADIR_NOTA:
 
-                if (librosConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
+                if (libroConn.existeISBN(LibroVista.isbnBox.getText()) > 0) {
 
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
                     nuevaNota.fromLibro = true;
@@ -237,14 +243,14 @@ public class LibroControlador implements ActionListener, MouseListener {
 
             case __BUSCAR:
 
-                if (librosConn.coincidencias(LibroVista.busquedaBox.getText()) > 0) {
+                if (libroConn.coincidencias(LibroVista.busquedaBox.getText()) > 0) {
 
-                    LibroVista.__tabla_libros.setModel(crearTabla(librosConn.buscar(LibroVista.busquedaBox.getText())));
+                    LibroVista.__tabla_libros.setModel(crearTabla(libroConn.buscar(LibroVista.busquedaBox.getText())));
 
                 } else {
 
                     JOptionPane.showMessageDialog(null, "La busqueda no ha sido satisfactoria.");
-                    LibroVista.__tabla_libros.setModel(crearTabla(librosConn.buscar(LibroVista.busquedaBox.getText())));
+                    LibroVista.__tabla_libros.setModel(crearTabla(libroConn.select()));
                 }
 
                 break;
@@ -255,7 +261,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
-                        io.escrituraArchivoLibros(getContenidoTabla(), fichero.getAbsolutePath());
+                        io.escrituraLibro(getContenidoTabla(), fichero.getAbsolutePath());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
@@ -269,7 +275,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
-                        LibroVista.__tabla_libros.setModel(crearTabla(io.lecturaArchivoLibros(fichero.getAbsolutePath())));
+                        LibroVista.__tabla_libros.setModel(crearTabla(io.lecturaLibro(fichero.getAbsolutePath())));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
                     }
@@ -297,9 +303,6 @@ public class LibroControlador implements ActionListener, MouseListener {
     }
 
     public DefaultTableModel crearTabla(List<Libro> lista) {
-
-        LibrosJDBC librosConn = new LibrosJDBC();
-
         LibroVista.__tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -309,14 +312,14 @@ public class LibroControlador implements ActionListener, MouseListener {
             Class[] types = new Class[]{
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
-
+            @Override
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false
             };
-
+            @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -326,7 +329,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         String[] columNames = {"ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags"};
 
-        if (librosConn.cuentaLibros() < 1) {
+        if (libroConn.cuentaLibros() < 1) {
             //JOptionPane.showMessageDialog(null, "La lista de libros esta vacia.");  
         } else {
 
@@ -352,7 +355,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
     public List<Libro> getContenidoTabla() {
 
-        List<Libro> listalibros = new ArrayList<>();
+        List<Libro> lista = new ArrayList<>();
 
         for (int fila = 0; fila < LibroVista.__tabla_libros.getRowCount(); fila++) {
             Libro libro = new Libro();
@@ -364,10 +367,10 @@ public class LibroControlador implements ActionListener, MouseListener {
             libro.setAnio((int) LibroVista.__tabla_libros.getValueAt(fila, 4));
             libro.setnPaginas((int) LibroVista.__tabla_libros.getValueAt(fila, 5));
 
-            listalibros.add(libro);
+            lista.add(libro);
         }
 
-        return listalibros;
+        return lista;
     }
 
 }
