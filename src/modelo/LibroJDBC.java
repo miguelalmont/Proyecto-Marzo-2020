@@ -29,7 +29,7 @@ public class LibroJDBC extends conexion.Conexion{
             = "DELETE FROM libros WHERE ISBN = ? AND user_libro = ?";
 
     private final String SQL_SELECT
-            = "SELECT ISBN, autor, titulo, editorial, anio, n_paginas FROM libros WHERE user_libro = ? ORDER BY ISBN";
+            = "SELECT ISBN, autor, titulo, editorial, anio, n_paginas, user_libro FROM libros WHERE user_libro = ? ORDER BY ISBN";
     
     private final String SQL_SELECT_ID
             = "SELECT id_libro FROM libros WHERE user_libro = ? AND ISBN = ?";
@@ -135,6 +135,7 @@ public class LibroJDBC extends conexion.Conexion{
                 String editorial = rs.getString(4);
                 int anio = rs.getInt(5);
                 int nPaginas = rs.getInt(6);
+                int idUser = rs.getInt(7);
                 
                 libro = new Libro();
                 libro.setISBN(iSBN);
@@ -143,7 +144,10 @@ public class LibroJDBC extends conexion.Conexion{
                 libro.setEditorial(editorial);
                 libro.setAnio(anio);
                 libro.setnPaginas(nPaginas);
+                libro.setIdUser(idUser);
+                
                 libros.add(libro);
+                
             }
 
         } catch (SQLException e) {

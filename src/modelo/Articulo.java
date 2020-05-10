@@ -12,7 +12,7 @@ package modelo;
 public class Articulo {
     
     private String ISSN, autor, titulo, revista;
-    private int anio, mes, pagInicio, pagFin;
+    private int anio, mes, pagInicio, pagFin, idUser;
 
     public Articulo() {
     }
@@ -88,9 +88,19 @@ public class Articulo {
         this.pagFin = pagFin;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
     @Override
     public String toString() {
-        return "Articulo{" + "ISSN=" + ISSN + ", autor=" + autor + ", titulo=" + titulo + ", revista=" + revista + ", anio=" + anio + ", mes=" + mes + ", pagInicio=" + pagInicio + ", pagFin=" + pagFin + '}';
+        return "Articulo{" + "ISSN=" + ISSN + ", autor=" + autor + ", titulo=" + titulo + ", revista=" + revista + ", anio=" + anio + ", mes=" + mes + ", pagInicio=" + pagInicio + ", pagFin=" + pagFin + ", idUser=" + idUser + '}';
     }
+    
+    
 
 }

@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import modelo.IOdatos;
 import modelo.Libro;
 import modelo.LibroJDBC;
@@ -306,50 +307,50 @@ public class LibroControlador implements ActionListener, MouseListener {
         LibroVista.__tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags"
+                    "ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags", "Usuario"
                 }
         ) {
             Class[] types = new Class[]{
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             @Override
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
         });
-
+        
+        TableColumnModel tcm = LibroVista.__tabla_libros.getColumnModel();
+        
         DefaultTableModel modelo = (DefaultTableModel) LibroVista.__tabla_libros.getModel();
 
-        String[] columNames = {"ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags"};
+        String[] columNames = {"ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags", "Usuario"};
 
-        if (libroConn.cuentaLibros() < 1) {
-            //JOptionPane.showMessageDialog(null, "La lista de libros esta vacia.");  
-        } else {
+        Object[][] fila = new Object[lista.size()][7];
+        int i = 0;
 
-            Object[][] fila = new Object[lista.size()][6];
-            int i = 0;
+        for (Libro libro : lista) {
+            fila[i][0] = libro.getISBN();
+            fila[i][1] = libro.getTitulo();
+            fila[i][2] = libro.getAutor();
+            fila[i][3] = libro.getEditorial();
+            fila[i][4] = libro.getAnio();
+            fila[i][5] = libro.getnPaginas();
+            fila[i][6] = libro.getIdUser();
+            i++;
 
-            for (Libro libro : lista) {
-                fila[i][0] = libro.getISBN();
-                fila[i][1] = libro.getTitulo();
-                fila[i][2] = libro.getAutor();
-                fila[i][3] = libro.getEditorial();
-                fila[i][4] = libro.getAnio();
-                fila[i][5] = libro.getnPaginas();
-                i++;
-
-            }
-
-            modelo.setDataVector(fila, columNames);
         }
 
+            modelo.setDataVector(fila, columNames);
+        
+        tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
+        
         return modelo;
     }
 
@@ -366,7 +367,8 @@ public class LibroControlador implements ActionListener, MouseListener {
             libro.setEditorial(String.valueOf(LibroVista.__tabla_libros.getValueAt(fila, 3)));
             libro.setAnio((int) LibroVista.__tabla_libros.getValueAt(fila, 4));
             libro.setnPaginas((int) LibroVista.__tabla_libros.getValueAt(fila, 5));
-
+            libro.setIdUser((int) LibroVista.__tabla_libros.getModel().getValueAt(fila, 6));
+            
             lista.add(libro);
         }
 

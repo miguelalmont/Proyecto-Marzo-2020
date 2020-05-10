@@ -29,7 +29,7 @@ public class ArticuloJDBC extends conexion.Conexion{
             = "DELETE FROM articulos WHERE ISSN = ? AND user_artic = ?";
 
     private final String SQL_SELECT
-            = "SELECT ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin FROM articulos WHERE user_artic = ? ORDER BY ISSN";
+            = "SELECT ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic FROM articulos WHERE user_artic = ? ORDER BY ISSN";
     
     private final String SQL_SELECT_ID
             = "SELECT id_artic FROM articulos WHERE user_artic = ? AND ISSN = ?";
@@ -141,6 +141,7 @@ public class ArticuloJDBC extends conexion.Conexion{
                 int mes = rs.getInt(6);
                 int pagIni = rs.getInt(7);
                 int pagFin = rs.getInt(8);
+                int idUser = rs.getInt(9);
                 
                 articulo = new Articulo();
                 articulo.setISSN(iSSN);
@@ -151,6 +152,7 @@ public class ArticuloJDBC extends conexion.Conexion{
                 articulo.setMes(mes);
                 articulo.setPagInicio(pagIni);
                 articulo.setPagFin(pagFin);
+                articulo.setIdUser(idUser);
                 
                 articulos.add(articulo);
             }

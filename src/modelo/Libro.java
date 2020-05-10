@@ -12,7 +12,7 @@ package modelo;
 public class Libro {
     
     private String ISBN, autor, titulo, editorial;
-    private int anio, nPaginas;
+    private int anio, nPaginas, idUser;
 
     public Libro() {
     }
@@ -71,9 +71,19 @@ public class Libro {
         this.nPaginas = nPaginas;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
     @Override
     public String toString() {
-        return "Libro{" + "ISBN=" + ISBN + ", autor=" + autor + ", titulo=" + titulo + ", editorial=" + editorial + ", anio=" + anio + ", nPaginas=" + nPaginas + '}';
+        return "Libro{" + "ISBN=" + ISBN + ", autor=" + autor + ", titulo=" + titulo + ", editorial=" + editorial + ", anio=" + anio + ", nPaginas=" + nPaginas + ", idUser=" + idUser + '}';
     }
+
+    
 
 }

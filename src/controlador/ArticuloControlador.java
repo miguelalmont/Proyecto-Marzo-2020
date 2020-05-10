@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import modelo.IOdatos;
 import modelo.Articulo;
 import modelo.ArticuloJDBC;
@@ -317,11 +318,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         ArticuloVista.__tabla_articulos.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin"
+                    "ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin", "Usuario"
                 }
         ) {
             Class[] types = new Class[]{
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             @Override
             public Class getColumnClass(int columnIndex) {
@@ -329,40 +330,41 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             }
             
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
         });
-
+        
+        TableColumnModel tcm = ArticuloVista.__tabla_articulos.getColumnModel();
+        
         DefaultTableModel modelo = (DefaultTableModel) ArticuloVista.__tabla_articulos.getModel();
 
-        String[] columNames = {"ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin"};
+        String[] columNames = {"ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin", "Usuario"};
 
-        if (articuloConn.cuentaArticulos() < 1) {
-            //JOptionPane.showMessageDialog(null, "La lista de libros esta vacia.");  
-        } else {
+        Object[][] fila = new Object[lista.size()][9];
+        int i = 0;
 
-            Object[][] fila = new Object[lista.size()][8];
-            int i = 0;
+        for (Articulo articulo : lista) {
+            fila[i][0] = articulo.getISSN();
+            fila[i][1] = articulo.getTitulo();
+            fila[i][2] = articulo.getAutor();
+            fila[i][3] = articulo.getRevista();
+            fila[i][4] = articulo.getAnio();
+            fila[i][5] = articulo.getMes();
+            fila[i][6] = articulo.getPagInicio();
+            fila[i][7] = articulo.getPagFin();
+            fila[i][8] = articulo.getIdUser();
+            i++;
 
-            for (Articulo articulo : lista) {
-                fila[i][0] = articulo.getISSN();
-                fila[i][1] = articulo.getTitulo();
-                fila[i][2] = articulo.getAutor();
-                fila[i][3] = articulo.getRevista();
-                fila[i][4] = articulo.getAnio();
-                fila[i][5] = articulo.getMes();
-                fila[i][6] = articulo.getPagInicio();
-                fila[i][7] = articulo.getPagFin();
-                i++;
-
-            }
-
-            modelo.setDataVector(fila, columNames);
         }
+
+        modelo.setDataVector(fila, columNames);
+
+        
+        tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
 
         return modelo;
     }
@@ -382,6 +384,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             articulo.setMes((int) ArticuloVista.__tabla_articulos.getValueAt(fila, 5));
             articulo.setPagInicio((int) ArticuloVista.__tabla_articulos.getValueAt(fila, 6));
             articulo.setPagFin((int) ArticuloVista.__tabla_articulos.getValueAt(fila, 7));
+            articulo.setIdUser((int) ArticuloVista.__tabla_articulos.getModel().getValueAt(fila, 8));
 
             lista.add(articulo);
         }
