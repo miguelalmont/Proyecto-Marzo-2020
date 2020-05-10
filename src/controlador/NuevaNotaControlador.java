@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import static controlador.InicioControlador.icon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -17,8 +18,7 @@ import modelo.Libro;
 import modelo.LibroJDBC;
 import modelo.Nota;
 import modelo.NotaJDBC;
-import vista.ArticuloVista;
-import vista.LibroVista;
+import vista.HomeVista;
 import vista.NuevaNotaVista;
 
 /**
@@ -69,20 +69,10 @@ public class NuevaNotaControlador implements ActionListener {
         // Skin tipo WINDOWS
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(vista);
-
-            vista.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(this.vista);
+            this.vista.setIconImage(icon.getImage());
             HomeControlador.vista.setEnabled(false);
-            if (HomeControlador.mLib != null) {
-            HomeControlador.mLib.vista.setEnabled(false);
-            }
-            if (HomeControlador.mArt != null) {
-            HomeControlador.mArt.vista.setEnabled(false);
-            }
-            if (HomeControlador.mNot != null) {
-                HomeControlador.mNot.vista.setEnabled(false);
-            }
-
+            this.vista.setVisible(true);
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
         }
 
@@ -110,7 +100,7 @@ public class NuevaNotaControlador implements ActionListener {
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
                         nota.setContenido(this.vista.contenidoArea.getText());
-                        nota.setIdLibro(libroConn.getId(LibroVista.isbnBox.getText()));
+                        nota.setIdLibro(libroConn.getId(HomeVista.isbnLibroBox.getText()));
                         nota.setIdArticulo(0);
 
                         notaConn.insert(nota);
@@ -122,7 +112,7 @@ public class NuevaNotaControlador implements ActionListener {
                         nota.setTema(this.vista.temaBox.getText());
                         nota.setContenido(this.vista.contenidoArea.getText());
                         nota.setIdLibro(0);
-                        nota.setIdArticulo(articuloConn.getId(ArticuloVista.issnBox.getText()));
+                        nota.setIdArticulo(articuloConn.getId(HomeVista.issnArticuloBox.getText()));
 
                         notaConn.insert(nota);
                         fromArticulo = false;
@@ -131,19 +121,7 @@ public class NuevaNotaControlador implements ActionListener {
                     this.vista.dispose();
                     HomeControlador.vista.toFront();
                     HomeControlador.vista.setEnabled(true);
-                    if (HomeControlador.mLib != null){
-                    HomeControlador.mLib.vista.toFront();
-                    HomeControlador.mLib.vista.setEnabled(true);
-                    }
-                    if (HomeControlador.mArt != null){
-                    HomeControlador.mArt.vista.toFront();
-                    HomeControlador.mArt.vista.setEnabled(true);
-                    }
-                    if (HomeControlador.mNot != null){
-                    HomeControlador.mNot.vista.toFront();
-                    HomeControlador.mNot.vista.setEnabled(true);
-                    }
-                    
+
                 }
 
                 break;
@@ -152,23 +130,10 @@ public class NuevaNotaControlador implements ActionListener {
                 this.vista.dispose();
                 HomeControlador.vista.toFront();
                 HomeControlador.vista.setEnabled(true);
-                if (HomeControlador.mLib != null){
-                HomeControlador.mLib.vista.toFront();
-                HomeControlador.mLib.vista.setEnabled(true);
-                }
-                if (HomeControlador.mArt != null){
-                HomeControlador.mArt.vista.toFront();
-                HomeControlador.mArt.vista.setEnabled(true);
-                }
-                if (HomeControlador.mNot != null){
-                HomeControlador.mNot.vista.toFront();
-                HomeControlador.mNot.vista.setEnabled(true);
-                }
         }
     }
 
     private void clean() {
-
         this.vista.temaBox.setText("");
         this.vista.contenidoArea.setText("");
     }

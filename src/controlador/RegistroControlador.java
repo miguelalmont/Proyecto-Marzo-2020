@@ -5,6 +5,8 @@
  */
 package controlador;
 
+
+import static controlador.InicioControlador.icon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -52,8 +54,10 @@ public class RegistroControlador implements ActionListener{
         // Skin tipo WINDOWS
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(vista);
-            vista.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(this.vista);
+            this.vista.setIconImage(icon.getImage());
+            this.vista.setVisible(true);
+            InicioControlador.vista.setEnabled(false);
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
 
         //declara una acción y añade un escucha al evento producido por el componente
@@ -119,7 +123,8 @@ public class RegistroControlador implements ActionListener{
 
             case __VOLVER:
                 this.vista.dispose();
-                InicioControlador.reg = null;   
+                InicioControlador.vista.setEnabled(true);
+                InicioControlador.vista.toFront();
         }
     }
         private void clean() {

@@ -108,7 +108,8 @@ public class LoginVista extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         LoginControlador.user = null;
         this.dispose();
-        InicioControlador.log = null;
+        InicioControlador.vista.setEnabled(true);
+        InicioControlador.vista.toFront();
     }//GEN-LAST:event_formWindowClosing
 
     /**

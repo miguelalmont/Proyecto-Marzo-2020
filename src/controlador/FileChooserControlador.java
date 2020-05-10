@@ -29,14 +29,12 @@ public class FileChooserControlador {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(vista);
-            //this.vista.FileChooserVista = new javax.swing.JFileChooser();
+            HomeControlador.vista.setEnabled(false);
             vista.setVisible(true);
-
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
     }
     
     public String getRuta() {
-        
         return this.vista.FileChooser.getSelectedFile().getAbsolutePath();
     }
 }

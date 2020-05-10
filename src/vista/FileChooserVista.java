@@ -5,7 +5,7 @@
  */
 package vista;
 
-import controlador.LibroControlador;
+import controlador.HomeControlador;
 
 /**
  *
@@ -57,8 +57,8 @@ public class FileChooserVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        HomeControlador.vista.setEnabled(true);
         this.dispose();
-        LibroControlador fcc = null;
     }//GEN-LAST:event_formWindowClosing
 
     /**

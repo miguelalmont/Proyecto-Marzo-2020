@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class HomeVista extends javax.swing.JFrame {
 
     /**
-     * Creates new form vista
+     * Creates new form NewHomeVista
      */
     public HomeVista() {
         initComponents();
@@ -30,40 +30,673 @@ public class HomeVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        __LIBRO = new javax.swing.JButton();
-        __ARTICULO = new javax.swing.JButton();
-        __NOTA = new javax.swing.JButton();
-        __CERRAR_SESION = new javax.swing.JButton();
-        imagen = new javax.swing.JLabel();
-        actualUsr = new javax.swing.JLabel();
+        NewHomeVistaTabbedPane = new javax.swing.JTabbedPane();
+        libroPanel = new javax.swing.JPanel();
+        isbnCheckBox = new javax.swing.JCheckBox();
+        editorialLibroBox = new javax.swing.JTextField();
+        __BUSCAR_LIBRO = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        isbnLibroBox = new javax.swing.JTextField();
+        busquedaLibroBox = new javax.swing.JTextField();
+        __NUEVO_LIBRO = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        __GUARDAR_TABLA_LIBRO = new javax.swing.JButton();
+        __MODIFICAR_LIBRO = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        __CARGAR_TABLA_LIBRO = new javax.swing.JButton();
+        __ELIMINAR_LIBRO = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        __ANIADIR_NOTA_LIBRO = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        __VOLVER_LIBRO = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        __tabla_libros = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        anioLibroFormatedBox = new javax.swing.JFormattedTextField();
+        tituloLibroBox = new javax.swing.JTextField();
+        nPaginasLibroFormatedBox = new javax.swing.JFormattedTextField();
+        autorLibroBox = new javax.swing.JTextField();
+        actualUsrLibro = new javax.swing.JLabel();
+        articuloPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        __tabla_articulos = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        anioArticuloFormatedBox = new javax.swing.JFormattedTextField();
+        autorArticuloBox = new javax.swing.JTextField();
+        mesArticuloFormatedBox = new javax.swing.JFormattedTextField();
+        tituloArticuloBox = new javax.swing.JTextField();
+        issnCheckBox = new javax.swing.JCheckBox();
+        __BUSCAR_ARTICULO = new javax.swing.JButton();
+        issnArticuloBox = new javax.swing.JTextField();
+        busquedaArticuloBox = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        __GUARDAR_TABLA_ARTICULO = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        __NUEVO_ARTICULO = new javax.swing.JButton();
+        pagIniArticuloFormatedBox = new javax.swing.JFormattedTextField();
+        __MODIFICAR_ARTICULO = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        __CARGAR_TABLA_ARTICULO = new javax.swing.JButton();
+        revistaArticuloBox = new javax.swing.JTextField();
+        __ELIMINAR_ARTICULO = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        pagFinArticuloFormatedBox = new javax.swing.JFormattedTextField();
+        __ANIADIR_NOTA_ARTICULO = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        __VOLVER_ARTICULO = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        actualUsrArticulo = new javax.swing.JLabel();
+        notaPanel = new javax.swing.JPanel();
+        __CARGAR_TABLA_NOTA = new javax.swing.JButton();
+        __GUARDAR_TABLA_NOTA = new javax.swing.JButton();
+        temaNotaBox = new javax.swing.JTextField();
+        __ELIMINAR_NOTA = new javax.swing.JButton();
+        __MODIFICAR_NOTA = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        idNotaBox = new javax.swing.JFormattedTextField();
+        __VOLVER_NOTA = new javax.swing.JButton();
+        isbnNotaBox = new javax.swing.JFormattedTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        __tabla_notas = new javax.swing.JTable();
+        issnNotaBox = new javax.swing.JFormattedTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        __BUSCAR_NOTA = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        busquedaNotaBox = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        contenidoNotaArea = new javax.swing.JTextArea();
+        actualUsrNota = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("GRB - Inicio");
-        setResizable(false);
+        setTitle("GRB");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        __LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __LIBRO.setText("Libro");
+        __BUSCAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_LIBRO.setText("Buscar");
 
-        __ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __ARTICULO.setText("Artículo");
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel1.setText("LIBROS");
 
-        __NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __NOTA.setText("Nota");
+        __NUEVO_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __NUEVO_LIBRO.setText("Nuevo libro");
 
-        __CERRAR_SESION.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __CERRAR_SESION.setText("Cerrar sesion");
+        jLabel2.setText("ISBN");
 
-        imagen.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/book.png"))); // NOI18N
+        __GUARDAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_LIBRO.setText("Guardar tabla");
 
-        actualUsr.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
-        actualUsr.setForeground(new java.awt.Color(153, 153, 153));
-        actualUsr.setText("Usuario: "+LoginControlador.user.getNombre());
+        __MODIFICAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_LIBRO.setText("Modificar libro");
+
+        jLabel3.setText("Titulo");
+
+        __CARGAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_LIBRO.setText("Cargar tabla");
+
+        __ELIMINAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_LIBRO.setText("Eliminar libro");
+
+        jLabel4.setText("Autor");
+
+        __ANIADIR_NOTA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ANIADIR_NOTA_LIBRO.setText("Añadir nota");
+
+        jLabel5.setText("Editorial");
+
+        __VOLVER_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __VOLVER_LIBRO.setText("Volver");
+
+        jLabel6.setText("Año");
+
+        __tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        });
+        __tabla_libros.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(__tabla_libros);
+
+        jLabel7.setText("Nº Pags");
+
+        anioLibroFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        nPaginasLibroFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        actualUsrLibro.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrLibro.setForeground(new java.awt.Color(153, 153, 153));
+        actualUsrLibro.setText("Usuario: "+LoginControlador.user.getNombre());
+
+        javax.swing.GroupLayout libroPanelLayout = new javax.swing.GroupLayout(libroPanel);
+        libroPanel.setLayout(libroPanelLayout);
+        libroPanelLayout.setHorizontalGroup(
+            libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(libroPanelLayout.createSequentialGroup()
+                .addGap(234, 234, 234)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(libroPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(actualUsrLibro, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__VOLVER_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__MODIFICAR_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__ELIMINAR_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__ANIADIR_NOTA_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__NUEVO_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(libroPanelLayout.createSequentialGroup()
+                        .addComponent(__GUARDAR_TABLA_LIBRO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(__CARGAR_TABLA_LIBRO))
+                    .addGroup(libroPanelLayout.createSequentialGroup()
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(libroPanelLayout.createSequentialGroup()
+                                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(libroPanelLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(libroPanelLayout.createSequentialGroup()
+                                        .addComponent(autorLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(libroPanelLayout.createSequentialGroup()
+                                        .addComponent(tituloLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel6))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, libroPanelLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(isbnLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(isbnCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)))
+                        .addGap(75, 75, 75))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, libroPanelLayout.createSequentialGroup()
+                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addComponent(busquedaLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editorialLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(__BUSCAR_LIBRO)
+                            .addComponent(anioLibroFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nPaginasLibroFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        libroPanelLayout.setVerticalGroup(
+            libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(libroPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(actualUsrLibro)
+                .addGap(18, 18, 18)
+                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(libroPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__GUARDAR_TABLA_LIBRO)
+                            .addComponent(__CARGAR_TABLA_LIBRO))
+                        .addGap(18, 65, Short.MAX_VALUE)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editorialLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(isbnLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(isbnCheckBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tituloLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(anioLibroFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(autorLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7)
+                            .addComponent(nPaginasLibroFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                    .addGroup(libroPanelLayout.createSequentialGroup()
+                        .addComponent(__NUEVO_LIBRO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__MODIFICAR_LIBRO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__ELIMINAR_LIBRO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__ANIADIR_NOTA_LIBRO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(__VOLVER_LIBRO)
+                    .addComponent(__BUSCAR_LIBRO)
+                    .addComponent(busquedaLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        NewHomeVistaTabbedPane.addTab("Libros", libroPanel);
+
+        __tabla_articulos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        });
+        __tabla_articulos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane3.setViewportView(__tabla_articulos);
+
+        jLabel8.setText("Mes");
+
+        anioArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        mesArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        __BUSCAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_ARTICULO.setText("Buscar");
+
+        jLabel9.setText("ISSN");
+
+        __GUARDAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_ARTICULO.setText("Guardar tabla");
+
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel10.setText("ARTICULOS");
+
+        jLabel11.setText("Autor");
+
+        __NUEVO_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __NUEVO_ARTICULO.setText("Nuevo articulo");
+
+        pagIniArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        __MODIFICAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_ARTICULO.setText("Modificar articulo");
+
+        jLabel12.setText("Revista");
+
+        __CARGAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_ARTICULO.setText("Cargar tabla");
+
+        __ELIMINAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_ARTICULO.setText("Eliminar articulo");
+
+        jLabel13.setText("Pag inicio");
+
+        jLabel14.setText("Titulo");
+
+        pagFinArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+
+        __ANIADIR_NOTA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ANIADIR_NOTA_ARTICULO.setText("Añadir nota");
+
+        jLabel15.setText("Pag fin");
+
+        __VOLVER_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __VOLVER_ARTICULO.setText("Volver");
+
+        jLabel16.setText("Año");
+
+        actualUsrArticulo.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrArticulo.setForeground(new java.awt.Color(153, 153, 153));
+        actualUsrArticulo.setText("Usuario: "+LoginControlador.user.getNombre());
+
+        javax.swing.GroupLayout articuloPanelLayout = new javax.swing.GroupLayout(articuloPanel);
+        articuloPanel.setLayout(articuloPanelLayout);
+        articuloPanelLayout.setHorizontalGroup(
+            articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(articuloPanelLayout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(jLabel10)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(articuloPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(actualUsrArticulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__VOLVER_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__MODIFICAR_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__ELIMINAR_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__ANIADIR_NOTA_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__NUEVO_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel12)
+                                            .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(autorArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, articuloPanelLayout.createSequentialGroup()
+                                                    .addComponent(jLabel9)
+                                                    .addGap(14, 14, 14)
+                                                    .addComponent(issnArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                                .addGap(37, 37, 37)
+                                                .addComponent(revistaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, articuloPanelLayout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
+                                                .addComponent(issnCheckBox)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel16))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, articuloPanelLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                                                .addComponent(jLabel15))))
+                                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel8))
+                                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel14))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tituloArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel13)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pagFinArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mesArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(anioArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pagIniArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28))
+                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                .addGap(0, 30, Short.MAX_VALUE)
+                                .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(__BUSCAR_ARTICULO)
+                                .addContainerGap())))
+                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                .addComponent(__GUARDAR_TABLA_ARTICULO)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(__CARGAR_TABLA_ARTICULO)))
+                        .addContainerGap())))
+        );
+        articuloPanelLayout.setVerticalGroup(
+            articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(articuloPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(actualUsrArticulo)
+                .addGap(18, 18, 18)
+                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__GUARDAR_TABLA_ARTICULO)
+                            .addComponent(__CARGAR_TABLA_ARTICULO))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 54, Short.MAX_VALUE)
+                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(anioArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel16)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(mesArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(pagIniArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(articuloPanelLayout.createSequentialGroup()
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(issnCheckBox)
+                                    .addComponent(issnArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(autorArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tituloArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(revistaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel15)
+                            .addComponent(pagFinArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(articuloPanelLayout.createSequentialGroup()
+                        .addComponent(__NUEVO_ARTICULO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__MODIFICAR_ARTICULO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__ELIMINAR_ARTICULO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(__ANIADIR_NOTA_ARTICULO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(__VOLVER_ARTICULO)
+                    .addComponent(__BUSCAR_ARTICULO)
+                    .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        NewHomeVistaTabbedPane.addTab("Articulos", articuloPanel);
+
+        __CARGAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_NOTA.setText("Cargar tabla");
+
+        __GUARDAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_NOTA.setText("Guardar tabla");
+
+        __ELIMINAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_NOTA.setText("Eliminar nota");
+
+        __MODIFICAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_NOTA.setText("Modificar nota");
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel17.setText("NOTAS");
+
+        idNotaBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        idNotaBox.setEnabled(false);
+
+        __VOLVER_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __VOLVER_NOTA.setText("Volver");
+
+        isbnNotaBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        isbnNotaBox.setEnabled(false);
+
+        __tabla_notas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        __tabla_notas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        __tabla_notas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(__tabla_notas);
+
+        issnNotaBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        issnNotaBox.setEnabled(false);
+
+        jLabel18.setText("Libro");
+
+        jLabel19.setText("ID");
+
+        jLabel20.setText("Articulo");
+
+        jLabel21.setText("Tema");
+
+        __BUSCAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_NOTA.setText("Buscar");
+
+        jLabel22.setText("Contenido");
+
+        contenidoNotaArea.setColumns(20);
+        contenidoNotaArea.setRows(5);
+        jScrollPane1.setViewportView(contenidoNotaArea);
+
+        actualUsrNota.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrNota.setForeground(new java.awt.Color(153, 153, 153));
+        actualUsrNota.setText("Usuario: "+LoginControlador.user.getNombre());
+
+        javax.swing.GroupLayout notaPanelLayout = new javax.swing.GroupLayout(notaPanel);
+        notaPanel.setLayout(notaPanelLayout);
+        notaPanelLayout.setHorizontalGroup(
+            notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notaPanelLayout.createSequentialGroup()
+                .addGap(234, 234, 234)
+                .addComponent(jLabel17)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(notaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(actualUsrNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__VOLVER_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__ELIMINAR_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__MODIFICAR_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notaPanelLayout.createSequentialGroup()
+                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addComponent(busquedaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(__BUSCAR_NOTA))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notaPanelLayout.createSequentialGroup()
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(__GUARDAR_TABLA_NOTA)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(__CARGAR_TABLA_NOTA)
+                            .addGroup(notaPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(issnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27))))
+                    .addGroup(notaPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(notaPanelLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(notaPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        notaPanelLayout.setVerticalGroup(
+            notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(actualUsrNota)
+                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(notaPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(notaPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(__GUARDAR_TABLA_NOTA)
+                                    .addComponent(__CARGAR_TABLA_NOTA))
+                                .addGap(9, 9, 9)
+                                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel19)
+                                    .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(issnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel20))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel21)
+                                    .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(notaPanelLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(__MODIFICAR_NOTA, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(__ELIMINAR_NOTA)))
+                        .addGap(18, 18, 18)
+                        .addComponent(__BUSCAR_NOTA)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(notaPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(__VOLVER_NOTA)
+                            .addComponent(busquedaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+        );
+
+        NewHomeVistaTabbedPane.addTab("Notas", notaPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,41 +704,12 @@ public class HomeVista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(__CERRAR_SESION)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(actualUsr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(imagen, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(__LIBRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(__ARTICULO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(__NOTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(NewHomeVistaTabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(actualUsr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(imagen)
-                        .addGap(43, 43, 43))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(__LIBRO)
-                        .addGap(18, 18, 18)
-                        .addComponent(__ARTICULO)
-                        .addGap(18, 18, 18)
-                        .addComponent(__NOTA)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(__CERRAR_SESION)
-                .addContainerGap())
+            .addComponent(NewHomeVistaTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -151,12 +755,6 @@ public class HomeVista extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -166,13 +764,88 @@ public class HomeVista extends javax.swing.JFrame {
         });
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton __ARTICULO;
-    public javax.swing.JButton __CERRAR_SESION;
-    public javax.swing.JButton __LIBRO;
-    public javax.swing.JButton __NOTA;
-    private javax.swing.JLabel actualUsr;
-    private javax.swing.JLabel imagen;
+    public javax.swing.JTabbedPane NewHomeVistaTabbedPane;
+    public javax.swing.JButton __ANIADIR_NOTA_ARTICULO;
+    public javax.swing.JButton __ANIADIR_NOTA_LIBRO;
+    public javax.swing.JButton __BUSCAR_ARTICULO;
+    public javax.swing.JButton __BUSCAR_LIBRO;
+    public javax.swing.JButton __BUSCAR_NOTA;
+    public javax.swing.JButton __CARGAR_TABLA_ARTICULO;
+    public javax.swing.JButton __CARGAR_TABLA_LIBRO;
+    public javax.swing.JButton __CARGAR_TABLA_NOTA;
+    public javax.swing.JButton __ELIMINAR_ARTICULO;
+    public javax.swing.JButton __ELIMINAR_LIBRO;
+    public javax.swing.JButton __ELIMINAR_NOTA;
+    public javax.swing.JButton __GUARDAR_TABLA_ARTICULO;
+    public javax.swing.JButton __GUARDAR_TABLA_LIBRO;
+    public javax.swing.JButton __GUARDAR_TABLA_NOTA;
+    public javax.swing.JButton __MODIFICAR_ARTICULO;
+    public javax.swing.JButton __MODIFICAR_LIBRO;
+    public javax.swing.JButton __MODIFICAR_NOTA;
+    public javax.swing.JButton __NUEVO_ARTICULO;
+    public javax.swing.JButton __NUEVO_LIBRO;
+    public javax.swing.JButton __VOLVER_ARTICULO;
+    public javax.swing.JButton __VOLVER_LIBRO;
+    public javax.swing.JButton __VOLVER_NOTA;
+    public javax.swing.JTable __tabla_articulos;
+    public javax.swing.JTable __tabla_libros;
+    public javax.swing.JTable __tabla_notas;
+    private javax.swing.JLabel actualUsrArticulo;
+    private javax.swing.JLabel actualUsrLibro;
+    private javax.swing.JLabel actualUsrNota;
+    public javax.swing.JFormattedTextField anioArticuloFormatedBox;
+    public javax.swing.JFormattedTextField anioLibroFormatedBox;
+    public javax.swing.JPanel articuloPanel;
+    public javax.swing.JTextField autorArticuloBox;
+    public javax.swing.JTextField autorLibroBox;
+    public javax.swing.JTextField busquedaArticuloBox;
+    public javax.swing.JTextField busquedaLibroBox;
+    public javax.swing.JTextField busquedaNotaBox;
+    public javax.swing.JTextArea contenidoNotaArea;
+    public javax.swing.JTextField editorialLibroBox;
+    public javax.swing.JFormattedTextField idNotaBox;
+    public javax.swing.JCheckBox isbnCheckBox;
+    public static javax.swing.JTextField isbnLibroBox;
+    public javax.swing.JFormattedTextField isbnNotaBox;
+    public static javax.swing.JTextField issnArticuloBox;
+    public javax.swing.JCheckBox issnCheckBox;
+    public javax.swing.JFormattedTextField issnNotaBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    public javax.swing.JPanel libroPanel;
+    public javax.swing.JFormattedTextField mesArticuloFormatedBox;
+    public javax.swing.JFormattedTextField nPaginasLibroFormatedBox;
+    public javax.swing.JPanel notaPanel;
+    public javax.swing.JFormattedTextField pagFinArticuloFormatedBox;
+    public javax.swing.JFormattedTextField pagIniArticuloFormatedBox;
+    public javax.swing.JTextField revistaArticuloBox;
+    public javax.swing.JTextField temaNotaBox;
+    public javax.swing.JTextField tituloArticuloBox;
+    public javax.swing.JTextField tituloLibroBox;
     // End of variables declaration//GEN-END:variables
 }

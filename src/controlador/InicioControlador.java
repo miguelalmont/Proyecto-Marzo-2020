@@ -7,6 +7,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -23,9 +25,13 @@ public class InicioControlador implements ActionListener{
     /** instancia a nuestra interfaz de usuario*/
     public static InicioVista vista;
     public static LoginControlador log = null;
-    public static RegistroControlador reg = null;
 
-    /** instancia a nuestro modelo */
+    /**
+     *
+     */
+    public static URL iconURL;
+    public static ImageIcon icon;
+    
     
 
     /** Se declaran en un ENUM las acciones que se realizan desde la
@@ -52,6 +58,9 @@ public class InicioControlador implements ActionListener{
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(vista);
+            iconURL = getClass().getResource("/recursos/icon.png");
+            icon = new ImageIcon(iconURL);
+            vista.setIconImage(icon.getImage());
             vista.setVisible(true);
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
 
@@ -71,17 +80,15 @@ public class InicioControlador implements ActionListener{
             {
                 case __INICIAR_SESION:
                     
-                    if(log == null) {
-                        log = new LoginControlador(new LoginVista());
-                        log.iniciar();
-                    }
+                    LoginControlador log = new LoginControlador(new LoginVista());
+                    log.iniciar();
+                    
                     break;
                 case __NUEVO_USUARIO:
                     
-                    if(reg == null) {
-                        reg = new RegistroControlador(new RegistroVista());
-                        reg.iniciar();
-                    }
+                    RegistroControlador reg = new RegistroControlador(new RegistroVista());
+                    reg.iniciar();
+                    
                     break;     
             }
         

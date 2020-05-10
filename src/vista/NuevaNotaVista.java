@@ -109,17 +109,8 @@ public class NuevaNotaVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        this.dispose();
-        HomeControlador.vista.toFront();
-        if (HomeControlador.mLib != null){
-            HomeControlador.mLib.vista.toFront();
-            HomeControlador.mLib.vista.setEnabled(true);
-        }
-        if (HomeControlador.mArt != null){
-            HomeControlador.mArt.vista.toFront();
-            HomeControlador.mArt.vista.setEnabled(true);
-        }
         HomeControlador.vista.setEnabled(true);
+        this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
     /**

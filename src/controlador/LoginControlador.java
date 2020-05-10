@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import static controlador.InicioControlador.icon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -16,8 +17,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Hash;
 import modelo.Usuario;
 import modelo.UsuariosJDBC;
-import vista.HomeVista;
 import vista.LoginVista;
+import vista.HomeVista;
 
 /**
  *
@@ -25,7 +26,7 @@ import vista.LoginVista;
  */
 public class LoginControlador implements ActionListener {
 
-    LoginVista vista;
+    public static LoginVista vista;
     public static Usuario user;
     private final String DATE_FORMATTER = "yyyy-MM-dd HH:mm:ss";
 
@@ -45,7 +46,7 @@ public class LoginControlador implements ActionListener {
      */
     public LoginControlador(LoginVista vista) {
         
-        this.vista = vista;
+        LoginControlador.vista = vista;
     }
 
     /**
@@ -55,17 +56,20 @@ public class LoginControlador implements ActionListener {
         // Skin tipo WINDOWS
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(vista);
-            vista.setVisible(true);
+            SwingUtilities.updateComponentTreeUI(LoginControlador.vista);
+            LoginControlador.vista.setIconImage(icon.getImage());
+            LoginControlador.vista.setVisible(true);
+            InicioControlador.vista.setEnabled(false);
+            
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
         }
 
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__INICIAR_SESION.setActionCommand("__INICIAR_SESION");
-        this.vista.__INICIAR_SESION.addActionListener(this);
+        LoginControlador.vista.__INICIAR_SESION.setActionCommand("__INICIAR_SESION");
+        LoginControlador.vista.__INICIAR_SESION.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__VOLVER.setActionCommand("__VOLVER");
-        this.vista.__VOLVER.addActionListener(this);
+        LoginControlador.vista.__VOLVER.setActionCommand("__VOLVER");
+        LoginControlador.vista.__VOLVER.addActionListener(this);
     }
 
     //Control de eventos de los controles que tienen definido un "ActionCommand"
@@ -81,27 +85,21 @@ public class LoginControlador implements ActionListener {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
                 String formatDateTime = sessionDateTime.format(formatter);
 
-                String pass = new String(this.vista.txtPassword.getPassword());
+                String pass = new String(LoginControlador.vista.txtPassword.getPassword());
 
-                if (this.vista.txtUser.getText().length() == 0 || this.vista.txtPassword.getText().length() == 0) {
+                if (LoginControlador.vista.txtUser.getText().length() == 0 || LoginControlador.vista.txtPassword.getText().length() == 0) {
                     JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
 
                 } else {
                     String encryptedPass = Hash.sha1(pass);
 
-                    user.setUsuario(this.vista.txtUser.getText());
+                    user.setUsuario(LoginControlador.vista.txtUser.getText());
                     user.setPassword(encryptedPass);
                     user.setLastSession(formatDateTime);
 
                     if (logUser.login(user)) {
 
-                        InicioControlador.log.vista.dispose();
-
-                        if (InicioControlador.reg != null) {
-                            InicioControlador.reg.vista.dispose();
-                            InicioControlador.reg = null;
-                        }
-
+                        LoginControlador.vista.setVisible(false);
                         InicioControlador.vista.setVisible(false);
 
                         new HomeControlador( new HomeVista() ).iniciar();
@@ -115,13 +113,14 @@ public class LoginControlador implements ActionListener {
             case __VOLVER:
                 user = null;
                 vista.dispose();
-                InicioControlador.log = null;
-                ;
+                InicioControlador.vista.setEnabled(true);
+                InicioControlador.vista.toFront();
+                
                 break;
         }
     }
 
     private void cleanPassword() {
-        this.vista.txtPassword.setText("");
+        LoginControlador.vista.txtPassword.setText("");
     }
 }

@@ -164,7 +164,8 @@ public class RegistroVista extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         dispose();
-        InicioControlador.reg = null;
+        InicioControlador.vista.setEnabled(true);
+        InicioControlador.vista.toFront();
     }//GEN-LAST:event_formWindowClosing
 
     /**
