@@ -59,7 +59,8 @@ public class NotaControlador implements ActionListener, MouseListener {
         __GUARDAR_TABLA_NOTA,
         __CARGAR_TABLA_NOTA,
         __BUSCAR_NOTA,
-        __VOLVER_NOTA
+        __VOLVER_NOTA,
+        __ACTUALIZAR_TABLA_NOTAS
     }
 
     /**
@@ -103,7 +104,10 @@ public class NotaControlador implements ActionListener, MouseListener {
         
         this.vista.__VOLVER_NOTA.setActionCommand("__VOLVER_NOTA");
         this.vista.__VOLVER_NOTA.addActionListener(this);
-
+        
+        this.vista.__ACTUALIZAR_TABLA_NOTAS.setActionCommand("__ACTUALIZAR_TABLA_NOTAS");
+        this.vista.__ACTUALIZAR_TABLA_NOTAS.addActionListener(this);
+        
         this.vista.__tabla_notas.addMouseListener(this);
         this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
     }
@@ -225,17 +229,18 @@ public class NotaControlador implements ActionListener, MouseListener {
 
                 break;
             case __BUSCAR_NOTA:
-                
-                if (notaConn.coincidencias(this.vista.busquedaNotaBox.getText()) > 0) {
-
-                    this.vista.__tabla_notas.setModel(crearTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
-
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "La busqueda no ha sido satisfactoria.");
-                    this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                if (this.vista.busquedaNotaBox.getText().isEmpty()){}
+                else {
+                    if (notaConn.coincidencias(this.vista.busquedaNotaBox.getText()) > 0)
+                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
+                    else
+                        JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
                 }
-
+                break;
+            case __ACTUALIZAR_TABLA_NOTAS:
+                
+                this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                
                 break;
             case __VOLVER_NOTA:
 

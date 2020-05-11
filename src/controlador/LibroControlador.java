@@ -59,7 +59,8 @@ public class LibroControlador implements ActionListener, MouseListener {
         __GUARDAR_TABLA_LIBRO,
         __CARGAR_TABLA_LIBRO,
         __VOLVER_LIBRO,
-        __BUSCAR_LIBRO
+        __BUSCAR_LIBRO,
+        __ACTUALIZAR_TABLA_LIBROS
     }
 
     /**
@@ -108,6 +109,9 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_LIBRO.setActionCommand("__VOLVER_LIBRO");
         this.vista.__VOLVER_LIBRO.addActionListener(this);
+        
+        this.vista.__ACTUALIZAR_TABLA_LIBROS.setActionCommand("__ACTUALIZAR_TABLA_LIBROS");
+        this.vista.__ACTUALIZAR_TABLA_LIBROS.addActionListener(this);
 
         //añade e inicia el jtable
         this.vista.__tabla_libros.addMouseListener(this);
@@ -268,17 +272,14 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __BUSCAR_LIBRO:
-
-                if (libroConn.coincidencias(this.vista.busquedaLibroBox.getText()) > 0) {
-
-                    this.vista.__tabla_libros.setModel(crearTabla(libroConn.buscar(this.vista.busquedaLibroBox.getText())));
-
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "La busqueda no ha sido satisfactoria.");
-                    this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                
+                if (this.vista.busquedaLibroBox.getText().isEmpty()){}
+                else{
+                    if (libroConn.coincidencias(this.vista.busquedaLibroBox.getText()) > 0)
+                        this.vista.__tabla_libros.setModel(crearTabla(libroConn.buscar(this.vista.busquedaLibroBox.getText())));
+                    else
+                        JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
                 }
-
                 break;
             case __GUARDAR_TABLA_LIBRO:
 
@@ -308,6 +309,11 @@ public class LibroControlador implements ActionListener, MouseListener {
 
                 }
 
+                break;
+            case __ACTUALIZAR_TABLA_LIBROS:
+                
+                this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                
                 break;
             case __VOLVER_LIBRO:
 

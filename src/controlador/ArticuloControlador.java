@@ -59,6 +59,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         __CARGAR_TABLA_ARTICULO,
         __BUSCAR_ARTICULO,
         __VOLVER_ARTICULO,
+        __ACTUALIZAR_TABLA_ARTICULOS
 
     }
 
@@ -109,7 +110,10 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_ARTICULO.setActionCommand("__VOLVER_ARTICULO");
         this.vista.__VOLVER_ARTICULO.addActionListener(this);
-
+        
+        this.vista.__ACTUALIZAR_TABLA_ARTICULOS.setActionCommand("__ACTUALIZAR_TABLA_ARTICULOS");
+        this.vista.__ACTUALIZAR_TABLA_ARTICULOS.addActionListener(this);
+        
         //añade e inicia el jtable
         this.vista.__tabla_articulos.addMouseListener(this);
         this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
@@ -295,17 +299,13 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
 
             case __BUSCAR_ARTICULO:
-
-                if (articuloConn.coincidencias(this.vista.busquedaArticuloBox.getText()) > 0) {
-
-                    this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.buscar(this.vista.busquedaArticuloBox.getText())));
-
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "La busqueda no ha sido satisfactoria.");
-                    this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                if (this.vista.busquedaArticuloBox.getText().isEmpty()){}
+                else{
+                    if (articuloConn.coincidencias(this.vista.busquedaArticuloBox.getText()) > 0)
+                        this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.buscar(this.vista.busquedaArticuloBox.getText())));
+                    else
+                        JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
                 }
-
                 break;
             case __GUARDAR_TABLA_ARTICULO:
 
@@ -335,6 +335,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
                 }
 
+                break;
+            case __ACTUALIZAR_TABLA_ARTICULOS:
+                
+                this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                
                 break;
             case __VOLVER_ARTICULO:
 
