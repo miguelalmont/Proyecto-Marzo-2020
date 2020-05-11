@@ -56,10 +56,10 @@ public class LoginVista extends javax.swing.JFrame {
 
         txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
-        __INICIAR_SESION.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __INICIAR_SESION.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __INICIAR_SESION.setText("Iniciar sesion");
 
-        __VOLVER.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __VOLVER.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __VOLVER.setText("Volver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -79,7 +79,7 @@ public class LoginVista extends javax.swing.JFrame {
                             .addComponent(txtPassword)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(__VOLVER)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addComponent(__INICIAR_SESION)))
                 .addContainerGap())
         );

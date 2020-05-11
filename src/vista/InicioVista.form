@@ -55,7 +55,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="imagen" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -72,7 +72,7 @@
     <Component class="javax.swing.JButton" name="__NUEVO_USUARIO">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="12" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Nuevo usuario"/>
       </Properties>
@@ -83,7 +83,7 @@
     <Component class="javax.swing.JButton" name="__INICIAR_SESION">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="12" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Iniciar sesion"/>
       </Properties>

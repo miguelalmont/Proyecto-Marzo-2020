@@ -121,40 +121,40 @@ public class HomeVista extends javax.swing.JFrame {
             }
         });
 
-        __BUSCAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __BUSCAR_LIBRO.setText("Buscar");
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel1.setText("LIBROS");
 
-        __NUEVO_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __NUEVO_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __NUEVO_LIBRO.setText("Nuevo libro");
 
         jLabel2.setText("ISBN");
 
-        __GUARDAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __GUARDAR_TABLA_LIBRO.setText("Guardar tabla");
 
-        __MODIFICAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __MODIFICAR_LIBRO.setText("Modificar libro");
 
         jLabel3.setText("Titulo");
 
-        __CARGAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __CARGAR_TABLA_LIBRO.setText("Cargar tabla");
 
-        __ELIMINAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __ELIMINAR_LIBRO.setText("Eliminar libro");
 
         jLabel4.setText("Autor");
 
-        __ANIADIR_NOTA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ANIADIR_NOTA_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __ANIADIR_NOTA_LIBRO.setText("Añadir nota");
 
         jLabel5.setText("Editorial");
 
-        __VOLVER_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __VOLVER_LIBRO.setText("Volver");
+        __VOLVER_LIBRO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        __VOLVER_LIBRO.setText("Cerrar sesion");
 
         jLabel6.setText("Año");
 
@@ -188,7 +188,7 @@ public class HomeVista extends javax.swing.JFrame {
 
         nPaginasLibroFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
 
-        actualUsrLibro.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrLibro.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         actualUsrLibro.setForeground(new java.awt.Color(153, 153, 153));
         actualUsrLibro.setText("Usuario: "+LoginControlador.user.getNombre());
 
@@ -202,21 +202,21 @@ public class HomeVista extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(libroPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(actualUsrLibro, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                    .addComponent(__VOLVER_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(__MODIFICAR_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                    .addComponent(__ELIMINAR_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(__ANIADIR_NOTA_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(__NUEVO_LIBRO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(actualUsrLibro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__VOLVER_LIBRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__ANIADIR_NOTA_LIBRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__NUEVO_LIBRO, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__MODIFICAR_LIBRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__ELIMINAR_LIBRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(libroPanelLayout.createSequentialGroup()
                         .addComponent(__GUARDAR_TABLA_LIBRO)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(__CARGAR_TABLA_LIBRO))
                     .addGroup(libroPanelLayout.createSequentialGroup()
-                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(libroPanelLayout.createSequentialGroup()
                                 .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(libroPanelLayout.createSequentialGroup()
@@ -233,19 +233,19 @@ public class HomeVista extends javax.swing.JFrame {
                                         .addComponent(tituloLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel6))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, libroPanelLayout.createSequentialGroup()
+                            .addGroup(libroPanelLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(isbnLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(isbnCheckBox)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(119, 119, 119)
                                 .addComponent(jLabel5)))
-                        .addGap(75, 75, 75))
+                        .addGap(75, 90, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, libroPanelLayout.createSequentialGroup()
-                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addGap(0, 29, Short.MAX_VALUE)
                         .addComponent(busquedaLibroBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(libroPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,33 +338,33 @@ public class HomeVista extends javax.swing.JFrame {
 
         mesArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
 
-        __BUSCAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __BUSCAR_ARTICULO.setText("Buscar");
 
         jLabel9.setText("ISSN");
 
-        __GUARDAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __GUARDAR_TABLA_ARTICULO.setText("Guardar tabla");
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel10.setText("ARTICULOS");
 
         jLabel11.setText("Autor");
 
-        __NUEVO_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __NUEVO_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __NUEVO_ARTICULO.setText("Nuevo articulo");
 
         pagIniArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
 
-        __MODIFICAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __MODIFICAR_ARTICULO.setText("Modificar articulo");
 
         jLabel12.setText("Revista");
 
-        __CARGAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __CARGAR_TABLA_ARTICULO.setText("Cargar tabla");
 
-        __ELIMINAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __ELIMINAR_ARTICULO.setText("Eliminar articulo");
 
         jLabel13.setText("Pag inicio");
@@ -373,17 +373,17 @@ public class HomeVista extends javax.swing.JFrame {
 
         pagFinArticuloFormatedBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
 
-        __ANIADIR_NOTA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ANIADIR_NOTA_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __ANIADIR_NOTA_ARTICULO.setText("Añadir nota");
 
         jLabel15.setText("Pag fin");
 
-        __VOLVER_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __VOLVER_ARTICULO.setText("Volver");
+        __VOLVER_ARTICULO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        __VOLVER_ARTICULO.setText("Cerrar sesion");
 
         jLabel16.setText("Año");
 
-        actualUsrArticulo.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrArticulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         actualUsrArticulo.setForeground(new java.awt.Color(153, 153, 153));
         actualUsrArticulo.setText("Usuario: "+LoginControlador.user.getNombre());
 
@@ -400,7 +400,7 @@ public class HomeVista extends javax.swing.JFrame {
                 .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(actualUsrArticulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(__VOLVER_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(__MODIFICAR_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(__MODIFICAR_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(__ELIMINAR_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(__ANIADIR_NOTA_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(__NUEVO_ARTICULO, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -412,15 +412,19 @@ public class HomeVista extends javax.swing.JFrame {
                                 .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(articuloPanelLayout.createSequentialGroup()
                                         .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12)
                                             .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(autorArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(articuloPanelLayout.createSequentialGroup()
+                                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(autorArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, articuloPanelLayout.createSequentialGroup()
+                                                    .addGap(4, 4, 4)
                                                     .addComponent(jLabel9)
-                                                    .addGap(14, 14, 14)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addComponent(issnArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(articuloPanelLayout.createSequentialGroup()
-                                                .addGap(37, 37, 37)
+                                                .addComponent(jLabel12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(revistaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,15 +434,13 @@ public class HomeVista extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel16))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, articuloPanelLayout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                                                 .addComponent(jLabel15))))
                                     .addGroup(articuloPanelLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel8))
                                     .addGroup(articuloPanelLayout.createSequentialGroup()
-                                        .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel14))
+                                        .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(tituloArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -451,13 +453,13 @@ public class HomeVista extends javax.swing.JFrame {
                                     .addComponent(pagIniArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(28, 28, 28))
                             .addGroup(articuloPanelLayout.createSequentialGroup()
-                                .addGap(0, 30, Short.MAX_VALUE)
+                                .addGap(0, 14, Short.MAX_VALUE)
                                 .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(__BUSCAR_ARTICULO)
                                 .addContainerGap())))
                     .addGroup(articuloPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(articuloPanelLayout.createSequentialGroup()
@@ -484,11 +486,9 @@ public class HomeVista extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 54, Short.MAX_VALUE)
                         .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(articuloPanelLayout.createSequentialGroup()
-                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(anioArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel16)))
+                                .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(anioArticuloFormatedBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
@@ -500,7 +500,9 @@ public class HomeVista extends javax.swing.JFrame {
                             .addGroup(articuloPanelLayout.createSequentialGroup()
                                 .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(issnCheckBox)
-                                    .addComponent(issnArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(issnArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(articuloPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(autorArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -534,26 +536,26 @@ public class HomeVista extends javax.swing.JFrame {
 
         NewHomeVistaTabbedPane.addTab("Articulos", articuloPanel);
 
-        __CARGAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CARGAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __CARGAR_TABLA_NOTA.setText("Cargar tabla");
 
-        __GUARDAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __GUARDAR_TABLA_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __GUARDAR_TABLA_NOTA.setText("Guardar tabla");
 
-        __ELIMINAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __ELIMINAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __ELIMINAR_NOTA.setText("Eliminar nota");
 
-        __MODIFICAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __MODIFICAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __MODIFICAR_NOTA.setText("Modificar nota");
 
-        jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel17.setText("NOTAS");
 
         idNotaBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         idNotaBox.setEnabled(false);
 
-        __VOLVER_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        __VOLVER_NOTA.setText("Volver");
+        __VOLVER_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        __VOLVER_NOTA.setText("Cerrar sesion");
 
         isbnNotaBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         isbnNotaBox.setEnabled(false);
@@ -581,7 +583,7 @@ public class HomeVista extends javax.swing.JFrame {
 
         jLabel21.setText("Tema");
 
-        __BUSCAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __BUSCAR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __BUSCAR_NOTA.setText("Buscar");
 
         jLabel22.setText("Contenido");
@@ -590,7 +592,7 @@ public class HomeVista extends javax.swing.JFrame {
         contenidoNotaArea.setRows(5);
         jScrollPane1.setViewportView(contenidoNotaArea);
 
-        actualUsrNota.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        actualUsrNota.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         actualUsrNota.setForeground(new java.awt.Color(153, 153, 153));
         actualUsrNota.setText("Usuario: "+LoginControlador.user.getNombre());
 
@@ -604,17 +606,17 @@ public class HomeVista extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(notaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(actualUsrNota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(__VOLVER_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                    .addComponent(__ELIMINAR_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                    .addComponent(__MODIFICAR_NOTA, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(actualUsrNota, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(__MODIFICAR_NOTA, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addComponent(__ELIMINAR_NOTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(__VOLVER_NOTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, notaPanelLayout.createSequentialGroup()
-                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addGap(0, 29, Short.MAX_VALUE)
                         .addComponent(busquedaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(__BUSCAR_NOTA))
@@ -626,25 +628,22 @@ public class HomeVista extends javax.swing.JFrame {
                         .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(__CARGAR_TABLA_NOTA)
                             .addGroup(notaPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel20)
+                                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel18))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(issnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(issnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(27, 27, 27))))
                     .addGroup(notaPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel21)
                         .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(notaPanelLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(notaPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         notaPanelLayout.setVerticalGroup(
@@ -668,14 +667,14 @@ public class HomeVista extends javax.swing.JFrame {
                                 .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel19)
                                     .addComponent(idNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(issnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18)
                                     .addComponent(jLabel20))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(notaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel21)
-                                    .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(temaNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(isbnNotaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

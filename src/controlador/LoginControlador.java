@@ -87,7 +87,7 @@ public class LoginControlador implements ActionListener {
 
                 String pass = new String(LoginControlador.vista.txtPassword.getPassword());
 
-                if (LoginControlador.vista.txtUser.getText().length() == 0 || LoginControlador.vista.txtPassword.getText().length() == 0) {
+                if (LoginControlador.vista.txtUser.getText().isEmpty() || LoginControlador.vista.txtPassword.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
 
                 } else {

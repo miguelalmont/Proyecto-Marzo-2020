@@ -82,7 +82,7 @@ public class RegistroControlador implements ActionListener{
         String pass = new String(this.vista.txtPassword.getPassword());
         String passConfirm = new String(this.vista.txtConfirmPass.getPassword());
 
-        if (this.vista.txtUser.getText().length() == 0 || this.vista.txtPassword.getText().length() == 0 || this.vista.txtConfirmPass.getText().length() == 0 || this.vista.txtName.getText().length() == 0 || this.vista.txtMail.getText().length() == 0) {
+        if (this.vista.txtUser.getText().isEmpty() || this.vista.txtPassword.getText().isEmpty() || this.vista.txtConfirmPass.getText().isEmpty() || this.vista.txtName.getText().isEmpty() || this.vista.txtMail.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
 
         } else {

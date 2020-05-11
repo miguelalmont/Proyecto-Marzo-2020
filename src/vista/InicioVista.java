@@ -45,10 +45,10 @@ public class InicioVista extends javax.swing.JFrame {
             }
         });
 
-        __NUEVO_USUARIO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __NUEVO_USUARIO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __NUEVO_USUARIO.setText("Nuevo usuario");
 
-        __INICIAR_SESION.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __INICIAR_SESION.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __INICIAR_SESION.setText("Iniciar sesion");
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -83,7 +83,7 @@ public class InicioVista extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(imagen)
-                        .addGap(0, 9, Short.MAX_VALUE)))
+                        .addGap(0, 7, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__INICIAR_SESION)

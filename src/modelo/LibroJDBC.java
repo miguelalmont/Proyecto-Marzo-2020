@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -35,7 +37,7 @@ public class LibroJDBC extends conexion.Conexion{
             = "SELECT id_libro FROM libros WHERE user_libro = ? AND ISBN = ?";
     
     private final String SQL_SELECT_ISBN
-            = "SELECT ISBN FROM libros WHERE user_libro = ? AND id_libro = ?";
+            = "SELECT ISBN FROM libros WHERE id_libro = ?";
     
     
     public int insert(Libro libro) {
@@ -49,9 +51,18 @@ public class LibroJDBC extends conexion.Conexion{
             stmt.setString(index++, libro.getISBN());//param 1 => ?
             stmt.setString(index++, libro.getAutor());//param 2 => ?
             stmt.setString(index++, libro.getTitulo());
-            stmt.setString(index++, libro.getEditorial());
-            stmt.setInt(index++, libro.getAnio());
-            stmt.setInt(index++, libro.getnPaginas());
+            if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
+                stmt.setNull(index++, java.sql.Types.VARCHAR);
+            else
+                stmt.setString(index++, libro.getEditorial());
+            if(libro.getAnio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, libro.getAnio());
+            if(libro.getnPaginas() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, libro.getnPaginas());
             stmt.setInt(index, LoginControlador.user.getId());
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();//no. registros afectados
@@ -78,9 +89,18 @@ public class LibroJDBC extends conexion.Conexion{
             stmt.setString(index++, libro.getISBN());
             stmt.setString(index++, libro.getAutor());
             stmt.setString(index++, libro.getTitulo());
-            stmt.setString(index++, libro.getEditorial());
-            stmt.setInt(index++, libro.getAnio());
-            stmt.setInt(index++, libro.getnPaginas());
+            if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
+                stmt.setNull(index++, java.sql.Types.VARCHAR);
+            else
+                stmt.setString(index++, libro.getEditorial());
+            if(libro.getAnio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else 
+                stmt.setInt(index++, libro.getAnio());
+            if(libro.getnPaginas() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else 
+                stmt.setInt(index++, libro.getnPaginas());
             
             stmt.setInt(index, getId(iSBNold));           
             
@@ -251,7 +271,7 @@ public class LibroJDBC extends conexion.Conexion{
         }
     }
     
-    public String getISBN( int user, int id_libro){
+    public String getISBN(int id_libro){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -261,9 +281,7 @@ public class LibroJDBC extends conexion.Conexion{
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setInt(index++, user);
-            stmt.setInt(index, id_libro);
+            stmt.setInt(1, id_libro);
             rs = stmt.executeQuery();
             
             if(rs.next()) {
@@ -289,26 +307,22 @@ public class LibroJDBC extends conexion.Conexion{
         List<String> lista = new ArrayList<>();
         List<Libro> libros = select();
         
-        libros.stream().map((libro) -> {
+        for (Libro libro : libros) {
             lista.add(libro.getISBN());
-            return libro;
-        }).map((libro) -> {
             lista.add(libro.getTitulo());
-            return libro;
-        }).map((libro) -> {
             lista.add(libro.getAutor());
-            return libro;
-        }).map((libro) -> {
-            lista.add(libro.getEditorial());
-            return libro;
-        }).map((libro) -> {
-            lista.add(Integer.toString(libro.getAnio()));
-            return libro;
-        }).forEachOrdered((libro) -> {
-            lista.add(Integer.toString(libro.getnPaginas()));
-        });
+            if(libro.getEditorial() != null)
+                lista.add(libro.getEditorial());
+            if(libro.getAnio() < 0)
+                lista.add(Integer.toString(libro.getAnio()));
+            if(libro.getnPaginas() < 0)
+                lista.add(Integer.toString(libro.getnPaginas()));
+        }
         
-        i = lista.stream().filter((resultado) -> (resultado.contains(busqueda))).map((_item) -> 1).reduce(i, Integer::sum);
+        for (String resultado : lista) {
+            if(resultado.contains(busqueda))
+                i++;
+        }
         
         return i;
     }
@@ -318,26 +332,27 @@ public class LibroJDBC extends conexion.Conexion{
         List<Libro> libros = select();
         List<Libro> objetivos = new ArrayList<>();
         
-        libros.forEach((libro) -> {
-            if(libro.getISBN().contains(busqueda)) {
+        for (Libro libro : libros) {
+            if(libro.getISBN().contains(busqueda))
                 objetivos.add(libro);
-            }
-            else if(libro.getTitulo().contains(busqueda)) {
+            if(libro.getTitulo().contains(busqueda))
                 objetivos.add(libro);
-            }
-            else if(libro.getAutor().contains(busqueda)) {
+            if(libro.getAutor().contains(busqueda))
                 objetivos.add(libro);
-            }
-            else if(libro.getEditorial().contains(busqueda)) {
+            if(libro.getEditorial() != null) 
+                if(libro.getEditorial().contains(busqueda))
+                    objetivos.add(libro);
+            if(libro.getAnio() < 0)
+                if(Integer.toString(libro.getAnio()).contains(busqueda))
                 objetivos.add(libro);
-            }
-            else if(Integer.toString(libro.getAnio()).contains(busqueda)) {
-                objetivos.add(libro);
-            }
-            else if(Integer.toString(libro.getnPaginas()).contains(busqueda)) {
-                objetivos.add(libro);
-            }
-        });
+            if(libro.getnPaginas() < 0) 
+                if(Integer.toString(libro.getnPaginas()).contains(busqueda))
+                    objetivos.add(libro);
+        }
+        
+        Set<Libro> hashSet = new HashSet<>(objetivos);
+        objetivos.clear();
+        objetivos.addAll(hashSet);
         
         return objetivos;
     }

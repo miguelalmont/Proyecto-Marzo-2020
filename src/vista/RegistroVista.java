@@ -77,13 +77,13 @@ public class RegistroVista extends javax.swing.JFrame {
 
         txtMail.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
-        __CREAR_USUARIO.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __CREAR_USUARIO.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __CREAR_USUARIO.setText("Crear usuario");
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel6.setText("NUEVO USUARIO");
 
-        __VOLVER.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        __VOLVER.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __VOLVER.setText("Volver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +147,7 @@ public class RegistroVista extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__CREAR_USUARIO)
                     .addComponent(__VOLVER))

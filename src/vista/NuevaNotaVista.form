@@ -66,7 +66,7 @@
               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="__INTRODUCIR_NOTA" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="__CANCELAR" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -120,6 +120,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="__INTRODUCIR_NOTA">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century Gothic" size="14" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Introducir"/>
       </Properties>
       <AuxValues>
@@ -128,6 +131,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="__CANCELAR">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Century Gothic" size="14" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <AuxValues>

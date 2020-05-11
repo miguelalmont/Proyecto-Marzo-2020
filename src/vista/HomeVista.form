@@ -71,15 +71,15 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="actualUsrLibro" pref="139" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="actualUsrLibro" alignment="1" max="32767" attributes="0"/>
                           <Component id="__VOLVER_LIBRO" alignment="0" max="32767" attributes="0"/>
-                          <Component id="__MODIFICAR_LIBRO" alignment="0" pref="139" max="32767" attributes="0"/>
-                          <Component id="__ELIMINAR_LIBRO" alignment="0" max="32767" attributes="0"/>
                           <Component id="__ANIADIR_NOTA_LIBRO" alignment="0" max="32767" attributes="0"/>
-                          <Component id="__NUEVO_LIBRO" alignment="0" max="32767" attributes="0"/>
+                          <Component id="__NUEVO_LIBRO" min="-2" pref="155" max="-2" attributes="0"/>
+                          <Component id="__MODIFICAR_LIBRO" alignment="0" max="32767" attributes="0"/>
+                          <Component id="__ELIMINAR_LIBRO" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="__GUARDAR_TABLA_LIBRO" min="-2" max="-2" attributes="0"/>
@@ -87,8 +87,8 @@
                               <Component id="__CARGAR_TABLA_LIBRO" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -110,22 +110,22 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="isbnLibroBox" min="-2" pref="55" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="isbnCheckBox" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="75" pref="75" max="-2" attributes="0"/>
+                              <EmptySpace min="75" pref="90" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" alignment="1" pref="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
                               <Component id="busquedaLibroBox" min="-2" pref="243" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -215,7 +215,7 @@
             <Component class="javax.swing.JButton" name="__BUSCAR_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
@@ -226,7 +226,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="18" style="0"/>
+                  <Font name="Century Gothic" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LIBROS"/>
               </Properties>
@@ -244,7 +244,7 @@
             <Component class="javax.swing.JButton" name="__NUEVO_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo libro"/>
               </Properties>
@@ -260,7 +260,7 @@
             <Component class="javax.swing.JButton" name="__GUARDAR_TABLA_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar tabla"/>
               </Properties>
@@ -271,7 +271,7 @@
             <Component class="javax.swing.JButton" name="__MODIFICAR_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modificar libro"/>
               </Properties>
@@ -287,7 +287,7 @@
             <Component class="javax.swing.JButton" name="__CARGAR_TABLA_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cargar tabla"/>
               </Properties>
@@ -298,7 +298,7 @@
             <Component class="javax.swing.JButton" name="__ELIMINAR_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar libro"/>
               </Properties>
@@ -314,7 +314,7 @@
             <Component class="javax.swing.JButton" name="__ANIADIR_NOTA_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir nota"/>
               </Properties>
@@ -330,9 +330,9 @@
             <Component class="javax.swing.JButton" name="__VOLVER_LIBRO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Volver"/>
+                <Property name="text" type="java.lang.String" value="Cerrar sesion"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -406,7 +406,7 @@
             <Component class="javax.swing.JLabel" name="actualUsrLibro">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="10" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
@@ -443,7 +443,7 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="actualUsrArticulo" alignment="0" max="32767" attributes="0"/>
                           <Component id="__VOLVER_ARTICULO" alignment="0" max="32767" attributes="0"/>
-                          <Component id="__MODIFICAR_ARTICULO" alignment="0" pref="139" max="32767" attributes="0"/>
+                          <Component id="__MODIFICAR_ARTICULO" alignment="0" max="32767" attributes="0"/>
                           <Component id="__ELIMINAR_ARTICULO" alignment="0" max="32767" attributes="0"/>
                           <Component id="__ANIADIR_NOTA_ARTICULO" alignment="0" max="32767" attributes="0"/>
                           <Component id="__NUEVO_ARTICULO" alignment="0" max="32767" attributes="0"/>
@@ -456,17 +456,22 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="autorArticuloBox" alignment="1" min="-2" pref="55" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="1" attributes="0">
+                                                          <Component id="jLabel11" min="-2" pref="26" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="autorArticuloBox" min="-2" pref="55" max="-2" attributes="0"/>
+                                                      </Group>
                                                       <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="issnArticuloBox" min="-2" pref="55" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="revistaArticuloBox" min="-2" pref="54" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -479,7 +484,7 @@
                                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
-                                                      <EmptySpace pref="157" max="32767" attributes="0"/>
+                                                      <EmptySpace pref="144" max="32767" attributes="0"/>
                                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -489,10 +494,7 @@
                                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="jLabel11" alignment="1" min="-2" pref="26" max="-2" attributes="0"/>
-                                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="tituloArticuloBox" min="-2" pref="55" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
@@ -509,7 +511,7 @@
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                                       <Component id="busquedaArticuloBox" min="-2" pref="243" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="__BUSCAR_ARTICULO" min="-2" max="-2" attributes="0"/>
@@ -518,7 +520,7 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
@@ -552,12 +554,9 @@
                               <EmptySpace type="unrelated" pref="54" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="anioArticuloFormatedBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="anioArticuloFormatedBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -573,7 +572,10 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="issnCheckBox" min="-2" max="-2" attributes="0"/>
-                                          <Component id="issnArticuloBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                              <Component id="issnArticuloBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -686,7 +688,7 @@
             <Component class="javax.swing.JButton" name="__BUSCAR_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
@@ -712,7 +714,7 @@
             <Component class="javax.swing.JButton" name="__GUARDAR_TABLA_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar tabla"/>
               </Properties>
@@ -723,7 +725,7 @@
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="18" style="0"/>
+                  <Font name="Century Gothic" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ARTICULOS"/>
               </Properties>
@@ -736,7 +738,7 @@
             <Component class="javax.swing.JButton" name="__NUEVO_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo articulo"/>
               </Properties>
@@ -757,7 +759,7 @@
             <Component class="javax.swing.JButton" name="__MODIFICAR_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modificar articulo"/>
               </Properties>
@@ -773,7 +775,7 @@
             <Component class="javax.swing.JButton" name="__CARGAR_TABLA_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cargar tabla"/>
               </Properties>
@@ -789,7 +791,7 @@
             <Component class="javax.swing.JButton" name="__ELIMINAR_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar articulo"/>
               </Properties>
@@ -820,7 +822,7 @@
             <Component class="javax.swing.JButton" name="__ANIADIR_NOTA_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir nota"/>
               </Properties>
@@ -836,9 +838,9 @@
             <Component class="javax.swing.JButton" name="__VOLVER_ARTICULO">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Volver"/>
+                <Property name="text" type="java.lang.String" value="Cerrar sesion"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -852,7 +854,7 @@
             <Component class="javax.swing.JLabel" name="actualUsrArticulo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="10" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
@@ -886,18 +888,18 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="actualUsrNota" max="32767" attributes="0"/>
-                          <Component id="__VOLVER_NOTA" alignment="0" pref="139" max="32767" attributes="0"/>
-                          <Component id="__ELIMINAR_NOTA" alignment="0" pref="139" max="32767" attributes="0"/>
-                          <Component id="__MODIFICAR_NOTA" alignment="0" pref="139" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="actualUsrNota" min="-2" pref="139" max="-2" attributes="0"/>
+                          <Component id="__MODIFICAR_NOTA" pref="155" max="32767" attributes="0"/>
+                          <Component id="__ELIMINAR_NOTA" alignment="0" max="32767" attributes="0"/>
+                          <Component id="__VOLVER_NOTA" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane4" alignment="1" pref="0" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
                               <Component id="busquedaNotaBox" min="-2" pref="243" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="__BUSCAR_NOTA" min="-2" max="-2" attributes="0"/>
@@ -911,30 +913,28 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="__CARGAR_TABLA_NOTA" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="issnNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="isbnNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <Component id="issnNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="idNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="isbnNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="temaNotaBox" min="-2" pref="203" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel19" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="temaNotaBox" min="-2" pref="203" max="-2" attributes="0"/>
+                                  <Component id="idNotaBox" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -964,15 +964,15 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="idNotaBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="isbnNotaBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="issnNotaBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="temaNotaBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="isbnNotaBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
@@ -1007,7 +1007,7 @@
             <Component class="javax.swing.JButton" name="__CARGAR_TABLA_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cargar tabla"/>
               </Properties>
@@ -1018,7 +1018,7 @@
             <Component class="javax.swing.JButton" name="__GUARDAR_TABLA_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar tabla"/>
               </Properties>
@@ -1034,7 +1034,7 @@
             <Component class="javax.swing.JButton" name="__ELIMINAR_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar nota"/>
               </Properties>
@@ -1045,7 +1045,7 @@
             <Component class="javax.swing.JButton" name="__MODIFICAR_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modificar nota"/>
               </Properties>
@@ -1056,7 +1056,7 @@
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="18" style="0"/>
+                  <Font name="Century Gothic" size="24" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="NOTAS"/>
               </Properties>
@@ -1075,9 +1075,9 @@
             <Component class="javax.swing.JButton" name="__VOLVER_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Volver"/>
+                <Property name="text" type="java.lang.String" value="Cerrar sesion"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1154,7 +1154,7 @@
             <Component class="javax.swing.JButton" name="__BUSCAR_NOTA">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
@@ -1193,7 +1193,7 @@
             <Component class="javax.swing.JLabel" name="actualUsrNota">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="10" style="0"/>
+                  <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>

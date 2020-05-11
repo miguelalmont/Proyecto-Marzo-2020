@@ -29,7 +29,7 @@ public class InicioControlador implements ActionListener{
     /**
      *
      */
-    public static URL iconURL;
+    public URL iconURL;
     public static ImageIcon icon;
     
     

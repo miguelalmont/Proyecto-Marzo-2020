@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -35,7 +37,7 @@ public class ArticuloJDBC extends conexion.Conexion{
             = "SELECT id_artic FROM articulos WHERE user_artic = ? AND ISSN = ?";
     
     private final String SQL_SELECT_ISSN
-            = "SELECT ISSN FROM articulos WHERE user_artic = ? AND id_artic = ?";
+            = "SELECT ISSN FROM articulos WHERE id_artic = ?";
     
     
     public int insert(Articulo articulo) {
@@ -50,10 +52,23 @@ public class ArticuloJDBC extends conexion.Conexion{
             stmt.setString(index++, articulo.getAutor());
             stmt.setString(index++, articulo.getTitulo());
             stmt.setString(index++, articulo.getRevista());
-            stmt.setInt(index++, articulo.getAnio());
-            stmt.setInt(index++, articulo.getMes());
-            stmt.setInt(index++, articulo.getPagInicio());
-            stmt.setInt(index++, articulo.getPagFin());
+            if(articulo.getAnio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getAnio());
+            if(articulo.getMes() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getMes());
+            if(articulo.getPagInicio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getPagInicio());
+            if(articulo.getPagFin() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getPagFin());
+            
             stmt.setInt(index, LoginControlador.user.getId());
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
@@ -81,10 +96,22 @@ public class ArticuloJDBC extends conexion.Conexion{
             stmt.setString(index++, articulo.getAutor());
             stmt.setString(index++, articulo.getTitulo());
             stmt.setString(index++, articulo.getRevista());
-            stmt.setInt(index++, articulo.getAnio());
-            stmt.setInt(index++, articulo.getMes());
-            stmt.setInt(index++, articulo.getPagInicio());
-            stmt.setInt(index++, articulo.getPagFin());
+            if(articulo.getAnio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getAnio());
+            if(articulo.getMes() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getMes());
+            if(articulo.getPagInicio() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getPagInicio());
+            if(articulo.getPagFin() == 0)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, articulo.getPagFin());
             
             stmt.setInt(index, getId(iSSNold));           
             
@@ -258,7 +285,7 @@ public class ArticuloJDBC extends conexion.Conexion{
         }
     }
     
-    public String getISSN(int user, int id_artic){
+    public String getISSN(int id_artic){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -268,9 +295,7 @@ public class ArticuloJDBC extends conexion.Conexion{
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setInt(index++, user);
-            stmt.setInt(index, id_artic);
+            stmt.setInt(1, id_artic);
             rs = stmt.executeQuery();
             
             if(rs.next()) {
@@ -296,32 +321,25 @@ public class ArticuloJDBC extends conexion.Conexion{
         List<String> lista = new ArrayList<>();
         List<Articulo> articulos = select();
         
-        articulos.stream().map((articulo) -> {
+        for (Articulo articulo : articulos){
             lista.add(articulo.getISSN());
-            return articulo;
-        }).map((articulo) -> {
-            lista.add(articulo.getTitulo());
-            return articulo;
-        }).map((articulo) -> {
             lista.add(articulo.getAutor());
-            return articulo;
-        }).map((articulo) -> {
+            lista.add(articulo.getTitulo());
             lista.add(articulo.getRevista());
-            return articulo;
-        }).map((articulo) -> {
-            lista.add(Integer.toString(articulo.getAnio()));
-            return articulo;
-        }).map((articulo) -> {
-            lista.add(Integer.toString(articulo.getMes()));
-            return articulo;
-        }).map((articulo) -> {
-            lista.add(Integer.toString(articulo.getPagInicio()));
-            return articulo;
-        }).forEachOrdered((articulo) -> {
-            lista.add(Integer.toString(articulo.getPagFin()));
-        });
+            if(articulo.getAnio() > 0)
+                lista.add(Integer.toString(articulo.getAnio()));
+            if(articulo.getMes() > 0)
+                lista.add(Integer.toString(articulo.getMes()));
+            if(articulo.getPagInicio() > 0)
+                lista.add(Integer.toString(articulo.getPagInicio()));
+            if(articulo.getPagFin() > 0)
+                lista.add(Integer.toString(articulo.getPagFin()));
+        }
         
-        i = lista.stream().filter((resultado) -> (resultado.contains(busqueda))).map((_item) -> 1).reduce(i, Integer::sum);
+        for(String resultado : lista) {
+            if (resultado.contains(busqueda))
+                i++;
+        }
         
         return i;
     }
@@ -331,32 +349,32 @@ public class ArticuloJDBC extends conexion.Conexion{
         List<Articulo> articulos = select();
         List<Articulo> objetivos = new ArrayList<>();
         
-        articulos.forEach((articulo) -> {
-            if(articulo.getISSN().contains(busqueda)) {
+        for (Articulo articulo : articulos) {
+            if(articulo.getISSN().contains(busqueda))
                 objetivos.add(articulo);
-            }
-            else if(articulo.getTitulo().contains(busqueda)) {
+            if(articulo.getTitulo().contains(busqueda))
                 objetivos.add(articulo);
-            }
-            else if(articulo.getAutor().contains(busqueda)) {
+            if(articulo.getAutor().contains(busqueda))
                 objetivos.add(articulo);
-            }
-            else if(articulo.getRevista().contains(busqueda)) {
+            if(articulo.getRevista().contains(busqueda))
                 objetivos.add(articulo);
-            }
-            else if(Integer.toString(articulo.getAnio()).contains(busqueda)) {
-                objetivos.add(articulo);
-            }
-            else if(Integer.toString(articulo.getMes()).contains(busqueda)) {
-                objetivos.add(articulo);
-            }
-            else if(Integer.toString(articulo.getPagInicio()).contains(busqueda)) {
-                objetivos.add(articulo);
-            }
-            else if(Integer.toString(articulo.getPagFin()).contains(busqueda)) {
-                objetivos.add(articulo);
-            }
-        });
+            if(articulo.getAnio() > 0) 
+                if(Integer.toString(articulo.getAnio()).contains(busqueda))
+                    objetivos.add(articulo);
+            if(articulo.getMes() > 0)
+                if(Integer.toString(articulo.getMes()).contains(busqueda)) 
+                    objetivos.add(articulo);
+            if(articulo.getPagInicio() > 0)
+                if(Integer.toString(articulo.getPagInicio()).contains(busqueda))
+                    objetivos.add(articulo);
+            if(articulo.getPagFin() > 0)
+                if(Integer.toString(articulo.getPagFin()).contains(busqueda))
+                    objetivos.add(articulo);
+        }
+        
+        Set<Articulo> hashSet = new HashSet<>(objetivos);
+        objetivos.clear();
+        objetivos.addAll(hashSet);
         
         return objetivos;
     }

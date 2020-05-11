@@ -91,7 +91,7 @@ public class NuevaNotaControlador implements ActionListener {
 
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __INTRODUCIR_NOTA:
-                if (this.vista.temaBox.getText().length() == 0 || this.vista.contenidoArea.getText().length() == 0) {
+                if (this.vista.temaBox.getText().isEmpty()) {
 
                     JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
                 } else {
@@ -99,7 +99,12 @@ public class NuevaNotaControlador implements ActionListener {
 
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
-                        nota.setContenido(this.vista.contenidoArea.getText());
+                        
+                        if (this.vista.contenidoArea.getText().isEmpty())
+                            nota.setContenido(null);
+                        else   
+                            nota.setContenido(this.vista.contenidoArea.getText());
+                        
                         nota.setIdLibro(libroConn.getId(HomeVista.isbnLibroBox.getText()));
                         nota.setIdArticulo(0);
 
@@ -110,7 +115,11 @@ public class NuevaNotaControlador implements ActionListener {
 
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
-                        nota.setContenido(this.vista.contenidoArea.getText());
+                        if (this.vista.contenidoArea.getText().isEmpty())
+                            nota.setContenido(null);
+                        else
+                            nota.setContenido(this.vista.contenidoArea.getText());
+                        
                         nota.setIdLibro(0);
                         nota.setIdArticulo(articuloConn.getId(HomeVista.issnArticuloBox.getText()));
 

@@ -158,16 +158,21 @@ public class NotaControlador implements ActionListener, MouseListener {
 
                     nota.setId(Integer.parseInt(this.vista.idNotaBox.getText()));
                     nota.setTema(this.vista.temaNotaBox.getText());
-                    nota.setContenido(this.vista.contenidoNotaArea.getText());
-
-                    if (this.vista.isbnNotaBox.getText().equals("-")) {
-                        nota.setIdArticulo(Integer.parseInt(this.vista.issnNotaBox.getText()));
-                        notaConn.updateArticulo(nota);
-                    }
-                    if (this.vista.issnNotaBox.getText().equals("-")) {
-                        nota.setIdLibro(Integer.parseInt(this.vista.isbnNotaBox.getText()));
-                        notaConn.updateLibro(nota);
-                    }
+                    if (this.vista.contenidoNotaArea.getText().isEmpty())
+                            nota.setContenido(null);
+                        else   
+                            nota.setContenido(this.vista.contenidoNotaArea.getText());
+                    
+                    if(this.vista.issnNotaBox.getText().isEmpty())
+                        nota.setIdArticulo(0);
+                    else
+                        nota.setIdArticulo(articuloConn.getId(this.vista.issnNotaBox.getText()));
+                    if(this.vista.isbnNotaBox.getText().isEmpty())
+                        nota.setIdArticulo(0);
+                    else
+                        nota.setIdLibro(libroConn.getId(this.vista.isbnNotaBox.getText()));
+                    
+                    notaConn.update(nota);
 
                     this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
                 } else {
@@ -295,25 +300,21 @@ public class NotaControlador implements ActionListener, MouseListener {
         for (Nota note : lista) {
             fila[i][0] = note.getId();
             fila[i][1] = note.getTema();
-            if (note.getIdLibro() < 1) {
-
+            
+            if (note.getIdLibro() < 1)
                 fila[i][2] = "-";
+            else
+                fila[i][2] = libroConn.getISBN(note.getIdLibro());
 
-            } else {
-
-                fila[i][2] = libroConn.getISBN(note.getIdUser(), note.getIdLibro());
-            }
-
-            if (note.getIdArticulo() < 1) {
-
+            if (note.getIdArticulo() < 1)
                 fila[i][3] = "-";
-
-            } else {
-
-                fila[i][3] = articuloConn.getISSN(note.getIdUser(), note.getIdArticulo());
-            }
-
-            fila[i][4] = note.getContenido();
+            else
+                fila[i][3] = articuloConn.getISSN(note.getIdArticulo());
+            
+            if(note.getContenido() == null)
+                fila[i][4] = "";
+            else
+                fila[i][4] = note.getContenido();
 
             fila[i][5] = note.getIdUser();
 

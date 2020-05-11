@@ -172,9 +172,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __NUEVO_ARTICULO:
 
-                if (HomeVista.issnArticuloBox.getText().length() == 0 || this.vista.tituloArticuloBox.getText().length() == 0 || this.vista.autorArticuloBox.getText().length() == 0 || this.vista.revistaArticuloBox.getText().length() == 0 || this.vista.anioArticuloFormatedBox.getText().length() == 0 || this.vista.mesArticuloFormatedBox.getText().length() == 0 || this.vista.pagIniArticuloFormatedBox.getText().length() == 0 || this.vista.pagFinArticuloFormatedBox.getText().length() == 0) {
-
-                    JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
+                if (HomeVista.issnArticuloBox.getText().isEmpty() || 
+                       this.vista.tituloArticuloBox.getText().isEmpty() || 
+                       this.vista.autorArticuloBox.getText().isEmpty() || 
+                       this.vista.revistaArticuloBox.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
 
                     if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) == 0) {
@@ -185,10 +187,22 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                         articulo.setTitulo(this.vista.tituloArticuloBox.getText());
                         articulo.setAutor(this.vista.autorArticuloBox.getText());
                         articulo.setRevista(this.vista.revistaArticuloBox.getText());
-                        articulo.setAnio(Integer.parseInt(this.vista.anioArticuloFormatedBox.getText()));
-                        articulo.setMes(Integer.parseInt(this.vista.mesArticuloFormatedBox.getText()));
-                        articulo.setPagInicio(Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText()));
-                        articulo.setPagFin(Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText()));
+                        if(this.vista.anioArticuloFormatedBox.getText().isEmpty())
+                            articulo.setAnio(0);
+                        else
+                            articulo.setAnio(Integer.parseInt(this.vista.anioArticuloFormatedBox.getText()));
+                        if(this.vista.mesArticuloFormatedBox.getText().isEmpty())
+                            articulo.setMes(0);
+                        else
+                            articulo.setMes(Integer.parseInt(this.vista.mesArticuloFormatedBox.getText()));
+                        if(this.vista.pagIniArticuloFormatedBox.getText().isEmpty())
+                            articulo.setPagInicio(0);
+                        else
+                            articulo.setPagInicio(Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText()));
+                        if(this.vista.pagFinArticuloFormatedBox.getText().isEmpty())
+                            articulo.setPagFin(0);
+                        else
+                            articulo.setPagFin(Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText()));
 
                         articuloConn.insert(articulo);
                         this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
@@ -200,34 +214,56 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
 
             case __MODIFICAR_ARTICULO:
-
-                if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) > 0) {
-
-                    Articulo articulo = new Articulo();
-
-                    articulo.setISSN(HomeVista.issnArticuloBox.getText());
-                    articulo.setTitulo(this.vista.tituloArticuloBox.getText());
-                    articulo.setAutor(this.vista.autorArticuloBox.getText());
-                    articulo.setRevista(this.vista.revistaArticuloBox.getText());
-
-                    int anio = Integer.parseInt(this.vista.anioArticuloFormatedBox.getText());
-                    articulo.setAnio(anio);
-
-                    int mes = Integer.parseInt(this.vista.mesArticuloFormatedBox.getText());
-                    articulo.setMes(mes);
-
-                    int pagIni = Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText());
-                    articulo.setPagInicio(pagIni);
-
-                    int pagFin = Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText());
-                    articulo.setPagFin(pagFin);
-
-                    articuloConn.update(articulo, HomeVista.issnArticuloBox.getText());
-
-                    clean();
-                    this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                if (HomeVista.issnArticuloBox.getText().isEmpty() || 
+                        this.vista.tituloArticuloBox.getText().isEmpty() || 
+                        this.vista.autorArticuloBox.getText().isEmpty() || 
+                        this.vista.revistaArticuloBox.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
-                    JOptionPane.showMessageDialog(null, "El ISSN introducido no esta registrado.");
+                    if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) > 0) {
+
+                        Articulo articulo = new Articulo();
+
+                        articulo.setISSN(HomeVista.issnArticuloBox.getText());
+                        articulo.setTitulo(this.vista.tituloArticuloBox.getText());
+                        articulo.setAutor(this.vista.autorArticuloBox.getText());
+                        articulo.setRevista(this.vista.revistaArticuloBox.getText());
+                        
+                        if(this.vista.anioArticuloFormatedBox.getText().isEmpty())
+                            articulo.setAnio(0);
+                        else{
+                        int anio = Integer.parseInt(this.vista.anioArticuloFormatedBox.getText());
+                        articulo.setAnio(anio);
+                        }
+                        
+                        if(this.vista.mesArticuloFormatedBox.getText().isEmpty())
+                            articulo.setMes(0);
+                        else{
+                        int mes = Integer.parseInt(this.vista.mesArticuloFormatedBox.getText());
+                        articulo.setMes(mes);
+                        }
+                        
+                        if(this.vista.pagIniArticuloFormatedBox.getText().isEmpty())
+                            articulo.setPagInicio(0);
+                        else{
+                        int pagIni = Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText());
+                        articulo.setPagInicio(pagIni);
+                        }
+                        
+                        if(this.vista.pagFinArticuloFormatedBox.getText().isEmpty())
+                            articulo.setPagFin(0);
+                        else{
+                        int pagFin = Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText());
+                        articulo.setPagFin(pagFin);
+                        }
+                        
+                        articuloConn.update(articulo, HomeVista.issnArticuloBox.getText());
+
+                        clean();
+                        this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El ISSN introducido no esta registrado.");
+                    }
                 }
                 break;
 
@@ -371,10 +407,23 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             fila[i][1] = articulo.getTitulo();
             fila[i][2] = articulo.getAutor();
             fila[i][3] = articulo.getRevista();
-            fila[i][4] = articulo.getAnio();
-            fila[i][5] = articulo.getMes();
-            fila[i][6] = articulo.getPagInicio();
-            fila[i][7] = articulo.getPagFin();
+            if(articulo.getAnio() == 0)
+                fila[i][4] = "";
+            else
+                fila[i][4] = articulo.getAnio();
+            if(articulo.getMes() == 0)
+                fila[i][5] = "";
+            else
+                fila[i][5] = articulo.getMes();
+            if(articulo.getPagInicio() == 0)
+                fila[i][6] = "";
+            else
+                fila[i][6] = articulo.getPagInicio();
+            if(articulo.getPagFin() == 0)
+                fila[i][7] = "";
+            else
+                fila[i][7] = articulo.getPagFin();
+            
             fila[i][8] = articulo.getIdUser();
             i++;
 

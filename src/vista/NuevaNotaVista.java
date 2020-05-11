@@ -56,8 +56,10 @@ public class NuevaNotaVista extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel1.setText("NUEVA NOTA");
 
+        __INTRODUCIR_NOTA.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __INTRODUCIR_NOTA.setText("Introducir");
 
+        __CANCELAR.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         __CANCELAR.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,7 +99,7 @@ public class NuevaNotaVista extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(__INTRODUCIR_NOTA)
                     .addComponent(__CANCELAR))

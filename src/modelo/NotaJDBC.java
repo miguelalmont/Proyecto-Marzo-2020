@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -35,7 +37,6 @@ public class NotaJDBC extends conexion.Conexion{
     /*private final String SQL_getId
             = "SELECT id_nota FROM notas WHERE user_nota = ? AND  = ?";*/
     
-    
     public int insert(Nota nota) {
         Connection conn = null;
         PreparedStatement stmt = null;		
@@ -46,23 +47,21 @@ public class NotaJDBC extends conexion.Conexion{
             stmt = conn.prepareStatement(SQL_INSERT);
             int index = 1;
             stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
+            if(nota.getContenido() == null)
+                stmt.setNull(index++, java.sql.Types.VARCHAR);
+            else
+                stmt.setString(index++, nota.getContenido());
             stmt.setInt(index++, LoginControlador.user.getId());
-            if (nota.getIdLibro() < 1) {
+            if (nota.getIdLibro() < 1)
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            }
-            else {
+            else
                 stmt.setInt(index++, nota.getIdLibro());
-            }
-            if (nota.getIdArticulo() < 1) {
+            if (nota.getIdArticulo() < 1)
                 stmt.setNull(index, java.sql.Types.INTEGER);
-            }
-            else {
+            else
                 stmt.setInt(index, nota.getIdArticulo());
-            }
-            System.out.println("Ejecutando query:" + SQL_INSERT);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);
+
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,65 +72,30 @@ public class NotaJDBC extends conexion.Conexion{
         return rows;
     }
     
-    /*
-    public void insertNotaLibro(Nota nota) {
-        Connection conn = null;
-        PreparedStatement stmt = null;		
-        String sql = "INSERT INTO notas(tema, contenido, user_nota, id_libro) VALUES(?,?,?,?)";
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, LoginControlador.user.getId());
-            stmt.setInt(index, nota.getIdLibro());
-            System.out.println("Ejecutando query:" + sql);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(stmt);
-            close(conn);
-        }
-    }
-    
-    public void insertNotaArticulo(Nota nota) {
-        Connection conn = null;
-        PreparedStatement stmt = null;		
-        String sql = "INSERT INTO notas(tema, contenido, user_nota, id_artic) VALUES(?,?,?,?)";
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, LoginControlador.user.getId());
-            stmt.setInt(index, nota.getIdArticulo());
-            System.out.println("Ejecutando query:" + sql);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(stmt);
-            close(conn);
-        }
-    }
-    */
-    
     public int update(Nota nota) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_UPDATE);
+            
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
             stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, nota.getIdLibro());
-            stmt.setInt(index++, nota.getIdArticulo());
+            if(nota.getContenido() == null)
+                stmt.setNull(index++, java.sql.Types.VARCHAR);
+            else
+                stmt.setString(index++, nota.getContenido());
+            if (nota.getIdLibro() < 1)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, nota.getIdLibro());
+            if (nota.getIdArticulo() < 1)
+                stmt.setNull(index++, java.sql.Types.INTEGER);
+            else
+                stmt.setInt(index++, nota.getIdArticulo());
+            stmt.setInt(index, nota.getId());
+
             stmt.setInt(index, nota.getId());           
             
             rows = stmt.executeUpdate();
@@ -144,63 +108,19 @@ public class NotaJDBC extends conexion.Conexion{
         return rows;
     }
     
-    public void updateLibro(Nota nota) {
-        Connection conn = null;
-        PreparedStatement stmt = null;		
-        String sql = "UPDATE notas SET tema = ?, contenido = ?, id_libro = ? WHERE id_nota = ?";
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, nota.getIdLibro());
-            stmt.setInt(index, nota.getId());
-            System.out.println("Ejecutando query:" + sql);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(stmt);
-            close(conn);
-        }
-    }
-    
-    public void updateArticulo(Nota nota) {
-        Connection conn = null;
-        PreparedStatement stmt = null;		
-        String sql = "UPDATE notas SET tema = ?, contenido = ?, id_articulo = ? WHERE id_nota = ?";
-        try {
-            conn = getConnection();
-            stmt = conn.prepareStatement(sql);
-            int index = 1;
-            stmt.setString(index++, nota.getTema());
-            stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, nota.getIdArticulo());
-            stmt.setInt(index, nota.getId());
-            System.out.println("Ejecutando query:" + sql);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(stmt);
-            close(conn);
-        }
-    }
-    
     public int delete(int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE);
+
             stmt = conn.prepareStatement(SQL_DELETE);
             int index = 1;
             stmt.setInt(index++, id);
             stmt.setInt(index, LoginControlador.user.getId());
-            rows = stmt.executeUpdate();
-            System.out.println("Registros eliminados:" + rows);
+            stmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -315,23 +235,20 @@ public class NotaJDBC extends conexion.Conexion{
         List<String> lista = new ArrayList<>();
         List<Nota> notas = select();
         
-        notas.stream().map((nota) -> {
-            lista.add(Integer.toString(nota.getId()));
-            return nota;
-        }).map((nota) -> {
+        for (Nota nota : notas) {
             lista.add(nota.getTema());
-            return nota;
-        }).map((nota) -> {
-            lista.add(Integer.toString(nota.getIdLibro()));
-            return nota;
-        }).map((nota) -> {
-            lista.add(Integer.toString(nota.getIdArticulo()));
-            return nota;
-        }).forEachOrdered((nota) -> {
-            lista.add(nota.getContenido());
-        });
+            if(nota.getIdLibro() > 0)
+                lista.add(Integer.toString(nota.getIdLibro()));
+            if(nota.getIdArticulo() > 0)
+                lista.add(Integer.toString(nota.getIdArticulo()));
+            if(nota.getContenido() != null)
+                lista.add(nota.getContenido());
+        }
         
-        i = lista.stream().filter((resultado) -> (resultado.contains(busqueda))).map((_item) -> 1).reduce(i, Integer::sum);
+        for (String resultado : lista){
+            if(resultado.contains(busqueda))
+                i++;
+        }
         
         return i;
     }
@@ -340,24 +257,27 @@ public class NotaJDBC extends conexion.Conexion{
         
         List<Nota> notas = select();
         List<Nota> objetivos = new ArrayList<>();
+        ArticuloJDBC articuloConn = new ArticuloJDBC();
+        LibroJDBC libroConn = new LibroJDBC();
         
-        notas.forEach((nota) -> {
-            if(Integer.toString(nota.getId()).contains(busqueda)) {
+        
+        for (Nota nota : notas) {
+            if(nota.getTema().contains(busqueda))
                 objetivos.add(nota);
-            }
-            else if(nota.getTema().contains(busqueda)) {
-                objetivos.add(nota);
-            }
-            else if(Integer.toString(nota.getIdLibro()).contains(busqueda)) {
-                objetivos.add(nota);
-            }
-            else if(Integer.toString(nota.getIdArticulo()).contains(busqueda)) {
-                objetivos.add(nota);
-            }
-            else if(nota.getContenido().contains(busqueda)) {
-                objetivos.add(nota);
-            }
-        });
+            if(nota.getIdLibro() > 0)
+                if(libroConn.getISBN(nota.getIdLibro()).contains(busqueda))
+                    objetivos.add(nota);
+            if(nota.getIdArticulo() > 0)
+                if(articuloConn.getISSN(nota.getIdArticulo()).contains(busqueda))
+                    objetivos.add(nota);
+            if(nota.getContenido() != null)
+                if(nota.getContenido().contains(busqueda))
+                    objetivos.add(nota);
+        }
+        
+        Set<Nota> hashSet = new HashSet<>(objetivos);
+        objetivos.clear();
+        objetivos.addAll(hashSet);
         
         return objetivos;
     }
