@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  *
  * @author migue
  */
-public class UsuariosJDBC extends conexion.Conexion{
+public class UsuariosConexion extends conexion.Conexion{
     private final String SQL_INSERT
             = "INSERT INTO usuarios(usuario, password, nombre, correo) VALUES(?,?,?,?)";
 
@@ -43,7 +43,6 @@ public class UsuariosJDBC extends conexion.Conexion{
             stmt.setString(index++, user.getNombre());
             stmt.setString(index, user.getMail());
             stmt.executeUpdate();
-            System.out.println("Ejecutando query:" + SQL_INSERT);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +58,6 @@ public class UsuariosJDBC extends conexion.Conexion{
         PreparedStatement stmt = null;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
             stmt.setString(index++, userUpdate.getUsuario());
@@ -78,24 +76,22 @@ public class UsuariosJDBC extends conexion.Conexion{
         }
     }
     
-    public int delete(String iSBN) {
+    public boolean delete(String iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setString(1, iSBN);
             stmt.executeUpdate();
-            System.out.println("Registros eliminados:" + rows);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
     public List<Usuario> select() {
@@ -155,12 +151,12 @@ public class UsuariosJDBC extends conexion.Conexion{
                 return rs.getInt(1);
             }
             else {
-                return 1;
+                return -1;
             }
         }
         catch (SQLException e){
             e.printStackTrace();
-            return 1;
+            return -1;
         } finally {
             close(rs);
             close(stmt);

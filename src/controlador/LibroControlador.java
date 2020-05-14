@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
@@ -23,10 +24,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import modelo.IOdatos;
 import modelo.Libro;
-import modelo.LibroJDBC;
+import modelo.LibroConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
-
+import org.apache.commons.validator.routines.ISBNValidator;
 /**
  *
  * @author migue
@@ -43,7 +44,7 @@ public class LibroControlador implements ActionListener, MouseListener {
     /**
      * instancia a nuestro modelo
      */
-    LibroJDBC libroConn = new LibroJDBC();
+    LibroConexion libroConn = new LibroConexion();
     IOdatos io = new IOdatos();
     public static FileChooserControlador fcc = null;
 
@@ -56,6 +57,7 @@ public class LibroControlador implements ActionListener, MouseListener {
         __MODIFICAR_LIBRO,
         __ELIMINAR_LIBRO,
         __ANIADIR_NOTA_LIBRO,
+        __LIMPIAR_LIBRO,
         __GUARDAR_TABLA_LIBRO,
         __CARGAR_TABLA_LIBRO,
         __VOLVER_LIBRO,
@@ -97,6 +99,9 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         this.vista.__ANIADIR_NOTA_LIBRO.setActionCommand("__ANIADIR_NOTA_LIBRO");
         this.vista.__ANIADIR_NOTA_LIBRO.addActionListener(this);
+        //declara una acción y añade un escucha al evento producido por el componente
+        this.vista.__LIMPIAR_LIBRO.setActionCommand("__LIMPIAR_LIBRO");
+        this.vista.__LIMPIAR_LIBRO.addActionListener(this);
 
         this.vista.__GUARDAR_TABLA_LIBRO.setActionCommand("__GUARDAR_TABLA_LIBRO");
         this.vista.__GUARDAR_TABLA_LIBRO.addActionListener(this);
@@ -109,7 +114,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_LIBRO.setActionCommand("__VOLVER_LIBRO");
         this.vista.__VOLVER_LIBRO.addActionListener(this);
-        
+
         this.vista.__ACTUALIZAR_TABLA_LIBROS.setActionCommand("__ACTUALIZAR_TABLA_LIBROS");
         this.vista.__ACTUALIZAR_TABLA_LIBROS.addActionListener(this);
 
@@ -125,7 +130,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 HomeVista.isbnLibroBox.setEnabled(false);
             }
         });
-        
+
         this.vista.isbnCheckBox.setSelected(true);
     }
 
@@ -173,31 +178,44 @@ public class LibroControlador implements ActionListener, MouseListener {
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __NUEVO_LIBRO:
 
-                if (HomeVista.isbnLibroBox.getText().isEmpty() || 
-                        this.vista.tituloLibroBox.getText().isEmpty() || 
-                        this.vista.autorLibroBox.getText().isEmpty()) {
+                if (HomeVista.isbnLibroBox.getText().isEmpty()
+                        || this.vista.tituloLibroBox.getText().isEmpty()
+                        || this.vista.autorLibroBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISBN, Titulo y Atutor no pueden estar vacios.");
                 } else {
 
                     if (libroConn.existeISBN(HomeVista.isbnLibroBox.getText()) == 0) {
+                        ISBNValidator isbnValidator = new ISBNValidator();
+                        
+                        if(isbnValidator.isValid(HomeVista.isbnLibroBox.getText())){
+                            Libro libro = new Libro();
 
-                        Libro libro = new Libro();
+                            libro.setISBN(HomeVista.isbnLibroBox.getText());
+                            libro.setTitulo(this.vista.tituloLibroBox.getText());
+                            libro.setAutor(this.vista.autorLibroBox.getText());
+                            libro.setEditorial(this.vista.editorialLibroBox.getText());
+                            if (this.vista.anioLibroFormatedBox.getText().isEmpty()) {
+                                libro.setAnio(0);
+                            } else {
+                                libro.setAnio(Integer.parseInt(this.vista.anioLibroFormatedBox.getText()));
+                            }
+                            if (this.vista.nPaginasLibroFormatedBox.getText().isEmpty()) {
+                                libro.setnPaginas(0);
+                            } else {
+                                libro.setnPaginas(Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText()));
+                            }
 
-                        libro.setISBN(HomeVista.isbnLibroBox.getText());
-                        libro.setTitulo(this.vista.tituloLibroBox.getText());
-                        libro.setAutor(this.vista.autorLibroBox.getText());
-                        libro.setEditorial(this.vista.editorialLibroBox.getText());
-                        if(this.vista.anioLibroFormatedBox.getText().isEmpty())
-                            libro.setAnio(0);
-                        else
-                            libro.setAnio(Integer.parseInt(this.vista.anioLibroFormatedBox.getText()));
-                        if(this.vista.nPaginasLibroFormatedBox.getText().isEmpty())
-                            libro.setnPaginas(0);
-                        else
-                            libro.setnPaginas(Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText()));
-                        libroConn.insert(libro);
-                        this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
-                        clean();
+                            if (libroConn.insert(libro)) {
+                                JOptionPane.showMessageDialog(null, "Libro introducido con exito.");
+                                this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                                this.clean();
+                            }
+                            else {
+                                JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Introduce un ISBN valido.");
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISBN ya existe.");
                     }
@@ -205,13 +223,12 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __MODIFICAR_LIBRO:
-                
-                if (HomeVista.isbnLibroBox.getText().isEmpty() || 
-                        this.vista.tituloLibroBox.getText().isEmpty() || 
-                        this.vista.autorLibroBox.getText().isEmpty()) {
+
+                if (HomeVista.isbnLibroBox.getText().isEmpty()
+                        || this.vista.tituloLibroBox.getText().isEmpty()
+                        || this.vista.autorLibroBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISBN, Titulo y Atutor no pueden estar vacios.");
-                }
-                else{
+                } else {
                     if (libroConn.existeISBN(HomeVista.isbnLibroBox.getText()) > 0) {
 
                         Libro libro = new Libro();
@@ -220,24 +237,26 @@ public class LibroControlador implements ActionListener, MouseListener {
                         libro.setTitulo(this.vista.tituloLibroBox.getText());
                         libro.setAutor(this.vista.autorLibroBox.getText());
                         libro.setEditorial(this.vista.editorialLibroBox.getText());
-                        if(this.vista.anioLibroFormatedBox.getText().length() == 0) {
+                        if (this.vista.anioLibroFormatedBox.getText().length() == 0) {
                             libro.setAnio(0);
-                        }
-                        else {
+                        } else {
                             int anio = Integer.parseInt(this.vista.anioLibroFormatedBox.getText());
                             libro.setAnio(anio);
                         }
-                        if(this.vista.nPaginasLibroFormatedBox.getText().length() == 0){
+                        if (this.vista.nPaginasLibroFormatedBox.getText().length() == 0) {
                             libro.setAnio(0);
-                        }
-                        else {
+                        } else {
                             int pags = Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText());
                             libro.setnPaginas(pags);
                         }
-                        libroConn.update(libro, HomeVista.isbnLibroBox.getText());
-
+                        if(libroConn.update(libro, HomeVista.isbnLibroBox.getText())) {
+                            JOptionPane.showMessageDialog(null, "Libro modificado con exito.");
+                            this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                        }
                         clean();
-                        this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISBN introducido no esta registrado.");
                     }
@@ -247,9 +266,13 @@ public class LibroControlador implements ActionListener, MouseListener {
             case __ELIMINAR_LIBRO:
 
                 if (libroConn.existeISBN(HomeVista.isbnLibroBox.getText()) > 0) {
-                    libroConn.delete(HomeVista.isbnLibroBox.getText());
-
-                    this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                    if(libroConn.delete(HomeVista.isbnLibroBox.getText())) {
+                        JOptionPane.showMessageDialog(null, "Libro eliminado con exito.");
+                        this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Debes seleccionar un ISBN valido.");
                 }
@@ -272,14 +295,18 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __BUSCAR_LIBRO:
-                
-                if (this.vista.busquedaLibroBox.getText().isEmpty()){}
-                else{
-                    if (libroConn.coincidencias(this.vista.busquedaLibroBox.getText()) > 0)
+
+                if (this.vista.busquedaLibroBox.getText().isEmpty()) {
+                } else {
+                    if (!libroConn.buscar(this.vista.busquedaLibroBox.getText()).isEmpty()) {
                         this.vista.__tabla_libros.setModel(crearTabla(libroConn.buscar(this.vista.busquedaLibroBox.getText())));
-                    else
-                        JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Busqueda sin resultados.");
+                    }
                 }
+                break;
+            case __LIMPIAR_LIBRO:
+                this.clean();
                 break;
             case __GUARDAR_TABLA_LIBRO:
 
@@ -311,9 +338,9 @@ public class LibroControlador implements ActionListener, MouseListener {
 
                 break;
             case __ACTUALIZAR_TABLA_LIBROS:
-                
+
                 this.vista.__tabla_libros.setModel(crearTabla(libroConn.select()));
-                
+
                 break;
             case __VOLVER_LIBRO:
 
@@ -337,6 +364,10 @@ public class LibroControlador implements ActionListener, MouseListener {
 
     public void clean() {
         HomeVista.isbnLibroBox.setText("");
+        if (!this.vista.isbnCheckBox.isSelected()) {
+            HomeVista.isbnLibroBox.setEnabled(true);
+            this.vista.isbnCheckBox.setSelected(true);
+        }
         this.vista.tituloLibroBox.setText("");
         this.vista.autorLibroBox.setText("");
         this.vista.editorialLibroBox.setText("");
@@ -345,6 +376,9 @@ public class LibroControlador implements ActionListener, MouseListener {
     }
 
     public DefaultTableModel crearTabla(List<Libro> lista) {
+
+        Collections.sort(lista, Libro.tituloComparator);
+
         this.vista.__tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -382,18 +416,21 @@ public class LibroControlador implements ActionListener, MouseListener {
             fila[i][0] = libro.getISBN();
             fila[i][1] = libro.getTitulo();
             fila[i][2] = libro.getAutor();
-            if (libro.getEditorial() == null)
+            if (libro.getEditorial() == null) {
                 fila[i][3] = "";
-            else
+            } else {
                 fila[i][3] = libro.getEditorial();
-            if(libro.getAnio() == 0)
+            }
+            if (libro.getAnio() == 0) {
                 fila[i][4] = "";
-            else
+            } else {
                 fila[i][4] = libro.getAnio();
-            if(libro.getnPaginas() == 0)
+            }
+            if (libro.getnPaginas() == 0) {
                 fila[i][5] = "";
-            else
+            } else {
                 fila[i][5] = libro.getnPaginas();
+            }
             fila[i][6] = libro.getIdUser();
             i++;
 

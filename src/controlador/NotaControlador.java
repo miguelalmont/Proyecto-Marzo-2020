@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,11 +21,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import modelo.ArticuloJDBC;
+import modelo.ArticuloConexion;
 import modelo.IOdatos;
-import modelo.LibroJDBC;
+import modelo.LibroConexion;
 import modelo.Nota;
-import modelo.NotaJDBC;
+import modelo.NotaConexion;
 import vista.HomeVista;
 
 /**
@@ -45,9 +46,9 @@ public class NotaControlador implements ActionListener, MouseListener {
     /**
      * instancia a nuestro modelo
      */
-    NotaJDBC notaConn = new NotaJDBC();
-    LibroJDBC libroConn = new LibroJDBC();
-    ArticuloJDBC articuloConn = new ArticuloJDBC();
+    NotaConexion notaConn = new NotaConexion();
+    LibroConexion libroConn = new LibroConexion();
+    ArticuloConexion articuloConn = new ArticuloConexion();
 
     /**
      * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
@@ -56,6 +57,7 @@ public class NotaControlador implements ActionListener, MouseListener {
     public enum AccionMVC {
         __MODIFICAR_NOTA,
         __ELIMINAR_NOTA,
+        __LIMPIAR_NOTA,
         __GUARDAR_TABLA_NOTA,
         __CARGAR_TABLA_NOTA,
         __BUSCAR_NOTA,
@@ -81,7 +83,6 @@ public class NotaControlador implements ActionListener, MouseListener {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             SwingUtilities.updateComponentTreeUI(vista);
-            
 
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
         }
@@ -93,6 +94,9 @@ public class NotaControlador implements ActionListener, MouseListener {
         this.vista.__ELIMINAR_NOTA.setActionCommand("__ELIMINAR_NOTA");
         this.vista.__ELIMINAR_NOTA.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
+        this.vista.__LIMPIAR_NOTA.setActionCommand("__LIMPIAR_NOTA");
+        this.vista.__LIMPIAR_NOTA.addActionListener(this);
+        //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__GUARDAR_TABLA_NOTA.setActionCommand("__GUARDAR_TABLA_NOTA");
         this.vista.__GUARDAR_TABLA_NOTA.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
@@ -101,15 +105,17 @@ public class NotaControlador implements ActionListener, MouseListener {
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__BUSCAR_NOTA.setActionCommand("__BUSCAR_NOTA");
         this.vista.__BUSCAR_NOTA.addActionListener(this);
-        
+
         this.vista.__VOLVER_NOTA.setActionCommand("__VOLVER_NOTA");
         this.vista.__VOLVER_NOTA.addActionListener(this);
-        
+
         this.vista.__ACTUALIZAR_TABLA_NOTAS.setActionCommand("__ACTUALIZAR_TABLA_NOTAS");
         this.vista.__ACTUALIZAR_TABLA_NOTAS.addActionListener(this);
-        
+
         this.vista.__tabla_notas.addMouseListener(this);
         this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+        
+        this.vista.idNotaBox.setVisible(false);
     }
 
     //Eventos que suceden por el mouse
@@ -162,42 +168,53 @@ public class NotaControlador implements ActionListener, MouseListener {
 
                     nota.setId(Integer.parseInt(this.vista.idNotaBox.getText()));
                     nota.setTema(this.vista.temaNotaBox.getText());
-                    if (this.vista.contenidoNotaArea.getText().isEmpty())
-                            nota.setContenido(null);
-                        else   
-                            nota.setContenido(this.vista.contenidoNotaArea.getText());
-                    
-                    if(this.vista.issnNotaBox.getText().isEmpty())
-                        nota.setIdArticulo(0);
-                    else
-                        nota.setIdArticulo(articuloConn.getId(this.vista.issnNotaBox.getText()));
-                    if(this.vista.isbnNotaBox.getText().isEmpty())
-                        nota.setIdArticulo(0);
-                    else
-                        nota.setIdLibro(libroConn.getId(this.vista.isbnNotaBox.getText()));
-                    
-                    notaConn.update(nota);
+                    if (this.vista.contenidoNotaArea.getText().isEmpty()) {
+                        nota.setContenido(null);
+                    } else {
+                        nota.setContenido(this.vista.contenidoNotaArea.getText());
+                    }
 
-                    this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                    if (this.vista.issnNotaBox.getText().isEmpty()) {
+                        nota.setIdArticulo(0);
+                    } else {
+                        nota.setIdArticulo(articuloConn.getId(this.vista.issnNotaBox.getText()));
+                    }
+                    if (this.vista.isbnNotaBox.getText().isEmpty()) {
+                        nota.setIdArticulo(0);
+                    } else {
+                        nota.setIdLibro(libroConn.getId(this.vista.isbnNotaBox.getText()));
+                    }
+
+                    if (notaConn.update(nota)) {
+                        JOptionPane.showMessageDialog(null, "Nota modificada con exito.");
+                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                    }
                 } else {
 
                     JOptionPane.showMessageDialog(null, "No hay ninguna nota seleccionada.");
                 }
-
                 break;
             case __ELIMINAR_NOTA:
 
                 if (notaConn.existeIdNota(Integer.parseInt(this.vista.idNotaBox.getText())) > 0) {
 
-                    notaConn.delete(Integer.parseInt(this.vista.idNotaBox.getText()));
+                    if (notaConn.delete(Integer.parseInt(this.vista.idNotaBox.getText()))) {
+                        JOptionPane.showMessageDialog(null, "Nota eliminada con exito.");
+                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                    }
 
-                    this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
                     clean();
                 } else {
 
                     JOptionPane.showMessageDialog(null, "No hay ninguna nota seleccionada.");
                 }
-
+                break;
+            case __LIMPIAR_NOTA:
+                this.clean();
                 break;
             case __GUARDAR_TABLA_NOTA:
 
@@ -211,7 +228,6 @@ public class NotaControlador implements ActionListener, MouseListener {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
                 }
-
                 break;
             case __CARGAR_TABLA_NOTA:
 
@@ -226,21 +242,21 @@ public class NotaControlador implements ActionListener, MouseListener {
                     }
 
                 }
-
                 break;
             case __BUSCAR_NOTA:
-                if (this.vista.busquedaNotaBox.getText().isEmpty()){}
-                else {
-                    if (notaConn.coincidencias(this.vista.busquedaNotaBox.getText()) > 0)
+                if (this.vista.busquedaNotaBox.getText().isEmpty()) {
+                } else {
+                    if (!notaConn.buscar(this.vista.busquedaNotaBox.getText()).isEmpty()) {
                         this.vista.__tabla_notas.setModel(crearTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
-                    else
+                    } else {
                         JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
+                    }
                 }
                 break;
             case __ACTUALIZAR_TABLA_NOTAS:
-                
+
                 this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
-                
+
                 break;
             case __VOLVER_NOTA:
 
@@ -262,11 +278,15 @@ public class NotaControlador implements ActionListener, MouseListener {
     private void clean() {
 
         this.vista.idNotaBox.setText("");
+        this.vista.isbnNotaBox.setText("");
+        this.vista.issnNotaBox.setText("");
         this.vista.temaNotaBox.setText("");
         this.vista.contenidoNotaArea.setText("");
     }
 
     public DefaultTableModel crearTabla(List<Nota> lista) {
+
+        Collections.sort(lista, Nota.temaComparator);
 
         this.vista.__tabla_notas.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -305,29 +325,31 @@ public class NotaControlador implements ActionListener, MouseListener {
         for (Nota note : lista) {
             fila[i][0] = note.getId();
             fila[i][1] = note.getTema();
-            
-            if (note.getIdLibro() < 1)
-                fila[i][2] = "-";
-            else
-                fila[i][2] = libroConn.getISBN(note.getIdLibro());
 
-            if (note.getIdArticulo() < 1)
+            if (note.getIdLibro() < 1) {
+                fila[i][2] = "-";
+            } else {
+                fila[i][2] = libroConn.getISBN(note.getIdLibro());
+            }
+
+            if (note.getIdArticulo() < 1) {
                 fila[i][3] = "-";
-            else
+            } else {
                 fila[i][3] = articuloConn.getISSN(note.getIdArticulo());
-            
-            if(note.getContenido() == null)
+            }
+
+            if (note.getContenido() == null) {
                 fila[i][4] = "";
-            else
+            } else {
                 fila[i][4] = note.getContenido();
+            }
 
             fila[i][5] = note.getIdUser();
 
             i++;
         }
 
-            modelo.setDataVector(fila, columNames);
-        
+        modelo.setDataVector(fila, columNames);
 
         try {
 
@@ -350,28 +372,26 @@ public class NotaControlador implements ActionListener, MouseListener {
 
             note.setId(Integer.parseInt(this.vista.__tabla_notas.getModel().getValueAt(fila, 0).toString()));
             note.setTema(String.valueOf(this.vista.__tabla_notas.getModel().getValueAt(fila, 1)));
-            
+
             if (this.vista.__tabla_notas.getModel().getValueAt(fila, 2).equals("-")) {
                 note.setIdLibro(0);
-            }
-            else {
+            } else {
                 note.setIdLibro(libroConn.getId(this.vista.__tabla_notas.getModel().getValueAt(fila, 2).toString()));
             }
-            
+
             if (this.vista.__tabla_notas.getModel().getValueAt(fila, 3).equals("-")) {
                 note.setIdArticulo(0);
-            }
-            else {
+            } else {
                 note.setIdArticulo(articuloConn.getId(this.vista.__tabla_notas.getModel().getValueAt(fila, 3).toString()));
             }
-            
+
             note.setContenido(String.valueOf(this.vista.__tabla_notas.getModel().getValueAt(fila, 4)));
-            
+
             note.setIdUser(Integer.parseInt(this.vista.__tabla_notas.getModel().getValueAt(fila, 5).toString()));
-            
+
             lista.add(note);
         }
-        
+
         return lista;
     }
 }

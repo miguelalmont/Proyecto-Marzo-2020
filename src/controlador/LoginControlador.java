@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Hash;
 import modelo.Usuario;
-import modelo.UsuariosJDBC;
+import modelo.UsuariosConexion;
 import vista.LoginVista;
 import vista.HomeVista;
 
@@ -78,7 +78,7 @@ public class LoginControlador implements ActionListener {
 
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __INICIAR_SESION:
-                UsuariosJDBC logUser = new UsuariosJDBC();
+                UsuariosConexion logUser = new UsuariosConexion();
                 user = new Usuario();
 
                 LocalDateTime sessionDateTime = LocalDateTime.now();

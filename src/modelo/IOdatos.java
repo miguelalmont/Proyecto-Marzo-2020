@@ -6,6 +6,7 @@
 package modelo;
 
 import com.google.gson.Gson;
+import conexion.Conexion;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

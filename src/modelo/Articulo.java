@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Miguel Alcantara
@@ -101,6 +103,11 @@ public class Articulo {
         return "Articulo{" + "ISSN=" + ISSN + ", autor=" + autor + ", titulo=" + titulo + ", revista=" + revista + ", anio=" + anio + ", mes=" + mes + ", pagInicio=" + pagInicio + ", pagFin=" + pagFin + ", idUser=" + idUser + '}';
     }
     
-    
+    public static Comparator<Articulo> tituloComparator = (Articulo a1, Articulo a2) -> {
+        String titulo1 = a1.getTitulo().toUpperCase();
+        String titulo2 = a2.getTitulo().toUpperCase();
+
+        return titulo1.compareTo(titulo2);
+    };
 
 }

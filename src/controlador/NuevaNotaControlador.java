@@ -13,11 +13,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Articulo;
-import modelo.ArticuloJDBC;
+import modelo.ArticuloConexion;
 import modelo.Libro;
-import modelo.LibroJDBC;
+import modelo.LibroConexion;
 import modelo.Nota;
-import modelo.NotaJDBC;
+import modelo.NotaConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
 
@@ -32,11 +32,11 @@ public class NuevaNotaControlador implements ActionListener {
      */
     NuevaNotaVista vista;
     Nota nota = new Nota();
-    NotaJDBC notaConn = new NotaJDBC();
+    NotaConexion notaConn = new NotaConexion();
     Libro libro = new Libro();
-    LibroJDBC libroConn = new LibroJDBC();
+    LibroConexion libroConn = new LibroConexion();
     Articulo articulo = new Articulo();
-    ArticuloJDBC articuloConn = new ArticuloJDBC();
+    ArticuloConexion articuloConn = new ArticuloConexion();
 
     /**
      * instancia a nuestro modelo
@@ -108,7 +108,11 @@ public class NuevaNotaControlador implements ActionListener {
                         nota.setIdLibro(libroConn.getId(HomeVista.isbnLibroBox.getText()));
                         nota.setIdArticulo(0);
 
-                        notaConn.insert(nota);
+                        if (notaConn.insert(nota)) {
+                            JOptionPane.showMessageDialog(null, "Nota introducida con exito.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                        }
                         fromLibro = false;
                     }
                     if (fromArticulo) {
@@ -123,7 +127,11 @@ public class NuevaNotaControlador implements ActionListener {
                         nota.setIdLibro(0);
                         nota.setIdArticulo(articuloConn.getId(HomeVista.issnArticuloBox.getText()));
 
-                        notaConn.insert(nota);
+                        if(notaConn.insert(nota)){
+                            JOptionPane.showMessageDialog(null, "Nota introducida con exito.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                        }
                         fromArticulo = false;
                     }
                     clean();
@@ -136,6 +144,10 @@ public class NuevaNotaControlador implements ActionListener {
                 break;
             case __CANCELAR:
                 clean();
+                
+                fromLibro = false;
+                fromArticulo = false;
+                
                 this.vista.dispose();
                 HomeControlador.vista.toFront();
                 HomeControlador.vista.setEnabled(true);

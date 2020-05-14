@@ -5,8 +5,6 @@
  */
 package modelo;
 
-import static conexion.Conexion.close;
-import static conexion.Conexion.getConnection;
 import controlador.LoginControlador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +19,7 @@ import java.util.Set;
  *
  * @author migue
  */
-public class NotaJDBC extends conexion.Conexion{
+public class NotaConexion extends conexion.Conexion{
     private final String SQL_INSERT
             = "INSERT INTO notas(tema, contenido, user_nota, id_libro, id_artic) VALUES(?,?,?,?,?)";
 
@@ -32,15 +30,14 @@ public class NotaJDBC extends conexion.Conexion{
             = "DELETE FROM notas WHERE id_nota = ? AND user_nota = ?";
 
     private final String SQL_SELECT
-            = "SELECT id_nota, tema, contenido, id_libro, id_artic, user_nota FROM notas WHERE user_nota = ? ORDER BY id_nota";
+            = "SELECT id_nota, tema, contenido, id_libro, id_artic, user_nota FROM notas WHERE user_nota = ? ORDER BY tema";
     
     /*private final String SQL_getId
             = "SELECT id_nota FROM notas WHERE user_nota = ? AND  = ?";*/
     
-    public int insert(Nota nota) {
+    public boolean insert(Nota nota) {
         Connection conn = null;
-        PreparedStatement stmt = null;		
-        int rows = 0;
+        PreparedStatement stmt = null;
         
         try {
             conn = getConnection();
@@ -62,20 +59,20 @@ public class NotaJDBC extends conexion.Conexion{
                 stmt.setInt(index, nota.getIdArticulo());
 
             stmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
-    public int update(Nota nota) {
+    public boolean update(Nota nota) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         try {
             conn = getConnection();
             
@@ -98,20 +95,20 @@ public class NotaJDBC extends conexion.Conexion{
 
             stmt.setInt(index, nota.getId());           
             
-            rows = stmt.executeUpdate();
+            stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
-    public int delete(int id) {
+    public boolean delete(int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         try {
             conn = getConnection();
 
@@ -120,21 +117,21 @@ public class NotaJDBC extends conexion.Conexion{
             stmt.setInt(index++, id);
             stmt.setInt(index, LoginControlador.user.getId());
             stmt.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
     public List<Nota> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Nota nota = null;
+        Nota nota;
         List<Nota> notas = new ArrayList<>();
         try {
             conn = getConnection();
@@ -230,35 +227,12 @@ public class NotaJDBC extends conexion.Conexion{
         }
     }
 
-    public int coincidencias(String busqueda) {
-        int i = 0;
-        List<String> lista = new ArrayList<>();
-        List<Nota> notas = select();
-        
-        for (Nota nota : notas) {
-            lista.add(nota.getTema());
-            if(nota.getIdLibro() > 0)
-                lista.add(Integer.toString(nota.getIdLibro()));
-            if(nota.getIdArticulo() > 0)
-                lista.add(Integer.toString(nota.getIdArticulo()));
-            if(nota.getContenido() != null)
-                lista.add(nota.getContenido());
-        }
-        
-        for (String resultado : lista){
-            if(resultado.contains(busqueda))
-                i++;
-        }
-        
-        return i;
-    }
-
     public List<Nota> buscar(String busqueda) {
         
         List<Nota> notas = select();
         List<Nota> objetivos = new ArrayList<>();
-        ArticuloJDBC articuloConn = new ArticuloJDBC();
-        LibroJDBC libroConn = new LibroJDBC();
+        ArticuloConexion articuloConn = new ArticuloConexion();
+        LibroConexion libroConn = new LibroConexion();
         
         
         for (Nota nota : notas) {

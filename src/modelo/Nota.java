@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Comparator;
+
 /**
  *
  * @author migue
@@ -76,5 +78,11 @@ public class Nota {
     public String toString() {
         return "Nota{" + "tema=" + tema + ", contenido=" + contenido + ", id=" + id + ", idArticulo=" + idArticulo + ", idLibro=" + idLibro + ", idUser=" + idUser + '}';
     }
-
+    
+    public static Comparator<Nota> temaComparator = (Nota n1, Nota n2) -> {
+        String titulo1 = n1.getTema().toUpperCase();
+        String titulo2 = n2.getTema().toUpperCase();
+        
+        return titulo1.compareTo(titulo2);
+    };
 }

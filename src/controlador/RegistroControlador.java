@@ -5,7 +5,6 @@
  */
 package controlador;
 
-
 import static controlador.InicioControlador.icon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,42 +14,48 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import modelo.Hash;
 import modelo.Usuario;
-import modelo.UsuariosJDBC;
+import modelo.UsuariosConexion;
+import vista.LoginVista;
 import vista.RegistroVista;
 
 /**
  *
  * @author migue
  */
-public class RegistroControlador implements ActionListener{
-    
-    /** instancia a nuestra interfaz de usuario*/
-    RegistroVista vista ;
-    /** instancia a nuestro modelo */
+public class RegistroControlador implements ActionListener {
+
+    /**
+     * instancia a nuestra interfaz de usuario
+     */
+    RegistroVista vista;
+    /**
+     * instancia a nuestro modelo
+     */
     Usuario newUser = new Usuario();
 
-
-    /** Se declaran en un ENUM las acciones que se realizan desde la
-     * interfaz de usuario VISTA y posterior ejecución desde el controlador
+    /**
+     * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
+     * usuario VISTA y posterior ejecución desde el controlador
      */
-    public enum AccionMVC
-    {
+    public enum AccionMVC {
         __CREAR_USUARIO,
         __VOLVER
     }
 
-    /** Constrcutor de clase
+    /**
+     * Constrcutor de clase
+     *
      * @param vista Instancia de clase interfaz
      */
-    public RegistroControlador( RegistroVista vista )
-    {
+    public RegistroControlador(RegistroVista vista) {
         vista.setVisible(true);
         this.vista = vista;
     }
 
-    /** Inicia el skin y las diferentes variables que se utilizan */
-    public void iniciar()
-    {
+    /**
+     * Inicia el skin y las diferentes variables que se utilizan
+     */
+    public void iniciar() {
         // Skin tipo WINDOWS
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -58,67 +63,68 @@ public class RegistroControlador implements ActionListener{
             this.vista.setIconImage(icon.getImage());
             this.vista.setVisible(true);
             InicioControlador.vista.setEnabled(false);
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {}
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+        }
 
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__CREAR_USUARIO.setActionCommand( "__CREAR_USUARIO" );
+        this.vista.__CREAR_USUARIO.setActionCommand("__CREAR_USUARIO");
         this.vista.__CREAR_USUARIO.addActionListener(this);
         //declara una acción y añade un escucha al evento producido por el componente
-        this.vista.__VOLVER.setActionCommand( "__VOLVER" );
+        this.vista.__VOLVER.setActionCommand("__VOLVER");
         this.vista.__VOLVER.addActionListener(this);
     }
-    
+
     //Control de eventos de los controles que tienen definido un "ActionCommand"
     @Override
     public void actionPerformed(ActionEvent e) {
 
-    switch ( AccionMVC.valueOf( e.getActionCommand() ) )
-        {
+        switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __CREAR_USUARIO:
-                
-        UsuariosJDBC userCon = new UsuariosJDBC();
-        Usuario nuevoUsuario = new Usuario();
 
-        String pass = new String(this.vista.txtPassword.getPassword());
-        String passConfirm = new String(this.vista.txtConfirmPass.getPassword());
+                UsuariosConexion userCon = new UsuariosConexion();
+                Usuario nuevoUsuario = new Usuario();
 
-        if (this.vista.txtUser.getText().isEmpty() || this.vista.txtPassword.getText().isEmpty() || this.vista.txtConfirmPass.getText().isEmpty() || this.vista.txtName.getText().isEmpty() || this.vista.txtMail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
+                String pass = new String(this.vista.txtPassword.getPassword());
+                String passConfirm = new String(this.vista.txtConfirmPass.getPassword());
 
-        } else {
-            if (pass.equals(passConfirm)) {
+                if (this.vista.txtUser.getText().isEmpty() || this.vista.txtPassword.getText().isEmpty() || this.vista.txtConfirmPass.getText().isEmpty() || this.vista.txtName.getText().isEmpty() || this.vista.txtMail.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
 
-                if (userCon.existeUsuario(this.vista.txtUser.getText()) == 0) {
-                    
-                    if (userCon.validarEmail(this.vista.txtMail.getText())) {
-                        String encrypPass = Hash.sha1(pass);
+                } else {
+                    if (pass.equals(passConfirm)) {
 
-                        nuevoUsuario.setUsuario(this.vista.txtUser.getText());
-                        nuevoUsuario.setPassword(encrypPass);
-                        nuevoUsuario.setNombre(this.vista.txtName.getText());
-                        nuevoUsuario.setMail(this.vista.txtMail.getText());
-                        
+                        if (userCon.existeUsuario(this.vista.txtUser.getText()) == 0) {
 
-                        if (userCon.insert(nuevoUsuario)) {
-                            JOptionPane.showMessageDialog(null, "Usuario registrado con exito.");
-                            clean();
+                            if (userCon.validarEmail(this.vista.txtMail.getText())) {
+                                String encrypPass = Hash.sha1(pass);
+
+                                nuevoUsuario.setUsuario(this.vista.txtUser.getText());
+                                nuevoUsuario.setPassword(encrypPass);
+                                nuevoUsuario.setNombre(this.vista.txtName.getText());
+                                nuevoUsuario.setMail(this.vista.txtMail.getText());
+
+                                if (userCon.insert(nuevoUsuario)) {
+                                    JOptionPane.showMessageDialog(null, "Usuario registrado con exito.");
+                                    this.vista.dispose();
+                                    new LoginControlador(new LoginVista()).iniciar();
+                                    clean();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                                    cleanPassword();
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "El correo electronico no es valido.");
+                                cleanPassword();
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
+                            JOptionPane.showMessageDialog(null, "El usuario ya existe.");
                             cleanPassword();
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "El correo electronico no es valido.");
+                        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
                         cleanPassword();
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El usuario ya existe.");
-                    cleanPassword();
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
-                cleanPassword();
-            }
-        }
                 break;
 
             case __VOLVER:
@@ -127,7 +133,8 @@ public class RegistroControlador implements ActionListener{
                 InicioControlador.vista.toFront();
         }
     }
-        private void clean() {
+
+    private void clean() {
 
         this.vista.txtUser.setText("");
         this.vista.txtPassword.setText("");
@@ -136,7 +143,7 @@ public class RegistroControlador implements ActionListener{
         this.vista.txtMail.setText("");
 
     }
-    
+
     private void cleanPassword() {
         this.vista.txtPassword.setText("");
         this.vista.txtConfirmPass.setText("");

@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Comparator;
+
 /**
  *
  * @author migue
@@ -17,7 +19,7 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(String ISBN, String autor, String titulo) {
+    public Libro(String ISBN, String autor, String titulo){
         this.ISBN = ISBN;
         this.autor = autor;
         this.titulo = titulo;
@@ -83,7 +85,11 @@ public class Libro {
     public String toString() {
         return "Libro{" + "ISBN=" + ISBN + ", autor=" + autor + ", titulo=" + titulo + ", editorial=" + editorial + ", anio=" + anio + ", nPaginas=" + nPaginas + ", idUser=" + idUser + '}';
     }
-
     
-
+    public static Comparator<Libro> tituloComparator = (Libro l1, Libro l2) -> {
+        String titulo1 = l1.getTitulo().toUpperCase();
+        String titulo2 = l2.getTitulo().toUpperCase();
+        
+        return titulo1.compareTo(titulo2);
+    };
 }

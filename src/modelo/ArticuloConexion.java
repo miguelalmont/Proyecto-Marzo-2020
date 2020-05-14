@@ -19,7 +19,7 @@ import java.util.Set;
  *
  * @author migue
  */
-public class ArticuloJDBC extends conexion.Conexion{
+public class ArticuloConexion extends conexion.Conexion{
         
     private final String SQL_INSERT
             = "INSERT INTO articulos(ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -31,7 +31,7 @@ public class ArticuloJDBC extends conexion.Conexion{
             = "DELETE FROM articulos WHERE ISSN = ? AND user_artic = ?";
 
     private final String SQL_SELECT
-            = "SELECT ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic FROM articulos WHERE user_artic = ? ORDER BY ISSN";
+            = "SELECT ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic FROM articulos WHERE user_artic = ? ORDER BY titulo";
     
     private final String SQL_SELECT_ID
             = "SELECT id_artic FROM articulos WHERE user_artic = ? AND ISSN = ?";
@@ -40,10 +40,9 @@ public class ArticuloJDBC extends conexion.Conexion{
             = "SELECT ISSN FROM articulos WHERE id_artic = ?";
     
     
-    public int insert(Articulo articulo) {
+    public boolean insert(Articulo articulo) {
         Connection conn = null;
-        PreparedStatement stmt = null;		
-        int rows = 0;
+        PreparedStatement stmt = null;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
@@ -70,26 +69,23 @@ public class ArticuloJDBC extends conexion.Conexion{
                 stmt.setInt(index++, articulo.getPagFin());
             
             stmt.setInt(index, LoginControlador.user.getId());
-            System.out.println("Ejecutando query:" + SQL_INSERT);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);
+            stmt.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
-    public int update(Articulo articulo, String iSSNold) {
+    public boolean update(Articulo articulo, String iSSNold) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
             stmt.setString(index++, articulo.getISSN());
@@ -115,37 +111,35 @@ public class ArticuloJDBC extends conexion.Conexion{
             
             stmt.setInt(index, getId(iSSNold));           
             
-            rows = stmt.executeUpdate();
-            System.out.println("Registros actualizados:" + rows);
+            stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
-    public int delete(String iSSN) {
+    public boolean delete(String iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         try {
             conn = getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
             int index = 1;
             stmt.setString(index++, iSSN);
             stmt.setInt(index, LoginControlador.user.getId());
-            rows = stmt.executeUpdate();
-            System.out.println("Registros eliminados:" + rows);
+            stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             close(stmt);
             close(conn);
         }
-        return rows;
     }
     
     public List<Articulo> select() {
@@ -313,35 +307,6 @@ public class ArticuloJDBC extends conexion.Conexion{
             close(stmt);
             close(conn);
         }
-    }
-    
-    public int coincidencias(String busqueda) {
-        
-        int i = 0;
-        List<String> lista = new ArrayList<>();
-        List<Articulo> articulos = select();
-        
-        for (Articulo articulo : articulos){
-            lista.add(articulo.getISSN());
-            lista.add(articulo.getAutor());
-            lista.add(articulo.getTitulo());
-            lista.add(articulo.getRevista());
-            if(articulo.getAnio() > 0)
-                lista.add(Integer.toString(articulo.getAnio()));
-            if(articulo.getMes() > 0)
-                lista.add(Integer.toString(articulo.getMes()));
-            if(articulo.getPagInicio() > 0)
-                lista.add(Integer.toString(articulo.getPagInicio()));
-            if(articulo.getPagFin() > 0)
-                lista.add(Integer.toString(articulo.getPagFin()));
-        }
-        
-        for(String resultado : lista) {
-            if (resultado.contains(busqueda))
-                i++;
-        }
-        
-        return i;
     }
     
     public List<Articulo> buscar(String busqueda) {

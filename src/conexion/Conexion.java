@@ -5,6 +5,9 @@
  */
 package conexion;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -20,18 +23,20 @@ public class Conexion {
     //Valores de conexion a MySql
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     //El puerto es opcional
-    private static final String BD = "proyecto";
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/"+BD+"?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASS = "toor";
+    private static final String HOST = "malcantara.salesianas.es:3306";
+    private static final String BD = "malcantara_proyecto";
+    private static final String JDBC_URL = "jdbc:mysql://"+HOST+"/"+BD+"?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String JDBC_USER = "malcantara";
+    private static final String JDBC_PASS = "Nervion123!!";
     private static Driver driver = null;
-
+    
     //Para que no haya problemas al obtener la conexion de
     //manera concurrente, se usa la palabra synchronized
-    public static synchronized Connection getConnection()
-            throws SQLException {
+    public static synchronized Connection getConnection() throws SQLException {
+
         if (driver == null) {
             try {
+                
                 //Se registra el driver
                 Class jdbcDriverClass = Class.forName(JDBC_DRIVER);
                 driver = (Driver) jdbcDriverClass.newInstance();
@@ -76,4 +81,5 @@ public class Conexion {
             System.out.println("Fallo en cerrar el driver JDBC");
         }
     }
+    
 }
