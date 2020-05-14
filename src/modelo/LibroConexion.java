@@ -6,6 +6,7 @@
 package modelo;
 
 import controlador.LoginControlador;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ import java.util.Set;
 public class LibroConexion extends conexion.Conexion{
     
     private final String SQL_INSERT
-            = "INSERT INTO libros(ISBN, autor, titulo, editorial, anio, n_paginas, user_libro) VALUES(?,?,?,?,?,?,?)";
+            = "CALL insert_libro(?,?,?,?,?,?,?)";
 
     private final String SQL_UPDATE
             = "UPDATE libros SET ISBN = ?, autor = ?, titulo = ?, editorial = ?, anio = ?, n_paginas = ? WHERE id_libro = ?";
@@ -42,35 +43,35 @@ public class LibroConexion extends conexion.Conexion{
     
     public boolean insert(Libro libro) {
         Connection conn = null;
-        PreparedStatement stmt = null;	
+        CallableStatement calst = null;	
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            calst = conn.prepareCall(SQL_INSERT);
             int index = 1;
-            stmt.setString(index++, libro.getISBN());
-            stmt.setString(index++, libro.getAutor());
-            stmt.setString(index++, libro.getTitulo());
+            calst.setString(index++, libro.getISBN());
+            calst.setString(index++, libro.getAutor());
+            calst.setString(index++, libro.getTitulo());
             if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
-                stmt.setNull(index++, java.sql.Types.VARCHAR);
+                calst.setNull(index++, java.sql.Types.VARCHAR);
             else
-                stmt.setString(index++, libro.getEditorial());
+                calst.setString(index++, libro.getEditorial());
             if(libro.getAnio() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, libro.getAnio());
+                calst.setInt(index++, libro.getAnio());
             if(libro.getnPaginas() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, libro.getnPaginas());
-            stmt.setInt(index, LoginControlador.user.getId());
+                calst.setInt(index++, libro.getnPaginas());
+            calst.setInt(index, LoginControlador.user.getId());
 
-            stmt.executeUpdate();
+            calst.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
-            close(stmt);
+            close(calst);
             close(conn);
         }
     }

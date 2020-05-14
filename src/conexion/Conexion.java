@@ -5,9 +5,7 @@
  */
 package conexion;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -70,7 +68,17 @@ public class Conexion {
             System.out.println("Fallo en cerrar el driver JDBC");
         }
     }
-
+    
+    //Cierre del CallableStatement
+    public static void close(CallableStatement stmt) {
+        try {
+            if (stmt != null) {
+                stmt.close();
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Fallo en cerrar el driver JDBC");
+        }
+    }
     //Cierre de la conexion
     public static void close(Connection conn) {
         try {

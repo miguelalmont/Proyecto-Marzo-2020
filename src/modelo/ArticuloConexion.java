@@ -6,6 +6,7 @@
 package modelo;
 
 import controlador.LoginControlador;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ import java.util.Set;
 public class ArticuloConexion extends conexion.Conexion{
         
     private final String SQL_INSERT
-            = "INSERT INTO articulos(ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic) VALUES(?,?,?,?,?,?,?,?,?)";
+            = "CALL insert_articulo(?,?,?,?,?,?,?,?,?)";
 
     private final String SQL_UPDATE
             = "UPDATE articulos SET ISSN = ?, autor = ?, titulo = ?, revista = ?, anio = ?, mes = ?, pag_ini = ?, pag_fin = ? WHERE id_artic = ?";
@@ -42,41 +43,41 @@ public class ArticuloConexion extends conexion.Conexion{
     
     public boolean insert(Articulo articulo) {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        CallableStatement calst = null;
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            calst = conn.prepareCall(SQL_INSERT);
             int index = 1;
-            stmt.setString(index++, articulo.getISSN());
-            stmt.setString(index++, articulo.getAutor());
-            stmt.setString(index++, articulo.getTitulo());
-            stmt.setString(index++, articulo.getRevista());
+            calst.setString(index++, articulo.getISSN());
+            calst.setString(index++, articulo.getAutor());
+            calst.setString(index++, articulo.getTitulo());
+            calst.setString(index++, articulo.getRevista());
             if(articulo.getAnio() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, articulo.getAnio());
+                calst.setInt(index++, articulo.getAnio());
             if(articulo.getMes() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, articulo.getMes());
+                calst.setInt(index++, articulo.getMes());
             if(articulo.getPagInicio() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, articulo.getPagInicio());
+                calst.setInt(index++, articulo.getPagInicio());
             if(articulo.getPagFin() == 0)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, articulo.getPagFin());
+                calst.setInt(index++, articulo.getPagFin());
             
-            stmt.setInt(index, LoginControlador.user.getId());
-            stmt.executeUpdate();
+            calst.setInt(index, LoginControlador.user.getId());
+            calst.execute();
             return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
-            close(stmt);
+            close(calst);
             close(conn);
         }
     }

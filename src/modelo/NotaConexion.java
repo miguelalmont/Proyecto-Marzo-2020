@@ -6,6 +6,7 @@
 package modelo;
 
 import controlador.LoginControlador;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ import java.util.Set;
  */
 public class NotaConexion extends conexion.Conexion{
     private final String SQL_INSERT
-            = "INSERT INTO notas(tema, contenido, user_nota, id_libro, id_artic) VALUES(?,?,?,?,?)";
+            = "CALL isert_nota(?,?,?,?,?)";
 
     private final String SQL_UPDATE
             = "UPDATE notas SET tema = ?, contenido = ?, id_libro = ?, id_artic = ? WHERE id_nota = ?";
@@ -37,35 +38,35 @@ public class NotaConexion extends conexion.Conexion{
     
     public boolean insert(Nota nota) {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        CallableStatement calst = null;
         
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            calst = conn.prepareCall(SQL_INSERT);
             int index = 1;
-            stmt.setString(index++, nota.getTema());
+            calst.setString(index++, nota.getTema());
             if(nota.getContenido() == null)
-                stmt.setNull(index++, java.sql.Types.VARCHAR);
+                calst.setNull(index++, java.sql.Types.VARCHAR);
             else
-                stmt.setString(index++, nota.getContenido());
-            stmt.setInt(index++, LoginControlador.user.getId());
+                calst.setString(index++, nota.getContenido());
+            calst.setInt(index++, LoginControlador.user.getId());
             if (nota.getIdLibro() < 1)
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                calst.setNull(index++, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index++, nota.getIdLibro());
+                calst.setInt(index++, nota.getIdLibro());
             if (nota.getIdArticulo() < 1)
-                stmt.setNull(index, java.sql.Types.INTEGER);
+                calst.setNull(index, java.sql.Types.INTEGER);
             else
-                stmt.setInt(index, nota.getIdArticulo());
+                calst.setInt(index, nota.getIdArticulo());
 
-            stmt.executeUpdate();
+            calst.executeUpdate();
             return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
-            close(stmt);
+            close(calst);
             close(conn);
         }
     }

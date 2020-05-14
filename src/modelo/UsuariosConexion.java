@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class UsuariosConexion extends conexion.Conexion{
     private final String SQL_INSERT
-            = "INSERT INTO usuarios(usuario, password, nombre, correo) VALUES(?,?,?,?)";
+            = "CALL insert_usuario(?,?,?,?)";
 
     private final String SQL_UPDATE
             = "UPDATE usuarios SET usuario = ?, password = ?, nombre = ?, correo = ? WHERE id = ?";
@@ -33,22 +34,22 @@ public class UsuariosConexion extends conexion.Conexion{
     
     public boolean insert(Usuario user) {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        CallableStatement calst = null;
         try {
             conn = getConnection();
-            stmt = conn.prepareStatement(SQL_INSERT);
+            calst = conn.prepareCall(SQL_INSERT);
             int index = 1;//contador de columnas
-            stmt.setString(index++, user.getUsuario());
-            stmt.setString(index++, user.getPassword());
-            stmt.setString(index++, user.getNombre());
-            stmt.setString(index, user.getMail());
-            stmt.executeUpdate();
+            calst.setString(index++, user.getUsuario());
+            calst.setString(index++, user.getPassword());
+            calst.setString(index++, user.getNombre());
+            calst.setString(index, user.getMail());
+            calst.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         } finally {
-            close(stmt);
+            close(calst);
             close(conn);
         }
     }
