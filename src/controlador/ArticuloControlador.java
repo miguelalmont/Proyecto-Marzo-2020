@@ -41,6 +41,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
     public JPanel panel;
     public HomeVista vista;
     public static NuevaNotaControlador nuevaNota;
+    public static int issn = 0;
     /**
      * instancia a nuestro modelo
      */
@@ -122,18 +123,22 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
         //añade e inicia el jtable
         this.vista.__tabla_articulos.addMouseListener(this);
-        this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+        this.definirTabla();
+        this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
 
         this.vista.issnCheckBox.addActionListener((ActionEvent event) -> {
             JCheckBox cb = (JCheckBox) event.getSource();
             if (cb.isSelected()) {
-                HomeVista.issnArticuloBox.setEnabled(true);
+                HomeVista.issn1ArticuloBox.setEnabled(true);
+                HomeVista.issn2ArticuloBox.setEnabled(true);
             } else {
-                HomeVista.issnArticuloBox.setEnabled(false);
+                HomeVista.issn1ArticuloBox.setEnabled(false);
+                HomeVista.issn2ArticuloBox.setEnabled(false);
             }
         });
 
         this.vista.issnCheckBox.setSelected(true);
+        
     }
 
     //Eventos que suceden por el mouse
@@ -143,7 +148,10 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         {
             int fila = this.vista.__tabla_articulos.rowAtPoint(e.getPoint());
             if (fila > -1) {
-                HomeVista.issnArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0)));
+                
+                
+                HomeVista.issn1ArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0).toString().substring(0, 4)));
+                HomeVista.issn2ArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0).toString().substring(4)));
                 this.vista.tituloArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 1)));
                 this.vista.autorArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 2)));
                 this.vista.revistaArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 3)));
@@ -152,11 +160,14 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 this.vista.pagIniArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 5)));
                 this.vista.pagFinArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 5)));
                 if (this.vista.issnCheckBox.isSelected()) {
-                    HomeVista.issnArticuloBox.setEnabled(false);
+                    HomeVista.issn1ArticuloBox.setEnabled(false);
+                    HomeVista.issn2ArticuloBox.setEnabled(false);
                     this.vista.issnCheckBox.setSelected(false);
                 }
             }
-
+//ERROR AL PARSEAR
+            String cadena = HomeVista.issn1ArticuloBox.getText() + HomeVista.issn2ArticuloBox.getText();
+            issn = Integer.parseInt(cadena);
         }
     }
 
@@ -183,19 +194,21 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __NUEVO_ARTICULO:
 
-                if (HomeVista.issnArticuloBox.getText().isEmpty()
+                if (HomeVista.issn1ArticuloBox.getText().isEmpty()
+                        || HomeVista.issn2ArticuloBox.getText().isEmpty()
                         || this.vista.tituloArticuloBox.getText().isEmpty()
                         || this.vista.autorArticuloBox.getText().isEmpty()
                         || this.vista.revistaArticuloBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
-
-                    if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) == 0) {
+                    String cadena = HomeVista.issn1ArticuloBox.getText() + HomeVista.issn2ArticuloBox.getText();
+                    issn = Integer.parseInt(cadena);
+                    if (articuloConn.existeISSN(this.issn) == 0) {
                         ISSNValidator issnValidator = new ISSNValidator();
-                        if(issnValidator.isValid(HomeVista.issnArticuloBox.getText())) {
+                        if(issnValidator.isValid(HomeVista.issn1ArticuloBox.getText())) {
                             Articulo articulo = new Articulo();
 
-                            articulo.setISSN(HomeVista.issnArticuloBox.getText());
+                            articulo.setISSN(this.issn);
                             articulo.setTitulo(this.vista.tituloArticuloBox.getText());
                             articulo.setAutor(this.vista.autorArticuloBox.getText());
                             articulo.setRevista(this.vista.revistaArticuloBox.getText());
@@ -222,7 +235,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
                             if (articuloConn.insert(articulo)) {
                                 JOptionPane.showMessageDialog(null, "Articulo introducido con exito.");
-                                this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                                this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
                                 this.clean();
                             } else {
                                 JOptionPane.showMessageDialog(null, "Ha habido un error.");
@@ -236,17 +249,17 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 }
                 break;
             case __MODIFICAR_ARTICULO:
-                if (HomeVista.issnArticuloBox.getText().isEmpty()
+                if (HomeVista.issn1ArticuloBox.getText().isEmpty()
                         || this.vista.tituloArticuloBox.getText().isEmpty()
                         || this.vista.autorArticuloBox.getText().isEmpty()
                         || this.vista.revistaArticuloBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
-                    if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) > 0) {
+                    if (articuloConn.existeISSN(this.issn) > 0) {
 
                         Articulo articulo = new Articulo();
 
-                        articulo.setISSN(HomeVista.issnArticuloBox.getText());
+                        articulo.setISSN(this.issn);
                         articulo.setTitulo(this.vista.tituloArticuloBox.getText());
                         articulo.setAutor(this.vista.autorArticuloBox.getText());
                         articulo.setRevista(this.vista.revistaArticuloBox.getText());
@@ -279,9 +292,9 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                             articulo.setPagFin(pagFin);
                         }
 
-                        if (articuloConn.update(articulo, HomeVista.issnArticuloBox.getText())) {
+                        if (articuloConn.update(articulo, this.issn)) {
                             JOptionPane.showMessageDialog(null, "Articulo modificado con exito.");
-                            this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                            this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Ha habido un error.");
                         }
@@ -293,19 +306,19 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __ELIMINAR_ARTICULO:
 
-                if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) > 0) {
-                    if (articuloConn.delete(HomeVista.issnArticuloBox.getText())) {
+                if (articuloConn.existeISSN(this.issn) > 0) {
+                    if (articuloConn.delete(this.issn)) {
                         JOptionPane.showMessageDialog(null, "Articulo eliminado con exito.");
                     } else {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
-                    this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                    this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
                 } else {
                     JOptionPane.showMessageDialog(null, "El ISSN introducido no esta registrado.");
                 }
                 break;
             case __ANIADIR_NOTA_ARTICULO:
-                if (articuloConn.existeISSN(HomeVista.issnArticuloBox.getText()) > 0) {
+                if (articuloConn.existeISSN(this.issn) > 0) {
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
                     nuevaNota.fromArticulo = true;
                     nuevaNota.iniciar();
@@ -321,7 +334,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 if (this.vista.busquedaArticuloBox.getText().isEmpty()) {
                 } else {
                     if (!articuloConn.buscar(this.vista.busquedaArticuloBox.getText()).isEmpty()) {
-                        this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.buscar(this.vista.busquedaArticuloBox.getText())));
+                        this.vista.__tabla_articulos.setModel(setTabla(articuloConn.buscar(this.vista.busquedaArticuloBox.getText())));
                     } else {
                         JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
                     }
@@ -348,7 +361,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
-                        this.vista.__tabla_articulos.setModel(crearTabla(io.lecturaArticulo(fichero.getAbsolutePath())));
+                        this.vista.__tabla_articulos.setModel(setTabla(io.lecturaArticulo(fichero.getAbsolutePath())));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
                     }
@@ -358,7 +371,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __ACTUALIZAR_TABLA_ARTICULOS:
 
-                this.vista.__tabla_articulos.setModel(crearTabla(articuloConn.select()));
+                this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
 
                 break;
             case __VOLVER_ARTICULO:
@@ -381,9 +394,10 @@ public class ArticuloControlador implements ActionListener, MouseListener {
     }
 
     public void clean() {
-        HomeVista.issnArticuloBox.setText("");
+        HomeVista.issn1ArticuloBox.setText("");
         if (!this.vista.issnCheckBox.isSelected()) {
-            HomeVista.issnArticuloBox.setEnabled(true);
+            HomeVista.issn1ArticuloBox.setEnabled(true);
+            HomeVista.issn2ArticuloBox.setEnabled(true);
             this.vista.issnCheckBox.setSelected(true);
         }
         this.vista.tituloArticuloBox.setText("");
@@ -394,11 +408,8 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         this.vista.pagIniArticuloFormatedBox.setText("");
         this.vista.pagFinArticuloFormatedBox.setText("");
     }
-
-    public DefaultTableModel crearTabla(List<Articulo> lista) {
-
-        Collections.sort(lista, Articulo.tituloComparator);
-
+    
+    public void definirTabla() {
         this.vista.__tabla_articulos.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -422,7 +433,12 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
-        });
+        });  
+    }
+    
+    public DefaultTableModel setTabla(List<Articulo> lista) {
+
+        Collections.sort(lista, Articulo.tituloComparator);
 
         TableColumnModel tcm = this.vista.__tabla_articulos.getColumnModel();
 
@@ -478,7 +494,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         for (int fila = 0; fila < this.vista.__tabla_articulos.getRowCount(); fila++) {
             Articulo articulo = new Articulo();
 
-            articulo.setISSN(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0)));
+            articulo.setISSN((int) this.vista.__tabla_articulos.getValueAt(fila, 0));
             articulo.setTitulo(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 1)));
             articulo.setAutor(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 2)));
             articulo.setRevista(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 3)));

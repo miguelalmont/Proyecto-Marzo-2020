@@ -113,7 +113,8 @@ public class NotaControlador implements ActionListener, MouseListener {
         this.vista.__ACTUALIZAR_TABLA_NOTAS.addActionListener(this);
 
         this.vista.__tabla_notas.addMouseListener(this);
-        this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+        this.definirTabla();
+        this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
         
         this.vista.idNotaBox.setVisible(false);
     }
@@ -177,17 +178,17 @@ public class NotaControlador implements ActionListener, MouseListener {
                     if (this.vista.issnNotaBox.getText().isEmpty()) {
                         nota.setIdArticulo(0);
                     } else {
-                        nota.setIdArticulo(articuloConn.getId(this.vista.issnNotaBox.getText()));
+                        nota.setIdArticulo(articuloConn.getId(ArticuloControlador.issn));
                     }
                     if (this.vista.isbnNotaBox.getText().isEmpty()) {
                         nota.setIdArticulo(0);
                     } else {
-                        nota.setIdLibro(libroConn.getId(this.vista.isbnNotaBox.getText()));
+                        nota.setIdLibro(libroConn.getId(LibroControlador.isbn));
                     }
 
                     if (notaConn.update(nota)) {
                         JOptionPane.showMessageDialog(null, "Nota modificada con exito.");
-                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                        this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
                     } else {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
@@ -202,7 +203,7 @@ public class NotaControlador implements ActionListener, MouseListener {
 
                     if (notaConn.delete(Integer.parseInt(this.vista.idNotaBox.getText()))) {
                         JOptionPane.showMessageDialog(null, "Nota eliminada con exito.");
-                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                        this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
                     } else {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
@@ -236,7 +237,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
-                        this.vista.__tabla_notas.setModel(crearTabla(io.lecturaNota(fichero.getAbsolutePath())));
+                        this.vista.__tabla_notas.setModel(setTabla(io.lecturaNota(fichero.getAbsolutePath())));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
                     }
@@ -247,7 +248,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                 if (this.vista.busquedaNotaBox.getText().isEmpty()) {
                 } else {
                     if (!notaConn.buscar(this.vista.busquedaNotaBox.getText()).isEmpty()) {
-                        this.vista.__tabla_notas.setModel(crearTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
+                        this.vista.__tabla_notas.setModel(setTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
                     } else {
                         JOptionPane.showMessageDialog(null, "Busquedas sin resultados.");
                     }
@@ -255,7 +256,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                 break;
             case __ACTUALIZAR_TABLA_NOTAS:
 
-                this.vista.__tabla_notas.setModel(crearTabla(notaConn.select()));
+                this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
 
                 break;
             case __VOLVER_NOTA:
@@ -283,11 +284,8 @@ public class NotaControlador implements ActionListener, MouseListener {
         this.vista.temaNotaBox.setText("");
         this.vista.contenidoNotaArea.setText("");
     }
-
-    public DefaultTableModel crearTabla(List<Nota> lista) {
-
-        Collections.sort(lista, Nota.temaComparator);
-
+    
+    public void definirTabla() {
         this.vista.__tabla_notas.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -312,7 +310,12 @@ public class NotaControlador implements ActionListener, MouseListener {
             }
 
         });
+    }
+    
+    public DefaultTableModel setTabla(List<Nota> lista) {
 
+        Collections.sort(lista, Nota.temaComparator);
+        
         TableColumnModel tcm = this.vista.__tabla_notas.getColumnModel();
 
         DefaultTableModel modelo = (DefaultTableModel) this.vista.__tabla_notas.getModel();
@@ -376,13 +379,13 @@ public class NotaControlador implements ActionListener, MouseListener {
             if (this.vista.__tabla_notas.getModel().getValueAt(fila, 2).equals("-")) {
                 note.setIdLibro(0);
             } else {
-                note.setIdLibro(libroConn.getId(this.vista.__tabla_notas.getModel().getValueAt(fila, 2).toString()));
+                note.setIdLibro(libroConn.getId(LibroControlador.isbn));
             }
 
             if (this.vista.__tabla_notas.getModel().getValueAt(fila, 3).equals("-")) {
                 note.setIdArticulo(0);
             } else {
-                note.setIdArticulo(articuloConn.getId(this.vista.__tabla_notas.getModel().getValueAt(fila, 3).toString()));
+                note.setIdArticulo(articuloConn.getId(ArticuloControlador.issn));
             }
 
             note.setContenido(String.valueOf(this.vista.__tabla_notas.getModel().getValueAt(fila, 4)));

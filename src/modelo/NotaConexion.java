@@ -240,10 +240,10 @@ public class NotaConexion extends conexion.Conexion{
             if(nota.getTema().contains(busqueda))
                 objetivos.add(nota);
             if(nota.getIdLibro() > 0)
-                if(libroConn.getISBN(nota.getIdLibro()).contains(busqueda))
+                if(Long.toString(libroConn.getISBN(nota.getIdLibro())).contains(busqueda))
                     objetivos.add(nota);
             if(nota.getIdArticulo() > 0)
-                if(articuloConn.getISSN(nota.getIdArticulo()).contains(busqueda))
+                if(Integer.toString(articuloConn.getISSN(nota.getIdArticulo())).contains(busqueda))
                     objetivos.add(nota);
             if(nota.getContenido() != null)
                 if(nota.getContenido().contains(busqueda))

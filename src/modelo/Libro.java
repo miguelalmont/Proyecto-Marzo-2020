@@ -13,23 +13,24 @@ import java.util.Comparator;
  */
 public class Libro {
     
-    private String ISBN, autor, titulo, editorial;
+    private long ISBN;
+    private String autor, titulo, editorial;
     private int anio, nPaginas, idUser;
 
     public Libro() {
     }
 
-    public Libro(String ISBN, String autor, String titulo){
+    public Libro(long ISBN, String autor, String titulo){
         this.ISBN = ISBN;
         this.autor = autor;
         this.titulo = titulo;
     }
 
-    public String getISBN() {
+    public long getISBN() {
         return ISBN;
     }
 
-    public void setISBN(String ISBN) {
+    public void setISBN(long ISBN) {
         this.ISBN = ISBN;
     }
 

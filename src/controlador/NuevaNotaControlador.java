@@ -18,7 +18,6 @@ import modelo.Libro;
 import modelo.LibroConexion;
 import modelo.Nota;
 import modelo.NotaConexion;
-import vista.HomeVista;
 import vista.NuevaNotaVista;
 
 /**
@@ -105,7 +104,7 @@ public class NuevaNotaControlador implements ActionListener {
                         else   
                             nota.setContenido(this.vista.contenidoArea.getText());
                         
-                        nota.setIdLibro(libroConn.getId(HomeVista.isbnLibroBox.getText()));
+                        nota.setIdLibro(libroConn.getId(LibroControlador.isbn));
                         nota.setIdArticulo(0);
 
                         if (notaConn.insert(nota)) {
@@ -125,7 +124,7 @@ public class NuevaNotaControlador implements ActionListener {
                             nota.setContenido(this.vista.contenidoArea.getText());
                         
                         nota.setIdLibro(0);
-                        nota.setIdArticulo(articuloConn.getId(HomeVista.issnArticuloBox.getText()));
+                        nota.setIdArticulo(articuloConn.getId(ArticuloControlador.issn));
 
                         if(notaConn.insert(nota)){
                             JOptionPane.showMessageDialog(null, "Nota introducida con exito.");

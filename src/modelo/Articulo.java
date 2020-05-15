@@ -13,24 +13,25 @@ import java.util.Comparator;
  */
 public class Articulo {
     
-    private String ISSN, autor, titulo, revista;
+    private int ISSN;
+    private String autor, titulo, revista;
     private int anio, mes, pagInicio, pagFin, idUser;
 
     public Articulo() {
     }
 
-    public Articulo(String ISSN, String autor, String titulo, String revista) {
+    public Articulo(int ISSN, String autor, String titulo, String revista) {
         this.ISSN = ISSN;
         this.autor = autor;
         this.titulo = titulo;
         this.revista = revista;
     }
     
-    public String getISSN() {
+    public int getISSN() {
         return ISSN;
     }
 
-    public void setISSN(String ISSN) {
+    public void setISSN(int ISSN) {
         this.ISSN = ISSN;
     }
 

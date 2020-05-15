@@ -48,7 +48,7 @@ public class ArticuloConexion extends conexion.Conexion{
             conn = getConnection();
             calst = conn.prepareCall(SQL_INSERT);
             int index = 1;
-            calst.setString(index++, articulo.getISSN());
+            calst.setInt(index++, articulo.getISSN());
             calst.setString(index++, articulo.getAutor());
             calst.setString(index++, articulo.getTitulo());
             calst.setString(index++, articulo.getRevista());
@@ -82,14 +82,14 @@ public class ArticuloConexion extends conexion.Conexion{
         }
     }
     
-    public boolean update(Articulo articulo, String iSSNold) {
+    public boolean update(Articulo articulo, int iSSNold) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
-            stmt.setString(index++, articulo.getISSN());
+            stmt.setInt(index++, articulo.getISSN());
             stmt.setString(index++, articulo.getAutor());
             stmt.setString(index++, articulo.getTitulo());
             stmt.setString(index++, articulo.getRevista());
@@ -123,14 +123,14 @@ public class ArticuloConexion extends conexion.Conexion{
         }
     }
     
-    public boolean delete(String iSSN) {
+    public boolean delete(int iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
             int index = 1;
-            stmt.setString(index++, iSSN);
+            stmt.setInt(index++, iSSN);
             stmt.setInt(index, LoginControlador.user.getId());
             stmt.executeUpdate();
             return true;
@@ -155,7 +155,7 @@ public class ArticuloConexion extends conexion.Conexion{
             stmt.setInt(1, LoginControlador.user.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String iSSN = rs.getString(1);
+                int iSSN = rs.getInt(1);
                 String autor = rs.getString(2);
                 String titulo = rs.getString(3);
                 String revista = rs.getString(4);
@@ -189,7 +189,7 @@ public class ArticuloConexion extends conexion.Conexion{
         return articulos;
     }
     
-    public int existeISSN(String iSSN) {
+    public int existeISSN(int iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -200,7 +200,7 @@ public class ArticuloConexion extends conexion.Conexion{
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
             int index = 1;
-            stmt.setString(index++, iSSN);
+            stmt.setInt(index++, iSSN);
             stmt.setInt(index, LoginControlador.user.getId());
             rs = stmt.executeQuery();
             
@@ -248,7 +248,7 @@ public class ArticuloConexion extends conexion.Conexion{
         }
     }
     
-    public int getId(String iSSN){
+    public int getId(int iSSN){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -260,7 +260,7 @@ public class ArticuloConexion extends conexion.Conexion{
             stmt = conn.prepareStatement(sql);
             int index = 1;
             stmt.setInt(index++, LoginControlador.user.getId());
-            stmt.setString(index, iSSN);
+            stmt.setInt(index, iSSN);
             rs = stmt.executeQuery();
             
             if(rs.next()) {
@@ -280,7 +280,7 @@ public class ArticuloConexion extends conexion.Conexion{
         }
     }
     
-    public String getISSN(int id_artic){
+    public int getISSN(int id_artic){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -294,15 +294,15 @@ public class ArticuloConexion extends conexion.Conexion{
             rs = stmt.executeQuery();
             
             if(rs.next()) {
-                return rs.getString(1);
+                return rs.getInt(1);
             }
             else {
-                return null;
+                return -1;
             }
         }
         catch (SQLException e){
             e.printStackTrace();
-            return null;
+            return -1;
         } finally {
             close(rs);
             close(stmt);
@@ -316,7 +316,7 @@ public class ArticuloConexion extends conexion.Conexion{
         List<Articulo> objetivos = new ArrayList<>();
         
         for (Articulo articulo : articulos) {
-            if(articulo.getISSN().contains(busqueda))
+            if(Integer.toString(articulo.getISSN()).contains(busqueda))
                 objetivos.add(articulo);
             if(articulo.getTitulo().contains(busqueda))
                 objetivos.add(articulo);

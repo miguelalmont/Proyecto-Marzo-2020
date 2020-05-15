@@ -48,7 +48,7 @@ public class LibroConexion extends conexion.Conexion{
             conn = getConnection();
             calst = conn.prepareCall(SQL_INSERT);
             int index = 1;
-            calst.setString(index++, libro.getISBN());
+            calst.setLong(index++, libro.getISBN());
             calst.setString(index++, libro.getAutor());
             calst.setString(index++, libro.getTitulo());
             if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
@@ -76,14 +76,14 @@ public class LibroConexion extends conexion.Conexion{
         }
     }
     
-    public boolean update(Libro libro, String iSBNold) {
+    public boolean update(Libro libro, long iSBNold) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
             int index = 1;
-            stmt.setString(index++, libro.getISBN());
+            stmt.setLong(index++, libro.getISBN());
             stmt.setString(index++, libro.getAutor());
             stmt.setString(index++, libro.getTitulo());
             if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
@@ -112,7 +112,7 @@ public class LibroConexion extends conexion.Conexion{
         }
     }
     
-    public boolean delete(String iSBN) {
+    public boolean delete(long iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -144,7 +144,7 @@ public class LibroConexion extends conexion.Conexion{
             stmt.setInt(1, LoginControlador.user.getId());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String iSBN = rs.getString(1);
+                long iSBN = rs.getLong(1);
                 String autor = rs.getString(2);
                 String titulo = rs.getString(3);
                 String editorial = rs.getString(4);
@@ -175,7 +175,7 @@ public class LibroConexion extends conexion.Conexion{
         return libros;
     }
     
-    public int existeISBN(String iSBN) {
+    public int existeISBN(long iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -186,7 +186,7 @@ public class LibroConexion extends conexion.Conexion{
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
             int index = 1;
-            stmt.setString(index++, iSBN);
+            stmt.setLong(index++, iSBN);
             stmt.setInt(index, LoginControlador.user.getId());
             rs = stmt.executeQuery();
             
@@ -234,7 +234,7 @@ public class LibroConexion extends conexion.Conexion{
         }
     }
     
-    public int getId(String iSBN){
+    public int getId(long iSBN){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -246,7 +246,7 @@ public class LibroConexion extends conexion.Conexion{
             stmt = conn.prepareStatement(sql);
             int index = 1;
             stmt.setInt(index++, LoginControlador.user.getId());
-            stmt.setString(index, iSBN);
+            stmt.setLong(index, iSBN);
             rs = stmt.executeQuery();
             
             if(rs.next()) {
@@ -266,7 +266,7 @@ public class LibroConexion extends conexion.Conexion{
         }
     }
     
-    public String getISBN(int id_libro){
+    public long getISBN(int id_libro){
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -280,15 +280,15 @@ public class LibroConexion extends conexion.Conexion{
             rs = stmt.executeQuery();
             
             if(rs.next()) {
-                return rs.getString(1);
+                return rs.getLong(1);
             }
             else {
-                return null;
+                return -1;
             }
         }
         catch (SQLException e){
             e.printStackTrace();
-            return null;
+            return -1;
         } finally {
             close(rs);
             close(stmt);
@@ -302,7 +302,7 @@ public class LibroConexion extends conexion.Conexion{
         List<Libro> objetivos = new ArrayList<>();
         
         for (Libro libro : libros) {
-            if(libro.getISBN().contains(busqueda))
+            if(Long.toString(libro.getISBN()).contains(busqueda))
                 objetivos.add(libro);
             if(libro.getTitulo().contains(busqueda))
                 objetivos.add(libro);
