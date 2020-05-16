@@ -250,7 +250,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                 break;
             case __BUSCAR_NOTA:
 
-                //Si la caja de buscar registro esta vacia muestra no hace nada
+                //Si la caja de buscar registro esta vacia no hace nada
                 if (this.vista.busquedaNotaBox.getText().isEmpty()) {
                 } else {
 

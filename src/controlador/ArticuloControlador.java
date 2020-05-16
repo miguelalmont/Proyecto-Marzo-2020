@@ -330,7 +330,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __BUSCAR_ARTICULO:
 
-                //Si la caja de buscar registro esta vacia muestra no hace nada
+                //Si la caja de buscar registro esta vacia no hace nada
                 if (this.vista.busquedaArticuloBox.getText().isEmpty()) {
                 } else {
 

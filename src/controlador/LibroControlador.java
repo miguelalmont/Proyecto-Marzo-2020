@@ -309,7 +309,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __BUSCAR_LIBRO:
-                //Si la caja de buscar registro esta vacia muestra no hace nada
+                //Si la caja de buscar registro esta vacia no hace nada
                 if (this.vista.busquedaLibroBox.getText().isEmpty()) {
                 } else {
                     if (!libroConn.buscar(this.vista.busquedaLibroBox.getText()).isEmpty()) {
