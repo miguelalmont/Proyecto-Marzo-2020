@@ -10,6 +10,7 @@ import org.junit.Test;
 
 /**
 * HelperTest.java
+* 
 * @author Miguel Alcantara
 * @version 1.0
 * @since 01/05/2020
