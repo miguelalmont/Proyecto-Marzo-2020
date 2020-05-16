@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.awt.event.ActionEvent;
@@ -27,32 +22,25 @@ import modelo.Libro;
 import modelo.LibroConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
-import org.apache.commons.validator.routines.ISBNValidator;
+
 /**
+ * LibroControlador.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class LibroControlador implements ActionListener, MouseListener {
 
-    /**
-     * instancia a nuestra interfaz de usuario
-     */
+    //Declaración de objetos y variables necesarios
     public JPanel panel;
     public HomeVista vista;
+    public static NuevaNotaControlador nuevaNota;
     public static long isbn = 0;
 
-    public static NuevaNotaControlador nuevaNota;
-    /**
-     * instancia a nuestro modelo
-     */
     LibroConexion libroConn = new LibroConexion();
     IOdatos io = new IOdatos();
-    public static FileChooserControlador fcc = null;
 
-    /**
-     * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
-     * usuario VISTA y posterior ejecución desde el controlador
-     */
     public enum AccionMVC {
         __NUEVO_LIBRO,
         __MODIFICAR_LIBRO,
@@ -67,9 +55,10 @@ public class LibroControlador implements ActionListener, MouseListener {
     }
 
     /**
-     * Constrcutor de clase
+     * Constructor de la clase LibroControlador
      *
      * @param panel Instancia de clase interfaz
+     *
      */
     public LibroControlador(JPanel panel) {
         this.vista = HomeControlador.vista;
@@ -91,16 +80,16 @@ public class LibroControlador implements ActionListener, MouseListener {
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__NUEVO_LIBRO.setActionCommand("__NUEVO_LIBRO");
         this.vista.__NUEVO_LIBRO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__MODIFICAR_LIBRO.setActionCommand("__MODIFICAR_LIBRO");
         this.vista.__MODIFICAR_LIBRO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__ELIMINAR_LIBRO.setActionCommand("__ELIMINAR_LIBRO");
         this.vista.__ELIMINAR_LIBRO.addActionListener(this);
 
         this.vista.__ANIADIR_NOTA_LIBRO.setActionCommand("__ANIADIR_NOTA_LIBRO");
         this.vista.__ANIADIR_NOTA_LIBRO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__LIMPIAR_LIBRO.setActionCommand("__LIMPIAR_LIBRO");
         this.vista.__LIMPIAR_LIBRO.addActionListener(this);
 
@@ -119,11 +108,12 @@ public class LibroControlador implements ActionListener, MouseListener {
         this.vista.__ACTUALIZAR_TABLA_LIBROS.setActionCommand("__ACTUALIZAR_TABLA_LIBROS");
         this.vista.__ACTUALIZAR_TABLA_LIBROS.addActionListener(this);
 
-        //añade e inicia el jtable
+        //Añade, define e inicia el jtable
         this.vista.__tabla_libros.addMouseListener(this);
         this.definirTabla();
         this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
 
+        //Define el comportacmiento del checkBox
         this.vista.isbnCheckBox.addActionListener((ActionEvent event) -> {
             JCheckBox cb = (JCheckBox) event.getSource();
             if (cb.isSelected()) {
@@ -135,18 +125,18 @@ public class LibroControlador implements ActionListener, MouseListener {
             }
         });
         this.vista.isbnCheckBox.setSelected(true);
-        
+
     }
 
     //Eventos que suceden por el mouse
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == 1)//boton izquierdo
-        {   
-            
+        {
+
             int fila = this.vista.__tabla_libros.rowAtPoint(e.getPoint());
             if (fila > -1) {
-                
+
                 HomeVista.isbn1LibroBox.setText(String.valueOf(this.vista.__tabla_libros.getValueAt(fila, 0).toString().substring(0, 3)));
                 HomeVista.isbn2LibroBox.setText(String.valueOf(this.vista.__tabla_libros.getValueAt(fila, 0).toString().substring(3)));
                 this.vista.tituloLibroBox.setText(String.valueOf(this.vista.__tabla_libros.getValueAt(fila, 1)));
@@ -161,23 +151,28 @@ public class LibroControlador implements ActionListener, MouseListener {
                 }
             }
 
-        String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-        this.isbn = Long.parseLong(cadena);
+            //Añade a la variable isbn el contenido de las cajas unidas
+            String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
+            this.isbn = Long.parseLong(cadena);
         }
     }
 
+    //No se usa
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseExited(MouseEvent e) {
     }
@@ -189,46 +184,44 @@ public class LibroControlador implements ActionListener, MouseListener {
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __NUEVO_LIBRO:
 
+                //Si algun campo obligatorio esta vacio salta un mensaje
                 if (HomeVista.isbn1LibroBox.getText().isEmpty()
                         || HomeVista.isbn1LibroBox.getText().isEmpty()
                         || this.vista.tituloLibroBox.getText().isEmpty()
                         || this.vista.autorLibroBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISBN, Titulo y Atutor no pueden estar vacios.");
                 } else {
+
+                    //Añade a la variable isbn el contenido de las cajas unidas
                     String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
                     this.isbn = Long.parseLong(cadena);
-                    
+
+                    //Si el issn no existe crea un objeto articulo con los parametros de las cajas
                     if (libroConn.existeISBN(this.isbn) == 0) {
-                        ISBNValidator isbnValidator = new ISBNValidator();
-                        
-                        if(isbnValidator.isValid(Long.toString(this.isbn))){
-                            Libro libro = new Libro();
+                        Libro libro = new Libro();
 
-                            libro.setISBN(this.isbn);
-                            libro.setTitulo(this.vista.tituloLibroBox.getText());
-                            libro.setAutor(this.vista.autorLibroBox.getText());
-                            libro.setEditorial(this.vista.editorialLibroBox.getText());
-                            if (this.vista.anioLibroFormatedBox.getText().isEmpty()) {
-                                libro.setAnio(0);
-                            } else {
-                                libro.setAnio(Integer.parseInt(this.vista.anioLibroFormatedBox.getText()));
-                            }
-                            if (this.vista.nPaginasLibroFormatedBox.getText().isEmpty()) {
-                                libro.setnPaginas(0);
-                            } else {
-                                libro.setnPaginas(Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText()));
-                            }
-
-                            if (libroConn.insert(libro)) {
-                                JOptionPane.showMessageDialog(null, "Libro introducido con exito.");
-                                this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
-                                this.clean();
-                            }
-                            else {
-                                JOptionPane.showMessageDialog(null, "Ha habido un error.");
-                            }
+                        libro.setISBN(this.isbn);
+                        libro.setTitulo(this.vista.tituloLibroBox.getText());
+                        libro.setAutor(this.vista.autorLibroBox.getText());
+                        libro.setEditorial(this.vista.editorialLibroBox.getText());
+                        if (this.vista.anioLibroFormatedBox.getText().isEmpty()) {
+                            libro.setAnio(0);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Introduce un ISBN valido.");
+                            libro.setAnio(Integer.parseInt(this.vista.anioLibroFormatedBox.getText()));
+                        }
+                        if (this.vista.nPaginasLibroFormatedBox.getText().isEmpty()) {
+                            libro.setnPaginas(0);
+                        } else {
+                            libro.setnPaginas(Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText()));
+                        }
+
+                        //Si el metodo insert retorna true muestra un mensaje de exito
+                        if (libroConn.insert(libro)) {
+                            JOptionPane.showMessageDialog(null, "Libro introducido con exito.");
+                            this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
+                            this.clean();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISBN ya existe.");
@@ -237,7 +230,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __MODIFICAR_LIBRO:
-                
+
                 if (HomeVista.isbn1LibroBox.getText().isEmpty()
                         || HomeVista.isbn2LibroBox.getText().isEmpty()
                         || this.vista.tituloLibroBox.getText().isEmpty()
@@ -245,7 +238,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                     JOptionPane.showMessageDialog(null, "Los campos ISBN, Titulo y Atutor no pueden estar vacios.");
                 } else {
                     if (libroConn.existeISBN(this.isbn) > 0) {
-                        
+
                         Libro libro = new Libro();
 
                         libro.setISBN(this.isbn);
@@ -264,14 +257,14 @@ public class LibroControlador implements ActionListener, MouseListener {
                             int pags = Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText());
                             libro.setnPaginas(pags);
                         }
-                        if(libroConn.update(libro, this.isbn)) {
+                        if (libroConn.update(libro, this.isbn)) {
                             JOptionPane.showMessageDialog(null, "Libro modificado con exito.");
                             this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
                         } else {
                             JOptionPane.showMessageDialog(null, "Ha habido un error.");
                         }
                         clean();
-                        
+
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISBN introducido no esta registrado.");
                     }
@@ -279,16 +272,15 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __ELIMINAR_LIBRO:
-                
+                //Si el isbn existe borra el registro, en otro caso muestra un mensaje de error
                 String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
                 this.isbn = Long.parseLong(cadena);
-                
+
                 if (libroConn.existeISBN(this.isbn) > 0) {
-                    if(libroConn.delete(this.isbn)) {
+                    if (libroConn.delete(this.isbn)) {
                         JOptionPane.showMessageDialog(null, "Libro eliminado con exito.");
                         this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
-                    }
-                    else {
+                    } else {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
                     }
                 } else {
@@ -297,10 +289,11 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __ANIADIR_NOTA_LIBRO:
-                
+
+                //Si el isbn existe llama a la ventana Nueva Nota
                 cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
                 this.isbn = Long.parseLong(cadena);
-                
+
                 if (libroConn.existeISBN(this.isbn) > 0) {
 
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
@@ -316,7 +309,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __BUSCAR_LIBRO:
-
+                //Si la caja de buscar registro esta vacia muestra no hace nada
                 if (this.vista.busquedaLibroBox.getText().isEmpty()) {
                 } else {
                     if (!libroConn.buscar(this.vista.busquedaLibroBox.getText()).isEmpty()) {
@@ -330,9 +323,11 @@ public class LibroControlador implements ActionListener, MouseListener {
                 this.clean();
                 break;
             case __GUARDAR_TABLA_LIBRO:
-
+                //Intancia un objeto JFileChooser
                 JFileChooser fileChooser = new JFileChooser();
                 int seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en ese fichero
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -347,6 +342,8 @@ public class LibroControlador implements ActionListener, MouseListener {
 
                 fileChooser = new JFileChooser();
                 seleccion = fileChooser.showOpenDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, carga el contenido del fichero en la tabla
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -360,11 +357,13 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
             case __ACTUALIZAR_TABLA_LIBROS:
 
+                //Refresca el contenido de la tabla con todos los registros en la base de datos
                 this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
 
                 break;
             case __VOLVER_LIBRO:
 
+                //Muestra mensaje de confirmación, si es positivo, cierra la sesion y vuelve a la pantalla de login
                 int option = JOptionPane.showConfirmDialog(null,
                         "¿Estás seguro de que quieres cerrar la sesion?",
                         "Cierre de sesion",
@@ -383,8 +382,14 @@ public class LibroControlador implements ActionListener, MouseListener {
 
     }
 
+    /**
+     * Pone en blanco todas las cajas de texto
+     */
     public void clean() {
         HomeVista.isbn1LibroBox.setText("");
+        HomeVista.isbn2LibroBox.setText("");
+
+        //Si el chechBox no esta marcado, lo marca y habilita las cajas de isbn
         if (!this.vista.isbnCheckBox.isSelected()) {
             HomeVista.isbn1LibroBox.setEnabled(true);
             HomeVista.isbn2LibroBox.setEnabled(true);
@@ -396,46 +401,54 @@ public class LibroControlador implements ActionListener, MouseListener {
         this.vista.anioLibroFormatedBox.setText("");
         this.vista.nPaginasLibroFormatedBox.setText("");
     }
-    
+
+    /**
+     * Define la tabla de libros
+     */
     public void definirTabla() {
-                this.vista.__tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
+        this.vista.__tabla_libros.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags", "Usuario"
                 }
         ) {
+            //Define la clase de cada columna
             Class[] types = new Class[]{
                 java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false
-            };
-
+            //Niega la edicion de las columnas
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
         });
     }
-    
+
+    /**
+     * Introduce los atributos de una coleccion de libros en la tabla
+     *
+     * @param lista Entra por parametro un List de objetos Libro
+     * @return Retorna el modelo de la tabla con contenido
+     */
     public DefaultTableModel setTabla(List<Libro> lista) {
 
+        //Ordena la lista por nombre
         Collections.sort(lista, Libro.tituloComparator);
 
+        //Instancia un objeto para modificar columnas
         TableColumnModel tcm = this.vista.__tabla_libros.getColumnModel();
 
+        //Instancia el modelo
         DefaultTableModel modelo = (DefaultTableModel) this.vista.__tabla_libros.getModel();
 
         String[] columNames = {"ISBN", "Titulo", "Autor", "Editorial", "Año", "Nº Pags", "Usuario"};
 
+        //Instancia una matriz (numero de objetos)*(numero de columnas)
         Object[][] fila = new Object[lista.size()][7];
         int i = 0;
 
+        //Recorre la lista e introduce el contenido en la matriz
         for (Libro libro : lista) {
             fila[i][0] = libro.getISBN();
             fila[i][1] = libro.getTitulo();
@@ -460,13 +473,20 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         }
 
+        //Inserta el contenido de la matriz en el modelo
         modelo.setDataVector(fila, columNames);
 
+        //Oculta una columna
         tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
 
         return modelo;
     }
 
+    /**
+     * Devuelve el contenido de la tabla en forma de coleccion
+     *
+     * @return Retorna un ArrayList de Libro
+     */
     public List<Libro> getContenidoTabla() {
 
         List<Libro> lista = new ArrayList<>();

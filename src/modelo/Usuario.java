@@ -1,20 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 /**
+ * Usuario.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class Usuario {
 
     private int id;
     private String usuario, password, nombre, mail, lastSession;
 
+    /**
+     * Constructor vacio
+     */
     public Usuario() {
+    }
+
+    /**
+     * Constructor por parametros
+     *
+     * @param id
+     * @param usuario
+     * @param password
+     * @param nombre
+     * @param mail
+     * @param lastSession
+     */
+    public Usuario(int id, String usuario, String password, String nombre, String mail, String lastSession) {
+        this.id = id;
+        this.usuario = usuario;
+        this.password = password;
+        this.nombre = nombre;
+        this.mail = mail;
+        this.lastSession = lastSession;
     }
 
     public int getId() {
@@ -69,5 +89,5 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "id=" + id + ", usuario=" + usuario + ", password=" + password + ", nombre=" + nombre + ", mail=" + mail + ", lastSession=" + lastSession + '}';
     }
-    
+
 }

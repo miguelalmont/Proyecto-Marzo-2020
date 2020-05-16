@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import controlador.LoginControlador;
@@ -17,11 +12,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * LibroConexion.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
-public class LibroConexion extends conexion.Conexion{
-    
+public class LibroConexion extends conexion.Conexion {
+
     private final String SQL_INSERT
             = "CALL insert_libro(?,?,?,?,?,?,?)";
 
@@ -33,17 +31,22 @@ public class LibroConexion extends conexion.Conexion{
 
     private final String SQL_SELECT
             = "SELECT ISBN, autor, titulo, editorial, anio, n_paginas, user_libro FROM libros WHERE user_libro = ? ORDER BY titulo";
-    
+
     private final String SQL_SELECT_ID
             = "SELECT id_libro FROM libros WHERE user_libro = ? AND ISBN = ?";
-    
+
     private final String SQL_SELECT_ISBN
             = "SELECT ISBN FROM libros WHERE id_libro = ?";
-    
-    
+
+    /**
+     * Inserta un objeto en la base de datos
+     *
+     * @param libro
+     * @return
+     */
     public boolean insert(Libro libro) {
         Connection conn = null;
-        CallableStatement calst = null;	
+        CallableStatement calst = null;
         try {
             conn = getConnection();
             calst = conn.prepareCall(SQL_INSERT);
@@ -51,18 +54,21 @@ public class LibroConexion extends conexion.Conexion{
             calst.setLong(index++, libro.getISBN());
             calst.setString(index++, libro.getAutor());
             calst.setString(index++, libro.getTitulo());
-            if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
+            if (libro.getEditorial().isEmpty() || libro.getEditorial() == null) {
                 calst.setNull(index++, java.sql.Types.VARCHAR);
-            else
+            } else {
                 calst.setString(index++, libro.getEditorial());
-            if(libro.getAnio() == 0)
+            }
+            if (libro.getAnio() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, libro.getAnio());
-            if(libro.getnPaginas() == 0)
+            }
+            if (libro.getnPaginas() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, libro.getnPaginas());
+            }
             calst.setInt(index, LoginControlador.user.getId());
 
             calst.execute();
@@ -75,7 +81,14 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Modifica un objeto de la base de datos
+     *
+     * @param libro
+     * @param iSBNold
+     * @return
+     */
     public boolean update(Libro libro, long iSBNold) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -86,21 +99,24 @@ public class LibroConexion extends conexion.Conexion{
             stmt.setLong(index++, libro.getISBN());
             stmt.setString(index++, libro.getAutor());
             stmt.setString(index++, libro.getTitulo());
-            if(libro.getEditorial().isEmpty() || libro.getEditorial() == null)
+            if (libro.getEditorial().isEmpty() || libro.getEditorial() == null) {
                 stmt.setNull(index++, java.sql.Types.VARCHAR);
-            else
+            } else {
                 stmt.setString(index++, libro.getEditorial());
-            if(libro.getAnio() == 0)
+            }
+            if (libro.getAnio() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else 
+            } else {
                 stmt.setInt(index++, libro.getAnio());
-            if(libro.getnPaginas() == 0)
+            }
+            if (libro.getnPaginas() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else 
+            } else {
                 stmt.setInt(index++, libro.getnPaginas());
-            
-            stmt.setInt(index, getId(iSBNold));           
-            
+            }
+
+            stmt.setInt(index, getId(iSBNold));
+
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -111,7 +127,13 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Elimina un objeto de la base de datos
+     *
+     * @param iSBN
+     * @return
+     */
     public boolean delete(long iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -120,7 +142,7 @@ public class LibroConexion extends conexion.Conexion{
             stmt = conn.prepareStatement(SQL_DELETE);
             int index = 1;
             stmt.setInt(index, getId(iSBN));
-            
+
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -131,7 +153,12 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Crea una coleccion de todos los registros de la base de datos
+     *
+     * @return
+     */
     public List<Libro> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -151,7 +178,7 @@ public class LibroConexion extends conexion.Conexion{
                 int anio = rs.getInt(5);
                 int nPaginas = rs.getInt(6);
                 int idUser = rs.getInt(7);
-                
+
                 libro = new Libro();
                 libro.setISBN(iSBN);
                 libro.setAutor(autor);
@@ -160,9 +187,9 @@ public class LibroConexion extends conexion.Conexion{
                 libro.setAnio(anio);
                 libro.setnPaginas(nPaginas);
                 libro.setIdUser(idUser);
-                
+
                 libros.add(libro);
-                
+
             }
 
         } catch (SQLException e) {
@@ -174,14 +201,20 @@ public class LibroConexion extends conexion.Conexion{
         }
         return libros;
     }
-    
+
+    /**
+     * Comprueba si una ISBN esta en la base de datos
+     *
+     * @param iSBN
+     * @return
+     */
     public int existeISBN(long iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = "SELECT count(ISBN) FROM libros WHERE ISBN = ? AND user_libro = ?";
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -189,15 +222,13 @@ public class LibroConexion extends conexion.Conexion{
             stmt.setLong(index++, iSBN);
             stmt.setInt(index, LoginControlador.user.getId());
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getInt(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -206,15 +237,20 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Cuenta el numero de entradas de un usuario en la base de datos
+     *
+     * @return
+     */
     public int cuentaLibros() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int registros;
-        
+
         String sql = "SELECT count(*) AS total FROM libros WHERE user_libro = ?";
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -223,8 +259,7 @@ public class LibroConexion extends conexion.Conexion{
             rs.next();
             registros = rs.getInt("total");
             return registros;
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         } finally {
@@ -233,14 +268,20 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
-    public int getId(long iSBN){
+
+    /**
+     * Devuelve la id de un registro
+     *
+     * @param iSBN
+     * @return
+     */
+    public int getId(long iSBN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = SQL_SELECT_ID;
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -248,15 +289,13 @@ public class LibroConexion extends conexion.Conexion{
             stmt.setInt(index++, LoginControlador.user.getId());
             stmt.setLong(index, iSBN);
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getInt(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -265,28 +304,32 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
-    public long getISBN(int id_libro){
+
+    /**
+     * Devuelve el ISBN de un registro
+     *
+     * @param id_libro
+     * @return
+     */
+    public long getISBN(int id_libro) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = SQL_SELECT_ISBN;
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id_libro);
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getLong(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -295,35 +338,51 @@ public class LibroConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Busca una cadena dentro de todos los campos de cada registro y devuelve
+     * una lista de las coincidendias
+     *
+     * @param busqueda
+     * @return
+     */
     public List<Libro> buscar(String busqueda) {
-        
+
         List<Libro> libros = select();
         List<Libro> objetivos = new ArrayList<>();
-        
+
         for (Libro libro : libros) {
-            if(Long.toString(libro.getISBN()).contains(busqueda))
+            if (Long.toString(libro.getISBN()).contains(busqueda)) {
                 objetivos.add(libro);
-            if(libro.getTitulo().contains(busqueda))
+            }
+            if (libro.getTitulo().contains(busqueda)) {
                 objetivos.add(libro);
-            if(libro.getAutor().contains(busqueda))
+            }
+            if (libro.getAutor().contains(busqueda)) {
                 objetivos.add(libro);
-            if(libro.getEditorial() != null) 
-                if(libro.getEditorial().contains(busqueda))
+            }
+            if (libro.getEditorial() != null) {
+                if (libro.getEditorial().contains(busqueda)) {
                     objetivos.add(libro);
-            if(libro.getAnio() > 0)
-                if(Integer.toString(libro.getAnio()).contains(busqueda))
-                objetivos.add(libro);
-            if(libro.getnPaginas() > 0) 
-                if(Integer.toString(libro.getnPaginas()).contains(busqueda))
+                }
+            }
+            if (libro.getAnio() > 0) {
+                if (Integer.toString(libro.getAnio()).contains(busqueda)) {
                     objetivos.add(libro);
+                }
+            }
+            if (libro.getnPaginas() > 0) {
+                if (Integer.toString(libro.getnPaginas()).contains(busqueda)) {
+                    objetivos.add(libro);
+                }
+            }
         }
-        
+
         Set<Libro> hashSet = new HashSet<>(objetivos);
         objetivos.clear();
         objetivos.addAll(hashSet);
-        
+
         return objetivos;
     }
-    
+
 }

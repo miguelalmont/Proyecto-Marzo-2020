@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.awt.event.ActionEvent;
@@ -29,31 +24,25 @@ import modelo.NotaConexion;
 import vista.HomeVista;
 
 /**
+ * NotaControlador.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class NotaControlador implements ActionListener, MouseListener {
 
-    /**
-     * instancia a nuestra interfaz de usuario
-     */
+    //Declaración de objetos necesarios
     public JPanel panel;
     public HomeVista vista;
     public static NuevaNotaControlador nuevaNota;
 
-    Nota nota = new Nota();
-    IOdatos io = new IOdatos();
-    /**
-     * instancia a nuestro modelo
-     */
     NotaConexion notaConn = new NotaConexion();
     LibroConexion libroConn = new LibroConexion();
     ArticuloConexion articuloConn = new ArticuloConexion();
+    Nota nota = new Nota();
+    IOdatos io = new IOdatos();
 
-    /**
-     * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
-     * usuario VISTA y posterior ejecución desde el controlador
-     */
     public enum AccionMVC {
         __MODIFICAR_NOTA,
         __ELIMINAR_NOTA,
@@ -66,9 +55,10 @@ public class NotaControlador implements ActionListener, MouseListener {
     }
 
     /**
-     * Constrcutor de clase
+     * Constructor de la clase NotaControlador
      *
      * @param panel Instancia de clase interfaz
+     *
      */
     public NotaControlador(JPanel panel) {
         this.vista = HomeControlador.vista;
@@ -90,19 +80,19 @@ public class NotaControlador implements ActionListener, MouseListener {
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__MODIFICAR_NOTA.setActionCommand("__MODIFICAR_NOTA");
         this.vista.__MODIFICAR_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__ELIMINAR_NOTA.setActionCommand("__ELIMINAR_NOTA");
         this.vista.__ELIMINAR_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__LIMPIAR_NOTA.setActionCommand("__LIMPIAR_NOTA");
         this.vista.__LIMPIAR_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__GUARDAR_TABLA_NOTA.setActionCommand("__GUARDAR_TABLA_NOTA");
         this.vista.__GUARDAR_TABLA_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__CARGAR_TABLA_NOTA.setActionCommand("__CARGAR_TABLA_NOTA");
         this.vista.__CARGAR_TABLA_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__BUSCAR_NOTA.setActionCommand("__BUSCAR_NOTA");
         this.vista.__BUSCAR_NOTA.addActionListener(this);
 
@@ -112,10 +102,12 @@ public class NotaControlador implements ActionListener, MouseListener {
         this.vista.__ACTUALIZAR_TABLA_NOTAS.setActionCommand("__ACTUALIZAR_TABLA_NOTAS");
         this.vista.__ACTUALIZAR_TABLA_NOTAS.addActionListener(this);
 
+        //Añade, define e inicia el jtable
         this.vista.__tabla_notas.addMouseListener(this);
         this.definirTabla();
         this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
-        
+
+        //Hace invisible la caja idNota
         this.vista.idNotaBox.setVisible(false);
     }
 
@@ -141,18 +133,22 @@ public class NotaControlador implements ActionListener, MouseListener {
         }
     }
 
+    //No se usa
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseExited(MouseEvent e) {
     }
@@ -165,6 +161,7 @@ public class NotaControlador implements ActionListener, MouseListener {
 
             case __MODIFICAR_NOTA:
 
+                //Si la nota existe crea un objeto para modificarla
                 if (notaConn.existeIdNota(Integer.parseInt(this.vista.idNotaBox.getText())) > 0) {
 
                     nota.setId(Integer.parseInt(this.vista.idNotaBox.getText()));
@@ -186,6 +183,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                         nota.setIdLibro(libroConn.getId(LibroControlador.isbn));
                     }
 
+                    //Si el metodo update retorna true muestra un mensaje de exito
                     if (notaConn.update(nota)) {
                         JOptionPane.showMessageDialog(null, "Nota modificada con exito.");
                         this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
@@ -199,6 +197,7 @@ public class NotaControlador implements ActionListener, MouseListener {
                 break;
             case __ELIMINAR_NOTA:
 
+                //Si el id de la nota existe, borra ese registro, en otro caso muestra error
                 if (notaConn.existeIdNota(Integer.parseInt(this.vista.idNotaBox.getText())) > 0) {
 
                     if (notaConn.delete(Integer.parseInt(this.vista.idNotaBox.getText()))) {
@@ -219,8 +218,11 @@ public class NotaControlador implements ActionListener, MouseListener {
                 break;
             case __GUARDAR_TABLA_NOTA:
 
+                //Intancia un objeto JFileChooser
                 JFileChooser fileChooser = new JFileChooser();
                 int seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en ese fichero
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -234,6 +236,8 @@ public class NotaControlador implements ActionListener, MouseListener {
 
                 fileChooser = new JFileChooser();
                 seleccion = fileChooser.showOpenDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, carga el contenido del fichero en la tabla
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -245,8 +249,12 @@ public class NotaControlador implements ActionListener, MouseListener {
                 }
                 break;
             case __BUSCAR_NOTA:
+
+                //Si la caja de buscar registro esta vacia muestra no hace nada
                 if (this.vista.busquedaNotaBox.getText().isEmpty()) {
                 } else {
+
+                    //Si la busqueda retorna contenido, refresca la tabla con ese contenido
                     if (!notaConn.buscar(this.vista.busquedaNotaBox.getText()).isEmpty()) {
                         this.vista.__tabla_notas.setModel(setTabla(notaConn.buscar(this.vista.busquedaNotaBox.getText())));
                     } else {
@@ -256,11 +264,13 @@ public class NotaControlador implements ActionListener, MouseListener {
                 break;
             case __ACTUALIZAR_TABLA_NOTAS:
 
+                //Refresca el contenido de la tabla con todos los registros en la base de datos
                 this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
 
                 break;
             case __VOLVER_NOTA:
 
+                //Muestra mensaje de confirmación, si es positivo, cierra la sesion y vuelve a la pantalla de login
                 int option = JOptionPane.showConfirmDialog(null,
                         "¿Estás seguro de que quieres cerrar la sesion?",
                         "Cierre de sesion",
@@ -276,6 +286,9 @@ public class NotaControlador implements ActionListener, MouseListener {
         }
     }
 
+    /**
+     * Pone en blanco todas las cajas de texto
+     */
     private void clean() {
 
         this.vista.idNotaBox.setText("");
@@ -284,7 +297,10 @@ public class NotaControlador implements ActionListener, MouseListener {
         this.vista.temaNotaBox.setText("");
         this.vista.contenidoNotaArea.setText("");
     }
-    
+
+    /**
+     * Define la tabla de notas
+     */
     public void definirTabla() {
         this.vista.__tabla_notas.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -292,39 +308,44 @@ public class NotaControlador implements ActionListener, MouseListener {
                     "ID", "Tema", "Libro", "Articulo", "Contenido", "Usuario"
                 }
         ) {
+            //Define la clase de cada columna
             Class[] types = new Class[]{
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false
-            };
 
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
+            //Niega la edicion de las columnas
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
 
         });
     }
-    
+
+    /**
+     * Introduce los atributos de una coleccion de notas en la tabla
+     *
+     * @param lista Entra por parametro un List de objetos Nota
+     * @return Retorna el modelo de la tabla con contenido
+     */
     public DefaultTableModel setTabla(List<Nota> lista) {
 
+        //Ordena la lista por nombre
         Collections.sort(lista, Nota.temaComparator);
-        
+
+        //Instancia un objeto para modificar columnas
         TableColumnModel tcm = this.vista.__tabla_notas.getColumnModel();
 
+        //Instancia el modelo
         DefaultTableModel modelo = (DefaultTableModel) this.vista.__tabla_notas.getModel();
 
         String[] columNames = {"ID", "Tema", "ISBN", "ISSN", "Contenido", "Usuario"};
 
+        //Instancia una matriz (numero de objetos)*(numero de columnas)
         Object[][] fila = new Object[lista.size()][6];
         int i = 0;
 
+        //Recorre la lista e introduce el contenido en la matriz
         for (Nota note : lista) {
             fila[i][0] = note.getId();
             fila[i][1] = note.getTema();
@@ -352,20 +373,22 @@ public class NotaControlador implements ActionListener, MouseListener {
             i++;
         }
 
+        //Inserta el contenido de la matriz en el modelo
         modelo.setDataVector(fila, columNames);
 
-        try {
-
-            tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("ID")));
-            tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Contenido")));
-            tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
-
-        } catch (Exception e) {
-        }
+        //Oculta varias columnas
+        tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("ID")));
+        tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Contenido")));
+        tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
 
         return modelo;
     }
 
+    /**
+     * Devuelve el contenido de la tabla en forma de coleccion
+     *
+     * @return Retorna un ArrayList de Nota
+     */
     public List<Nota> getContenidoTabla() {
 
         List<Nota> lista = new ArrayList<>();
@@ -397,4 +420,5 @@ public class NotaControlador implements ActionListener, MouseListener {
 
         return lista;
     }
+
 }

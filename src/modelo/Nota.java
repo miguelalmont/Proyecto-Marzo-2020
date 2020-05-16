@@ -1,22 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.util.Comparator;
 
 /**
+ * Nota.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class Nota {
-    
+
     private String tema, contenido;
     private int id, idArticulo, idLibro, idUser;
 
+    /**
+     * Constructor vacio
+     */
     public Nota() {
+    }
+
+    /**
+     * Contructor por parametros
+     *
+     * @param tema
+     * @param contenido
+     * @param id
+     * @param idArticulo
+     * @param idLibro
+     * @param idUser
+     */
+    public Nota(String tema, String contenido, int id, int idArticulo, int idLibro, int idUser) {
+        this.tema = tema;
+        this.contenido = contenido;
+        this.id = id;
+        this.idArticulo = idArticulo;
+        this.idLibro = idLibro;
+        this.idUser = idUser;
     }
 
     public int getId() {
@@ -41,13 +61,6 @@ public class Nota {
 
     public void setIdLibro(int idLibro) {
         this.idLibro = idLibro;
-    }
-
-    
-
-    public Nota(String tema, String contenido) {
-        this.tema = tema;
-        this.contenido = contenido;
     }
 
     public String getTema() {
@@ -78,11 +91,14 @@ public class Nota {
     public String toString() {
         return "Nota{" + "tema=" + tema + ", contenido=" + contenido + ", id=" + id + ", idArticulo=" + idArticulo + ", idLibro=" + idLibro + ", idUser=" + idUser + '}';
     }
-    
+
+    /**
+     * Metodo que compara los temas de una nota
+     */
     public static Comparator<Nota> temaComparator = (Nota n1, Nota n2) -> {
         String titulo1 = n1.getTema().toUpperCase();
         String titulo2 = n2.getTema().toUpperCase();
-        
+
         return titulo1.compareTo(titulo2);
     };
 }

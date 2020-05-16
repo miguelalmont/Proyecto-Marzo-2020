@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import controlador.LoginControlador;
@@ -17,11 +12,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * ArticuloConexion.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
-public class ArticuloConexion extends conexion.Conexion{
-        
+public class ArticuloConexion extends conexion.Conexion {
+
     private final String SQL_INSERT
             = "CALL insert_articulo(?,?,?,?,?,?,?,?,?)";
 
@@ -33,14 +31,19 @@ public class ArticuloConexion extends conexion.Conexion{
 
     private final String SQL_SELECT
             = "SELECT ISSN, autor, titulo, revista, anio, mes, pag_ini, pag_fin, user_artic FROM articulos WHERE user_artic = ? ORDER BY titulo";
-    
+
     private final String SQL_SELECT_ID
             = "SELECT id_artic FROM articulos WHERE user_artic = ? AND ISSN = ?";
-    
+
     private final String SQL_SELECT_ISSN
             = "SELECT ISSN FROM articulos WHERE id_artic = ?";
-    
-    
+
+    /**
+     * Inserta un objeto en la base de datos
+     *
+     * @param articulo
+     * @return
+     */
     public boolean insert(Articulo articulo) {
         Connection conn = null;
         CallableStatement calst = null;
@@ -52,23 +55,27 @@ public class ArticuloConexion extends conexion.Conexion{
             calst.setString(index++, articulo.getAutor());
             calst.setString(index++, articulo.getTitulo());
             calst.setString(index++, articulo.getRevista());
-            if(articulo.getAnio() == 0)
+            if (articulo.getAnio() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, articulo.getAnio());
-            if(articulo.getMes() == 0)
+            }
+            if (articulo.getMes() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, articulo.getMes());
-            if(articulo.getPagInicio() == 0)
+            }
+            if (articulo.getPagInicio() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, articulo.getPagInicio());
-            if(articulo.getPagFin() == 0)
+            }
+            if (articulo.getPagFin() == 0) {
                 calst.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 calst.setInt(index++, articulo.getPagFin());
-            
+            }
+
             calst.setInt(index, LoginControlador.user.getId());
             calst.execute();
             return true;
@@ -81,7 +88,14 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Modifica un objeto de la base de datos
+     *
+     * @param articulo
+     * @param iSSNold
+     * @return
+     */
     public boolean update(Articulo articulo, int iSSNold) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -93,25 +107,29 @@ public class ArticuloConexion extends conexion.Conexion{
             stmt.setString(index++, articulo.getAutor());
             stmt.setString(index++, articulo.getTitulo());
             stmt.setString(index++, articulo.getRevista());
-            if(articulo.getAnio() == 0)
+            if (articulo.getAnio() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 stmt.setInt(index++, articulo.getAnio());
-            if(articulo.getMes() == 0)
+            }
+            if (articulo.getMes() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 stmt.setInt(index++, articulo.getMes());
-            if(articulo.getPagInicio() == 0)
+            }
+            if (articulo.getPagInicio() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 stmt.setInt(index++, articulo.getPagInicio());
-            if(articulo.getPagFin() == 0)
+            }
+            if (articulo.getPagFin() == 0) {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
-            else
+            } else {
                 stmt.setInt(index++, articulo.getPagFin());
-            
-            stmt.setInt(index, getId(iSSNold));           
-            
+            }
+
+            stmt.setInt(index, getId(iSSNold));
+
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -122,7 +140,13 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Elimina un objeto de la base de datos
+     *
+     * @param iSSN
+     * @return
+     */
     public boolean delete(int iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -142,7 +166,12 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Crea una coleccion de todos los registros de la base de datos
+     *
+     * @return
+     */
     public List<Articulo> select() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -164,7 +193,7 @@ public class ArticuloConexion extends conexion.Conexion{
                 int pagIni = rs.getInt(7);
                 int pagFin = rs.getInt(8);
                 int idUser = rs.getInt(9);
-                
+
                 articulo = new Articulo();
                 articulo.setISSN(iSSN);
                 articulo.setAutor(autor);
@@ -175,7 +204,7 @@ public class ArticuloConexion extends conexion.Conexion{
                 articulo.setPagInicio(pagIni);
                 articulo.setPagFin(pagFin);
                 articulo.setIdUser(idUser);
-                
+
                 articulos.add(articulo);
             }
 
@@ -188,14 +217,20 @@ public class ArticuloConexion extends conexion.Conexion{
         }
         return articulos;
     }
-    
+
+    /**
+     * Comprueba si una ISSN esta en la base de datos
+     *
+     * @param iSSN
+     * @return
+     */
     public int existeISSN(int iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = "SELECT count(ISSN) FROM articulos WHERE ISSN = ? AND user_artic = ?";
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -203,15 +238,13 @@ public class ArticuloConexion extends conexion.Conexion{
             stmt.setInt(index++, iSSN);
             stmt.setInt(index, LoginControlador.user.getId());
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getInt(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -220,15 +253,20 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Cuenta el numero de entradas de un usuario en la base de datos
+     *
+     * @return
+     */
     public int cuentaArticulos() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int registros;
-        
+
         String sql = "SELECT count(*) AS total FROM articulos WHERE user_artic = ?";
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -237,8 +275,7 @@ public class ArticuloConexion extends conexion.Conexion{
             rs.next();
             registros = rs.getInt("total");
             return registros;
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         } finally {
@@ -247,14 +284,20 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
-    public int getId(int iSSN){
+
+    /**
+     * Devuelve la id de un registro
+     *
+     * @param iSSN
+     * @return
+     */
+    public int getId(int iSSN) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = SQL_SELECT_ID;
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
@@ -262,15 +305,13 @@ public class ArticuloConexion extends conexion.Conexion{
             stmt.setInt(index++, LoginControlador.user.getId());
             stmt.setInt(index, iSSN);
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getInt(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -279,28 +320,32 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
-    public int getISSN(int id_artic){
+
+    /**
+     * Devuelve el ISSN de un registro
+     *
+     * @param id_artic
+     * @return
+     */
+    public int getISSN(int id_artic) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
+
         String sql = SQL_SELECT_ISSN;
-        
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id_artic);
             rs = stmt.executeQuery();
-            
-            if(rs.next()) {
+
+            if (rs.next()) {
                 return rs.getInt(1);
-            }
-            else {
+            } else {
                 return -1;
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         } finally {
@@ -309,39 +354,58 @@ public class ArticuloConexion extends conexion.Conexion{
             close(conn);
         }
     }
-    
+
+    /**
+     * Busca una cadena dentro de todos los campos de cada registro y devuelve
+     * una lista de las coincidendias
+     *
+     * @param busqueda
+     * @return
+     */
     public List<Articulo> buscar(String busqueda) {
-        
+
         List<Articulo> articulos = select();
         List<Articulo> objetivos = new ArrayList<>();
-        
+
         for (Articulo articulo : articulos) {
-            if(Integer.toString(articulo.getISSN()).contains(busqueda))
+            if (Integer.toString(articulo.getISSN()).contains(busqueda)) {
                 objetivos.add(articulo);
-            if(articulo.getTitulo().contains(busqueda))
+            }
+            if (articulo.getTitulo().contains(busqueda)) {
                 objetivos.add(articulo);
-            if(articulo.getAutor().contains(busqueda))
+            }
+            if (articulo.getAutor().contains(busqueda)) {
                 objetivos.add(articulo);
-            if(articulo.getRevista().contains(busqueda))
+            }
+            if (articulo.getRevista().contains(busqueda)) {
                 objetivos.add(articulo);
-            if(articulo.getAnio() > 0) 
-                if(Integer.toString(articulo.getAnio()).contains(busqueda))
+            }
+            if (articulo.getAnio() > 0) {
+                if (Integer.toString(articulo.getAnio()).contains(busqueda)) {
                     objetivos.add(articulo);
-            if(articulo.getMes() > 0)
-                if(Integer.toString(articulo.getMes()).contains(busqueda)) 
+                }
+            }
+            if (articulo.getMes() > 0) {
+                if (Integer.toString(articulo.getMes()).contains(busqueda)) {
                     objetivos.add(articulo);
-            if(articulo.getPagInicio() > 0)
-                if(Integer.toString(articulo.getPagInicio()).contains(busqueda))
+                }
+            }
+            if (articulo.getPagInicio() > 0) {
+                if (Integer.toString(articulo.getPagInicio()).contains(busqueda)) {
                     objetivos.add(articulo);
-            if(articulo.getPagFin() > 0)
-                if(Integer.toString(articulo.getPagFin()).contains(busqueda))
+                }
+            }
+            if (articulo.getPagFin() > 0) {
+                if (Integer.toString(articulo.getPagFin()).contains(busqueda)) {
                     objetivos.add(articulo);
+                }
+            }
         }
-        
+
         Set<Articulo> hashSet = new HashSet<>(objetivos);
         objetivos.clear();
         objetivos.addAll(hashSet);
-        
+
         return objetivos;
     }
 }

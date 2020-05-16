@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.awt.event.ActionEvent;
@@ -27,32 +22,25 @@ import modelo.Articulo;
 import modelo.ArticuloConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
-import org.apache.commons.validator.routines.ISSNValidator;
 
 /**
+ * ArticuloControlador.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class ArticuloControlador implements ActionListener, MouseListener {
 
-    /**
-     * instancia a nuestra interfaz de usuario
-     */
+    //Declaración de objetos y variables necesarios
     public JPanel panel;
     public HomeVista vista;
     public static NuevaNotaControlador nuevaNota;
     public static int issn = 0;
-    /**
-     * instancia a nuestro modelo
-     */
+
     ArticuloConexion articuloConn = new ArticuloConexion();
     IOdatos io = new IOdatos();
-    public static FileChooserControlador fcc = null;
 
-    /**
-     * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
-     * usuario VISTA y posterior ejecución desde el controlador
-     */
     public enum AccionMVC {
         __NUEVO_ARTICULO,
         __MODIFICAR_ARTICULO,
@@ -68,7 +56,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
     }
 
     /**
-     * Constrcutor de clase
+     * Constructor de la clase ArticuloControlador
      *
      * @param panel Instancia de clase interfaz
      *
@@ -93,16 +81,16 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__NUEVO_ARTICULO.setActionCommand("__NUEVO_ARTICULO");
         this.vista.__NUEVO_ARTICULO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__MODIFICAR_ARTICULO.setActionCommand("__MODIFICAR_ARTICULO");
         this.vista.__MODIFICAR_ARTICULO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__ELIMINAR_ARTICULO.setActionCommand("__ELIMINAR_ARTICULO");
         this.vista.__ELIMINAR_ARTICULO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__ANIADIR_NOTA_ARTICULO.setActionCommand("__ANIADIR_NOTA_ARTICULO");
         this.vista.__ANIADIR_NOTA_ARTICULO.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__LIMPIAR_ARTICULO.setActionCommand("__LIMPIAR_ARTICULO");
         this.vista.__LIMPIAR_ARTICULO.addActionListener(this);
 
@@ -121,11 +109,12 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         this.vista.__ACTUALIZAR_TABLA_ARTICULOS.setActionCommand("__ACTUALIZAR_TABLA_ARTICULOS");
         this.vista.__ACTUALIZAR_TABLA_ARTICULOS.addActionListener(this);
 
-        //añade e inicia el jtable
+        //Añade, define e inicia el jtable
         this.vista.__tabla_articulos.addMouseListener(this);
         this.definirTabla();
         this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
 
+        //Define el comportacmiento del checkBox
         this.vista.issnCheckBox.addActionListener((ActionEvent event) -> {
             JCheckBox cb = (JCheckBox) event.getSource();
             if (cb.isSelected()) {
@@ -138,7 +127,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         });
 
         this.vista.issnCheckBox.setSelected(true);
-        
+
     }
 
     //Eventos que suceden por el mouse
@@ -148,8 +137,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         {
             int fila = this.vista.__tabla_articulos.rowAtPoint(e.getPoint());
             if (fila > -1) {
-                
-                
+
                 HomeVista.issn1ArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0).toString().substring(0, 4)));
                 HomeVista.issn2ArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 0).toString().substring(4)));
                 this.vista.tituloArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 1)));
@@ -157,32 +145,37 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 this.vista.revistaArticuloBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 3)));
                 this.vista.anioArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 4)));
                 this.vista.mesArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 5)));
-                this.vista.pagIniArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 5)));
-                this.vista.pagFinArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 5)));
+                this.vista.pagIniArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 6)));
+                this.vista.pagFinArticuloFormatedBox.setText(String.valueOf(this.vista.__tabla_articulos.getValueAt(fila, 7)));
                 if (this.vista.issnCheckBox.isSelected()) {
                     HomeVista.issn1ArticuloBox.setEnabled(false);
                     HomeVista.issn2ArticuloBox.setEnabled(false);
                     this.vista.issnCheckBox.setSelected(false);
                 }
             }
-//ERROR AL PARSEAR
+
+            //Añade a la variable issn el contenido de las cajas unidas
             String cadena = HomeVista.issn1ArticuloBox.getText() + HomeVista.issn2ArticuloBox.getText();
             issn = Integer.parseInt(cadena);
         }
     }
 
+    //No se usa
     @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    //No se usa
     @Override
     public void mouseExited(MouseEvent e) {
     }
@@ -194,6 +187,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __NUEVO_ARTICULO:
 
+                //Si algun campo obligatorio esta vacio salta un mensaje
                 if (HomeVista.issn1ArticuloBox.getText().isEmpty()
                         || HomeVista.issn2ArticuloBox.getText().isEmpty()
                         || this.vista.tituloArticuloBox.getText().isEmpty()
@@ -201,47 +195,47 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                         || this.vista.revistaArticuloBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
+
+                    //Añade a la variable issn el contenido de las cajas unidas
                     String cadena = HomeVista.issn1ArticuloBox.getText() + HomeVista.issn2ArticuloBox.getText();
                     issn = Integer.parseInt(cadena);
+
+                    //Si el issn no existe crea un objeto articulo con los parametros de las cajas
                     if (articuloConn.existeISSN(this.issn) == 0) {
-                        ISSNValidator issnValidator = new ISSNValidator();
-                        if(issnValidator.isValid(HomeVista.issn1ArticuloBox.getText())) {
-                            Articulo articulo = new Articulo();
+                        Articulo articulo = new Articulo();
 
-                            articulo.setISSN(this.issn);
-                            articulo.setTitulo(this.vista.tituloArticuloBox.getText());
-                            articulo.setAutor(this.vista.autorArticuloBox.getText());
-                            articulo.setRevista(this.vista.revistaArticuloBox.getText());
-                            if (this.vista.anioArticuloFormatedBox.getText().isEmpty()) {
-                                articulo.setAnio(0);
-                            } else {
-                                articulo.setAnio(Integer.parseInt(this.vista.anioArticuloFormatedBox.getText()));
-                            }
-                            if (this.vista.mesArticuloFormatedBox.getText().isEmpty()) {
-                                articulo.setMes(0);
-                            } else {
-                                articulo.setMes(Integer.parseInt(this.vista.mesArticuloFormatedBox.getText()));
-                            }
-                            if (this.vista.pagIniArticuloFormatedBox.getText().isEmpty()) {
-                                articulo.setPagInicio(0);
-                            } else {
-                                articulo.setPagInicio(Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText()));
-                            }
-                            if (this.vista.pagFinArticuloFormatedBox.getText().isEmpty()) {
-                                articulo.setPagFin(0);
-                            } else {
-                                articulo.setPagFin(Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText()));
-                            }
-
-                            if (articuloConn.insert(articulo)) {
-                                JOptionPane.showMessageDialog(null, "Articulo introducido con exito.");
-                                this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
-                                this.clean();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Ha habido un error.");
-                            }
+                        articulo.setISSN(this.issn);
+                        articulo.setTitulo(this.vista.tituloArticuloBox.getText());
+                        articulo.setAutor(this.vista.autorArticuloBox.getText());
+                        articulo.setRevista(this.vista.revistaArticuloBox.getText());
+                        if (this.vista.anioArticuloFormatedBox.getText().isEmpty()) {
+                            articulo.setAnio(0);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Introduce un ISSN valido.");
+                            articulo.setAnio(Integer.parseInt(this.vista.anioArticuloFormatedBox.getText()));
+                        }
+                        if (this.vista.mesArticuloFormatedBox.getText().isEmpty()) {
+                            articulo.setMes(0);
+                        } else {
+                            articulo.setMes(Integer.parseInt(this.vista.mesArticuloFormatedBox.getText()));
+                        }
+                        if (this.vista.pagIniArticuloFormatedBox.getText().isEmpty()) {
+                            articulo.setPagInicio(0);
+                        } else {
+                            articulo.setPagInicio(Integer.parseInt(this.vista.pagIniArticuloFormatedBox.getText()));
+                        }
+                        if (this.vista.pagFinArticuloFormatedBox.getText().isEmpty()) {
+                            articulo.setPagFin(0);
+                        } else {
+                            articulo.setPagFin(Integer.parseInt(this.vista.pagFinArticuloFormatedBox.getText()));
+                        }
+
+                        //Si el metodo insert retorna true muestra un mensaje de exito
+                        if (articuloConn.insert(articulo)) {
+                            JOptionPane.showMessageDialog(null, "Articulo introducido con exito.");
+                            this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
+                            this.clean();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ha habido un error.");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "El ISSN ya existe.");
@@ -249,6 +243,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 }
                 break;
             case __MODIFICAR_ARTICULO:
+
                 if (HomeVista.issn1ArticuloBox.getText().isEmpty()
                         || this.vista.tituloArticuloBox.getText().isEmpty()
                         || this.vista.autorArticuloBox.getText().isEmpty()
@@ -306,6 +301,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __ELIMINAR_ARTICULO:
 
+                //Si el issn existe borra el registro, en otro caso muestra error
                 if (articuloConn.existeISSN(this.issn) > 0) {
                     if (articuloConn.delete(this.issn)) {
                         JOptionPane.showMessageDialog(null, "Articulo eliminado con exito.");
@@ -318,6 +314,8 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 }
                 break;
             case __ANIADIR_NOTA_ARTICULO:
+
+                //Si el issn existe llama a la ventana Nueva Nota
                 if (articuloConn.existeISSN(this.issn) > 0) {
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
                     nuevaNota.fromArticulo = true;
@@ -331,8 +329,12 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 this.clean();
                 break;
             case __BUSCAR_ARTICULO:
+
+                //Si la caja de buscar registro esta vacia muestra no hace nada
                 if (this.vista.busquedaArticuloBox.getText().isEmpty()) {
                 } else {
+
+                    //Si la busqueda retorna contenido, refresca la tabla con ese contenido
                     if (!articuloConn.buscar(this.vista.busquedaArticuloBox.getText()).isEmpty()) {
                         this.vista.__tabla_articulos.setModel(setTabla(articuloConn.buscar(this.vista.busquedaArticuloBox.getText())));
                     } else {
@@ -342,8 +344,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __GUARDAR_TABLA_ARTICULO:
 
+                //Intancia un objeto JFileChooser
                 JFileChooser fileChooser = new JFileChooser();
                 int seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en ese fichero
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -358,6 +363,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
                 fileChooser = new JFileChooser();
                 seleccion = fileChooser.showOpenDialog(this.vista);
+                //Si selecciona un fichero y la ruta es valida, carga el contenido del fichero en la tabla
                 if (seleccion == JFileChooser.APPROVE_OPTION) {
                     try {
                         File fichero = fileChooser.getSelectedFile();
@@ -371,11 +377,13 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 break;
             case __ACTUALIZAR_TABLA_ARTICULOS:
 
+                //Refresca el contenido de la tabla con todos los registros en la base de datos
                 this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
 
                 break;
             case __VOLVER_ARTICULO:
 
+                //Muestra mensaje de confirmación, si es positivo, cierra la sesion y vuelve a la pantalla de login
                 int option = JOptionPane.showConfirmDialog(null,
                         "¿Estás seguro de que quieres cerrar la sesion?",
                         "Cierre de sesion",
@@ -393,8 +401,14 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
     }
 
+    /**
+     * Pone en blanco todas las cajas de texto
+     */
     public void clean() {
         HomeVista.issn1ArticuloBox.setText("");
+        HomeVista.issn2ArticuloBox.setText("");
+
+        //Si el chechBox no esta marcado, lo marca y habilita las cajas de issn
         if (!this.vista.issnCheckBox.isSelected()) {
             HomeVista.issn1ArticuloBox.setEnabled(true);
             HomeVista.issn2ArticuloBox.setEnabled(true);
@@ -408,7 +422,10 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         this.vista.pagIniArticuloFormatedBox.setText("");
         this.vista.pagFinArticuloFormatedBox.setText("");
     }
-    
+
+    /**
+     * Define la tabla de articulos
+     */
     public void definirTabla() {
         this.vista.__tabla_articulos.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -416,39 +433,42 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                     "ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin", "Usuario"
                 }
         ) {
+            //Define la clase de cada columna
             Class[] types = new Class[]{
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false, false, false
-            };
-
+            //Niega la edicion de las columnas
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return false;
             }
-        });  
+        });
     }
-    
+
+    /**
+     * Introduce los atributos de una coleccion de articulos en la tabla
+     *
+     * @param lista Entra por parametro un List de objetos Articulo
+     * @return Retorna el modelo de la tabla con contenido
+     */
     public DefaultTableModel setTabla(List<Articulo> lista) {
 
+        //Ordena la lista por nombre
         Collections.sort(lista, Articulo.tituloComparator);
-
+        //Instancia un objeto para modificar columnas
         TableColumnModel tcm = this.vista.__tabla_articulos.getColumnModel();
 
+        //Instancia el modelo
         DefaultTableModel modelo = (DefaultTableModel) this.vista.__tabla_articulos.getModel();
 
         String[] columNames = {"ISSN", "Titulo", "Autor", "Revista", "Año", "Mes", "Pag Inicio", "Pag Fin", "Usuario"};
 
+        //Instancia una matriz (numero de objetos)*(numero de columnas)
         Object[][] fila = new Object[lista.size()][9];
         int i = 0;
 
+        //Recorre la lista e introduce el contenido en la matriz
         for (Articulo articulo : lista) {
             fila[i][0] = articulo.getISSN();
             fila[i][1] = articulo.getTitulo();
@@ -480,13 +500,20 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
         }
 
+        //Inserta el contenido de la matriz en el modelo
         modelo.setDataVector(fila, columNames);
 
+        //Oculta una columna
         tcm.removeColumn(tcm.getColumn(tcm.getColumnIndex("Usuario")));
 
         return modelo;
     }
 
+    /**
+     * Devuelve el contenido de la tabla en forma de coleccion
+     *
+     * @return Retorna un ArrayList de Articulo
+     */
     public List<Articulo> getContenidoTabla() {
 
         List<Articulo> lista = new ArrayList<>();

@@ -1,32 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo;
 
 import java.util.Comparator;
 
 /**
+ * Articulo.java
  *
  * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class Articulo {
-    
+
     private int ISSN;
     private String autor, titulo, revista;
     private int anio, mes, pagInicio, pagFin, idUser;
 
+    /**
+     * Constructor vacio
+     */
     public Articulo() {
     }
 
+    /**
+     * Contructor por parametros
+     *
+     * @param ISSN
+     * @param autor
+     * @param titulo
+     * @param revista
+     */
     public Articulo(int ISSN, String autor, String titulo, String revista) {
         this.ISSN = ISSN;
         this.autor = autor;
         this.titulo = titulo;
         this.revista = revista;
     }
-    
+
     public int getISSN() {
         return ISSN;
     }
@@ -103,7 +112,10 @@ public class Articulo {
     public String toString() {
         return "Articulo{" + "ISSN=" + ISSN + ", autor=" + autor + ", titulo=" + titulo + ", revista=" + revista + ", anio=" + anio + ", mes=" + mes + ", pagInicio=" + pagInicio + ", pagFin=" + pagFin + ", idUser=" + idUser + '}';
     }
-    
+
+    /**
+     * Metodo que compara los titulos de un articulo
+     */
     public static Comparator<Articulo> tituloComparator = (Articulo a1, Articulo a2) -> {
         String titulo1 = a1.getTitulo().toUpperCase();
         String titulo2 = a2.getTitulo().toUpperCase();

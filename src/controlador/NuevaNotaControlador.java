@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import static controlador.InicioControlador.icon;
@@ -21,41 +16,37 @@ import modelo.NotaConexion;
 import vista.NuevaNotaVista;
 
 /**
+ * NuevaNotaControlador.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class NuevaNotaControlador implements ActionListener {
 
-    /**
-     * instancia a nuestra interfaz de usuario
-     */
+    //Declaración de objetos necesarios
     NuevaNotaVista vista;
     Nota nota = new Nota();
+
     NotaConexion notaConn = new NotaConexion();
     Libro libro = new Libro();
     LibroConexion libroConn = new LibroConexion();
     Articulo articulo = new Articulo();
     ArticuloConexion articuloConn = new ArticuloConexion();
 
-    /**
-     * instancia a nuestro modelo
-     */
     public boolean fromLibro = false;
     public boolean fromArticulo = false;
 
-    /**
-     * Se declaran en un ENUM las acciones que se realizan desde la interfaz de
-     * usuario VISTA y posterior ejecución desde el controlador
-     */
     public enum AccionMVC {
         __INTRODUCIR_NOTA,
         __CANCELAR
     }
 
     /**
-     * Constrcutor de clase
+     * Constructor de la clase NuevaNotaControlador
      *
      * @param vista Instancia de clase interfaz
+     *
      */
     public NuevaNotaControlador(NuevaNotaVista vista) {
         this.vista = vista;
@@ -78,7 +69,7 @@ public class NuevaNotaControlador implements ActionListener {
         //declara una acción y añade un escucha al evento producido por el componente
         this.vista.__INTRODUCIR_NOTA.setActionCommand("__INTRODUCIR_NOTA");
         this.vista.__INTRODUCIR_NOTA.addActionListener(this);
-        //declara una acción y añade un escucha al evento producido por el componente
+
         this.vista.__CANCELAR.setActionCommand("__CANCELAR");
         this.vista.__CANCELAR.addActionListener(this);
 
@@ -90,23 +81,29 @@ public class NuevaNotaControlador implements ActionListener {
 
         switch (AccionMVC.valueOf(e.getActionCommand())) {
             case __INTRODUCIR_NOTA:
+
+                //Si un campo obligatorio esta vacio salta un mensaje
                 if (this.vista.temaBox.getText().isEmpty()) {
 
                     JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.");
                 } else {
+
+                    //Si viene del panel Libros coloca al atributo idLibro la id del objeto libro relacionado
                     if (fromLibro) {
 
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
-                        
-                        if (this.vista.contenidoArea.getText().isEmpty())
+
+                        if (this.vista.contenidoArea.getText().isEmpty()) {
                             nota.setContenido(null);
-                        else   
+                        } else {
                             nota.setContenido(this.vista.contenidoArea.getText());
-                        
+                        }
+
                         nota.setIdLibro(libroConn.getId(LibroControlador.isbn));
                         nota.setIdArticulo(0);
 
+                        //Si el metodo insert retorna true muestra un mensaje de exito, si no muestra error
                         if (notaConn.insert(nota)) {
                             JOptionPane.showMessageDialog(null, "Nota introducida con exito.");
                         } else {
@@ -114,25 +111,29 @@ public class NuevaNotaControlador implements ActionListener {
                         }
                         fromLibro = false;
                     }
+
+                    //Si viene del panel Articulos coloca al atributo idArticulo la id del objeto articulo relacionado
                     if (fromArticulo) {
 
                         nota.setId(0);
                         nota.setTema(this.vista.temaBox.getText());
-                        if (this.vista.contenidoArea.getText().isEmpty())
+                        if (this.vista.contenidoArea.getText().isEmpty()) {
                             nota.setContenido(null);
-                        else
+                        } else {
                             nota.setContenido(this.vista.contenidoArea.getText());
-                        
+                        }
+
                         nota.setIdLibro(0);
                         nota.setIdArticulo(articuloConn.getId(ArticuloControlador.issn));
 
-                        if(notaConn.insert(nota)){
+                        if (notaConn.insert(nota)) {
                             JOptionPane.showMessageDialog(null, "Nota introducida con exito.");
                         } else {
                             JOptionPane.showMessageDialog(null, "Ha habido un error.");
                         }
                         fromArticulo = false;
                     }
+                    //Limpia las cajas de texto y cierra la ventana
                     clean();
                     this.vista.dispose();
                     HomeControlador.vista.toFront();
@@ -142,17 +143,22 @@ public class NuevaNotaControlador implements ActionListener {
 
                 break;
             case __CANCELAR:
+
+                //Limpia las cajas de texto y cierra la ventana
                 clean();
-                
+
                 fromLibro = false;
                 fromArticulo = false;
-                
+
                 this.vista.dispose();
                 HomeControlador.vista.toFront();
                 HomeControlador.vista.setEnabled(true);
         }
     }
 
+    /**
+     * Pone en blanco todas las cajas de texto
+     */
     private void clean() {
         this.vista.temaBox.setText("");
         this.vista.contenidoArea.setText("");

@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
 import javax.swing.JOptionPane;
 
 /**
+ * InicioVista.java
  *
- * @author migue
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
  */
 public class InicioVista extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
      */
-    
-    
     public InicioVista() {
         initComponents();
     }
@@ -96,17 +92,17 @@ public class InicioVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         // Se pide una confirmación antes de finalizar el programa
-        int option = JOptionPane.showConfirmDialog(null, 
+        // Se pide una confirmación antes de finalizar el programa
+        int option = JOptionPane.showConfirmDialog(null,
                 "¿Estas seguro de que quieres cerrar la aplicacion?",
                 "Confirmacion de cierre",
-                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
-                System.exit(0);
+            System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
-    
+
     /**
      * @param args the command line arguments
      */

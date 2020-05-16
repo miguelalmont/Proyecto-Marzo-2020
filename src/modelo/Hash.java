@@ -1,9 +1,21 @@
-
 package modelo;
 
+/**
+ * Hash.java
+ *
+ * @author Miguel Alcantara
+ * @version 1.0
+ * @since 01/05/2020
+ */
 public class Hash {
-    
-    /* Retorna un hash a partir de un tipo y un texto */
+
+    /**
+     * Retorna un hash a partir de un tipo y un texto
+     *
+     * @param txt texto de entrada
+     * @param hashType tipo de encriptacion
+     * @return el texto encriptado
+     */
     public static String getHash(String txt, String hashType) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance(hashType);
@@ -18,13 +30,23 @@ public class Hash {
         }
         return null;
     }
- 
-    /* Retorna un hash MD5 a partir de un texto */
+
+    /**
+     * Retorna un hash MD5 a partir de un texto
+     *
+     * @param txt texto de entrada
+     * @return el texto encriptado en MD5
+     */
     public static String md5(String txt) {
         return Hash.getHash(txt, "MD5");
     }
- 
-    /* Retorna un hash SHA1 a partir de un texto */
+
+    /**
+     * Retorna un hash SHA1 a partir de un texto
+     *
+     * @param txt texto de entrada
+     * @return el texto encriptado en SHA1
+     */
     public static String sha1(String txt) {
         return Hash.getHash(txt, "SHA1");
     }
