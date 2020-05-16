@@ -201,10 +201,10 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                     issn = Integer.parseInt(cadena);
 
                     //Si el issn no existe crea un objeto articulo con los parametros de las cajas
-                    if (articuloConn.existeISSN(this.issn) == 0) {
+                    if (articuloConn.existeISSN(ArticuloControlador.issn) == 0) {
                         Articulo articulo = new Articulo();
 
-                        articulo.setISSN(this.issn);
+                        articulo.setISSN(ArticuloControlador.issn);
                         articulo.setTitulo(this.vista.tituloArticuloBox.getText());
                         articulo.setAutor(this.vista.autorArticuloBox.getText());
                         articulo.setRevista(this.vista.revistaArticuloBox.getText());
@@ -250,11 +250,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                         || this.vista.revistaArticuloBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISSN, Articulo, Autor y Revista no pueden estar vacios.");
                 } else {
-                    if (articuloConn.existeISSN(this.issn) > 0) {
+                    if (articuloConn.existeISSN(ArticuloControlador.issn) > 0) {
 
                         Articulo articulo = new Articulo();
 
-                        articulo.setISSN(this.issn);
+                        articulo.setISSN(ArticuloControlador.issn);
                         articulo.setTitulo(this.vista.tituloArticuloBox.getText());
                         articulo.setAutor(this.vista.autorArticuloBox.getText());
                         articulo.setRevista(this.vista.revistaArticuloBox.getText());
@@ -287,7 +287,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                             articulo.setPagFin(pagFin);
                         }
 
-                        if (articuloConn.update(articulo, this.issn)) {
+                        if (articuloConn.update(articulo, ArticuloControlador.issn)) {
                             JOptionPane.showMessageDialog(null, "Articulo modificado con exito.");
                             this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
                         } else {
@@ -302,8 +302,8 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             case __ELIMINAR_ARTICULO:
 
                 //Si el issn existe borra el registro, en otro caso muestra error
-                if (articuloConn.existeISSN(this.issn) > 0) {
-                    if (articuloConn.delete(this.issn)) {
+                if (articuloConn.existeISSN(ArticuloControlador.issn) > 0) {
+                    if (articuloConn.delete(ArticuloControlador.issn)) {
                         JOptionPane.showMessageDialog(null, "Articulo eliminado con exito.");
                     } else {
                         JOptionPane.showMessageDialog(null, "Ha habido un error.");
@@ -316,7 +316,7 @@ public class ArticuloControlador implements ActionListener, MouseListener {
             case __ANIADIR_NOTA_ARTICULO:
 
                 //Si el issn existe llama a la ventana Nueva Nota
-                if (articuloConn.existeISSN(this.issn) > 0) {
+                if (articuloConn.existeISSN(ArticuloControlador.issn) > 0) {
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
                     nuevaNota.fromArticulo = true;
                     nuevaNota.iniciar();

@@ -153,7 +153,7 @@ public class LibroControlador implements ActionListener, MouseListener {
 
             //Añade a la variable isbn el contenido de las cajas unidas
             String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-            this.isbn = Long.parseLong(cadena);
+            LibroControlador.isbn = Long.parseLong(cadena);
         }
     }
 
@@ -194,13 +194,13 @@ public class LibroControlador implements ActionListener, MouseListener {
 
                     //Añade a la variable isbn el contenido de las cajas unidas
                     String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-                    this.isbn = Long.parseLong(cadena);
+                    LibroControlador.isbn = Long.parseLong(cadena);
 
                     //Si el issn no existe crea un objeto articulo con los parametros de las cajas
-                    if (libroConn.existeISBN(this.isbn) == 0) {
+                    if (libroConn.existeISBN(LibroControlador.isbn) == 0) {
                         Libro libro = new Libro();
 
-                        libro.setISBN(this.isbn);
+                        libro.setISBN(LibroControlador.isbn);
                         libro.setTitulo(this.vista.tituloLibroBox.getText());
                         libro.setAutor(this.vista.autorLibroBox.getText());
                         libro.setEditorial(this.vista.editorialLibroBox.getText());
@@ -237,11 +237,11 @@ public class LibroControlador implements ActionListener, MouseListener {
                         || this.vista.autorLibroBox.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Los campos ISBN, Titulo y Atutor no pueden estar vacios.");
                 } else {
-                    if (libroConn.existeISBN(this.isbn) > 0) {
+                    if (libroConn.existeISBN(LibroControlador.isbn) > 0) {
 
                         Libro libro = new Libro();
 
-                        libro.setISBN(this.isbn);
+                        libro.setISBN(LibroControlador.isbn);
                         libro.setTitulo(this.vista.tituloLibroBox.getText());
                         libro.setAutor(this.vista.autorLibroBox.getText());
                         libro.setEditorial(this.vista.editorialLibroBox.getText());
@@ -257,7 +257,7 @@ public class LibroControlador implements ActionListener, MouseListener {
                             int pags = Integer.parseInt(this.vista.nPaginasLibroFormatedBox.getText());
                             libro.setnPaginas(pags);
                         }
-                        if (libroConn.update(libro, this.isbn)) {
+                        if (libroConn.update(libro, LibroControlador.isbn)) {
                             JOptionPane.showMessageDialog(null, "Libro modificado con exito.");
                             this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
                         } else {
@@ -274,10 +274,10 @@ public class LibroControlador implements ActionListener, MouseListener {
             case __ELIMINAR_LIBRO:
                 //Si el isbn existe borra el registro, en otro caso muestra un mensaje de error
                 String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-                this.isbn = Long.parseLong(cadena);
+                LibroControlador.isbn = Long.parseLong(cadena);
 
-                if (libroConn.existeISBN(this.isbn) > 0) {
-                    if (libroConn.delete(this.isbn)) {
+                if (libroConn.existeISBN(LibroControlador.isbn) > 0) {
+                    if (libroConn.delete(LibroControlador.isbn)) {
                         JOptionPane.showMessageDialog(null, "Libro eliminado con exito.");
                         this.vista.__tabla_libros.setModel(setTabla(libroConn.select()));
                     } else {
@@ -292,9 +292,9 @@ public class LibroControlador implements ActionListener, MouseListener {
 
                 //Si el isbn existe llama a la ventana Nueva Nota
                 cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-                this.isbn = Long.parseLong(cadena);
+                LibroControlador.isbn = Long.parseLong(cadena);
 
-                if (libroConn.existeISBN(this.isbn) > 0) {
+                if (libroConn.existeISBN(LibroControlador.isbn) > 0) {
 
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
                     nuevaNota.fromLibro = true;
