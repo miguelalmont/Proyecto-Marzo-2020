@@ -20,6 +20,8 @@ import javax.swing.table.TableColumnModel;
 import modelo.IOdatos;
 import modelo.Articulo;
 import modelo.ArticuloConexion;
+import modelo.Nota;
+import modelo.NotaConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
 
@@ -39,9 +41,11 @@ public class ArticuloControlador implements ActionListener, MouseListener {
     public static int issn = 0;
 
     ArticuloConexion articuloConn = new ArticuloConexion();
+    NotaConexion notaConn = new NotaConexion();
     IOdatos io = new IOdatos();
 
     public enum AccionMVC {
+
         __NUEVO_ARTICULO,
         __MODIFICAR_ARTICULO,
         __ELIMINAR_ARTICULO,
@@ -51,7 +55,8 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         __CARGAR_TABLA_ARTICULO,
         __BUSCAR_ARTICULO,
         __VOLVER_ARTICULO,
-        __ACTUALIZAR_TABLA_ARTICULOS
+        __ACTUALIZAR_TABLA_ARTICULOS,
+        __EXPORTAR_ARTICULO
 
     }
 
@@ -105,6 +110,9 @@ public class ArticuloControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_ARTICULO.setActionCommand("__VOLVER_ARTICULO");
         this.vista.__VOLVER_ARTICULO.addActionListener(this);
+
+        this.vista.__EXPORTAR_ARTICULO.setActionCommand("__EXPORTAR_ARTICULO");
+        this.vista.__EXPORTAR_ARTICULO.addActionListener(this);
 
         this.vista.__ACTUALIZAR_TABLA_ARTICULOS.setActionCommand("__ACTUALIZAR_TABLA_ARTICULOS");
         this.vista.__ACTUALIZAR_TABLA_ARTICULOS.addActionListener(this);
@@ -381,6 +389,23 @@ public class ArticuloControlador implements ActionListener, MouseListener {
                 this.vista.__tabla_articulos.setModel(setTabla(articuloConn.select()));
 
                 break;
+            case __EXPORTAR_ARTICULO:
+
+                fileChooser = new JFileChooser();
+                seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en un txt
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File fichero = fileChooser.getSelectedFile();
+                        io.exportarTxt(generarTxt(getContenidoTabla()), fichero.getAbsolutePath());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
+                    }
+
+                }
+
+                break;
             case __VOLVER_ARTICULO:
 
                 //Muestra mensaje de confirmación, si es positivo, cierra la sesion y vuelve a la pantalla de login
@@ -537,4 +562,66 @@ public class ArticuloControlador implements ActionListener, MouseListener {
         return lista;
     }
 
+    /**
+     * Genera un String de datos con formato a partir de una coleccion
+     *
+     * @param lista La coleccion de Articulo que se va a introducir
+     * @return El String con los datos de la coleccion
+     */
+    public String generarTxt(List<Articulo> lista) {
+
+        //Inicializa el String vacio;
+        String contenido = "";
+
+        //Inicializa el String que servira para el salto de linea
+        String saltolinea = System.getProperty("line.separator");
+
+        //Por cada articulo en la lista añade los datos requeridos al String
+        for (Articulo articulo : lista) {
+
+            List<Nota> notas = notaConn.selectPorArticulo(articuloConn.getId(articulo.getISSN()));
+
+            contenido += articulo.getTitulo();
+            contenido += ", ";
+            contenido += articulo.getAutor();
+            contenido += ", ";
+            contenido += articulo.getRevista();
+
+            if (articulo.getAnio() > 0) {
+                contenido += ", ";
+                contenido += articulo.getAnio();
+            }
+            if (articulo.getMes() > 0) {
+                contenido += ", ";
+                contenido += articulo.getMes();
+            }
+            if (articulo.getPagInicio() > 0) {
+                contenido += ", ";
+                contenido += articulo.getPagInicio();
+            }
+
+            if (articulo.getPagFin() > 0) {
+                contenido += ", ";
+                contenido += articulo.getPagFin();
+            }
+
+            //Si la lista de notas no esta vacía la recorre
+            if (!notas.isEmpty()) {
+                contenido += saltolinea;
+                //Por cada nota en la lista añade los datos requeridos al String
+                for (Nota nota : notas) {
+
+                    contenido += "     " + nota.getTema();
+                    if (!nota.getContenido().isEmpty()) {
+                        contenido += ": ";
+                        contenido += nota.getContenido();
+                    }
+
+                    contenido += saltolinea;
+                }
+            }
+            contenido += saltolinea;
+        }
+        return contenido;
+    }
 }

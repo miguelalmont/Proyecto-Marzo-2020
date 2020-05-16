@@ -23,6 +23,23 @@ import java.util.logging.Logger;
 public class IOdatos {
 
     /**
+     * Guarda el contenido de un String en un fichero
+     *
+     * @param txt El String a guardar
+     * @param ruta La ruta del fichero donde se va a guardar
+     */
+    public void exportarTxt(String txt, String ruta) {
+
+        try ( BufferedWriter bw = new BufferedWriter(new FileWriter(ruta))) {
+            bw.write(txt);
+            bw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(IOdatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    /**
      * Lee un fichero json y devuelve el contenido en forma de coleccion
      *
      * @param ruta La ruta del fichero

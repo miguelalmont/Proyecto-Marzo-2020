@@ -21,7 +21,7 @@ import java.util.Set;
 public class NotaConexion extends conexion.Conexion {
 
     private final String SQL_INSERT
-            = "CALL isert_nota(?,?,?,?,?)";
+            = "CALL insert_nota(?,?,?,?,?)";
 
     private final String SQL_UPDATE
             = "UPDATE notas SET tema = ?, contenido = ?, id_libro = ?, id_artic = ? WHERE id_nota = ?";
@@ -31,6 +31,12 @@ public class NotaConexion extends conexion.Conexion {
 
     private final String SQL_SELECT
             = "SELECT id_nota, tema, contenido, id_libro, id_artic, user_nota FROM notas WHERE user_nota = ? ORDER BY tema";
+
+    private final String SQL_SELECT_POR_LIBRO
+            = "SELECT tema, contenido FROM notas WHERE user_nota = ? AND id_libro = ?";
+
+    private final String SQL_SELECT_POR_ARTICULO
+            = "SELECT tema, contenido FROM notas WHERE user_nota = ? AND id_artic = ?";
 
     /**
      * Inserta un objeto en la base de datos
@@ -302,4 +308,83 @@ public class NotaConexion extends conexion.Conexion {
         return objetivos;
     }
 
+    /**
+     * Crea una coleccion de las notas asociadas a un libro
+     *
+     * @param idLibro
+     * @return
+     */
+    public List<Nota> selectPorLibro(int idLibro) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Nota nota;
+        List<Nota> notas = new ArrayList<>();
+        try {
+            conn = getConnection();
+
+            stmt = conn.prepareStatement(SQL_SELECT_POR_LIBRO);
+            int index = 1;
+            stmt.setInt(index++, LoginControlador.user.getId());
+            stmt.setInt(index, idLibro);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                String tema = rs.getString(1);
+                String contenido = rs.getString(2);
+
+                nota = new Nota();
+                nota.setTema(tema);
+                nota.setContenido(contenido);
+
+                notas.add(nota);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(stmt);
+            close(conn);
+        }
+        return notas;
+    }
+
+    /**
+     * Crea una coleccion de las notas asociadas a un articulo
+     *
+     * @param idArticulo
+     * @return
+     */
+    public List<Nota> selectPorArticulo(int idArticulo) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Nota nota;
+        List<Nota> notas = new ArrayList<>();
+        try {
+            conn = getConnection();
+
+            stmt = conn.prepareStatement(SQL_SELECT_POR_ARTICULO);
+            int index = 1;
+            stmt.setInt(index++, LoginControlador.user.getId());
+            stmt.setInt(index, idArticulo);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                String tema = rs.getString(1);
+                String contenido = rs.getString(2);
+
+                nota = new Nota();
+                nota.setTema(tema);
+                nota.setContenido(contenido);
+
+                notas.add(nota);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(stmt);
+            close(conn);
+        }
+        return notas;
+    }
 }

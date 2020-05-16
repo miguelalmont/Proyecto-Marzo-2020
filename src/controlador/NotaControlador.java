@@ -44,6 +44,7 @@ public class NotaControlador implements ActionListener, MouseListener {
     IOdatos io = new IOdatos();
 
     public enum AccionMVC {
+
         __MODIFICAR_NOTA,
         __ELIMINAR_NOTA,
         __LIMPIAR_NOTA,
@@ -51,7 +52,8 @@ public class NotaControlador implements ActionListener, MouseListener {
         __CARGAR_TABLA_NOTA,
         __BUSCAR_NOTA,
         __VOLVER_NOTA,
-        __ACTUALIZAR_TABLA_NOTAS
+        __ACTUALIZAR_TABLA_NOTAS,
+        __EXPORTAR_NOTA
     }
 
     /**
@@ -98,6 +100,9 @@ public class NotaControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_NOTA.setActionCommand("__VOLVER_NOTA");
         this.vista.__VOLVER_NOTA.addActionListener(this);
+
+        this.vista.__EXPORTAR_NOTA.setActionCommand("__EXPORTAR_NOTA");
+        this.vista.__EXPORTAR_NOTA.addActionListener(this);
 
         this.vista.__ACTUALIZAR_TABLA_NOTAS.setActionCommand("__ACTUALIZAR_TABLA_NOTAS");
         this.vista.__ACTUALIZAR_TABLA_NOTAS.addActionListener(this);
@@ -268,6 +273,23 @@ public class NotaControlador implements ActionListener, MouseListener {
                 this.vista.__tabla_notas.setModel(setTabla(notaConn.select()));
 
                 break;
+            case __EXPORTAR_NOTA:
+
+                fileChooser = new JFileChooser();
+                seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en un txt
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File fichero = fileChooser.getSelectedFile();
+                        io.exportarTxt(generarTxt(getContenidoTabla()), fichero.getAbsolutePath());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
+                    }
+
+                }
+
+                break;
             case __VOLVER_NOTA:
 
                 //Muestra mensaje de confirmación, si es positivo, cierra la sesion y vuelve a la pantalla de login
@@ -421,4 +443,30 @@ public class NotaControlador implements ActionListener, MouseListener {
         return lista;
     }
 
+    /**
+     * Genera un String de datos con formato a partir de una coleccion
+     *
+     * @param lista La coleccion de Nota que se va a introducir
+     * @return El String con los datos de la coleccion
+     */
+    public String generarTxt(List<Nota> lista) {
+
+        //Inicializa el String vacio;
+        String contenido = "";
+
+        //Inicializa el String que servira para el salto de linea
+        String saltolinea = System.getProperty("line.separator");
+
+        //Por cada nota en la lista añade los datos requeridos al String
+        for (Nota i : lista) {
+            contenido += i.getTema();
+            if (!i.getContenido().isEmpty()) {
+                contenido += ": ";
+                contenido += i.getContenido();
+            }
+
+            contenido += saltolinea;
+        }
+        return contenido;
+    }
 }

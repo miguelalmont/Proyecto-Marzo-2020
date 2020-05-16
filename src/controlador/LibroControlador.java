@@ -20,6 +20,8 @@ import javax.swing.table.TableColumnModel;
 import modelo.IOdatos;
 import modelo.Libro;
 import modelo.LibroConexion;
+import modelo.Nota;
+import modelo.NotaConexion;
 import vista.HomeVista;
 import vista.NuevaNotaVista;
 
@@ -39,9 +41,11 @@ public class LibroControlador implements ActionListener, MouseListener {
     public static long isbn = 0;
 
     LibroConexion libroConn = new LibroConexion();
+    NotaConexion notaConn = new NotaConexion();
     IOdatos io = new IOdatos();
 
     public enum AccionMVC {
+
         __NUEVO_LIBRO,
         __MODIFICAR_LIBRO,
         __ELIMINAR_LIBRO,
@@ -51,7 +55,8 @@ public class LibroControlador implements ActionListener, MouseListener {
         __CARGAR_TABLA_LIBRO,
         __VOLVER_LIBRO,
         __BUSCAR_LIBRO,
-        __ACTUALIZAR_TABLA_LIBROS
+        __ACTUALIZAR_TABLA_LIBROS,
+        __EXPORTAR_LIBRO
     }
 
     /**
@@ -104,6 +109,9 @@ public class LibroControlador implements ActionListener, MouseListener {
 
         this.vista.__VOLVER_LIBRO.setActionCommand("__VOLVER_LIBRO");
         this.vista.__VOLVER_LIBRO.addActionListener(this);
+
+        this.vista.__EXPORTAR_LIBRO.setActionCommand("__EXPORTAR_LIBRO");
+        this.vista.__EXPORTAR_LIBRO.addActionListener(this);
 
         this.vista.__ACTUALIZAR_TABLA_LIBROS.setActionCommand("__ACTUALIZAR_TABLA_LIBROS");
         this.vista.__ACTUALIZAR_TABLA_LIBROS.addActionListener(this);
@@ -272,10 +280,8 @@ public class LibroControlador implements ActionListener, MouseListener {
                 break;
 
             case __ELIMINAR_LIBRO:
-                //Si el isbn existe borra el registro, en otro caso muestra un mensaje de error
-                String cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-                LibroControlador.isbn = Long.parseLong(cadena);
 
+                //Si el isbn existe borra el registro, en otro caso muestra un mensaje de error
                 if (libroConn.existeISBN(LibroControlador.isbn) > 0) {
                     if (libroConn.delete(LibroControlador.isbn)) {
                         JOptionPane.showMessageDialog(null, "Libro eliminado con exito.");
@@ -291,9 +297,6 @@ public class LibroControlador implements ActionListener, MouseListener {
             case __ANIADIR_NOTA_LIBRO:
 
                 //Si el isbn existe llama a la ventana Nueva Nota
-                cadena = HomeVista.isbn1LibroBox.getText() + HomeVista.isbn2LibroBox.getText();
-                LibroControlador.isbn = Long.parseLong(cadena);
-
                 if (libroConn.existeISBN(LibroControlador.isbn) > 0) {
 
                     nuevaNota = new NuevaNotaControlador(new NuevaNotaVista());
@@ -348,6 +351,23 @@ public class LibroControlador implements ActionListener, MouseListener {
                     try {
                         File fichero = fileChooser.getSelectedFile();
                         this.vista.__tabla_libros.setModel(setTabla(io.lecturaLibro(fichero.getAbsolutePath())));
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
+                    }
+
+                }
+
+                break;
+            case __EXPORTAR_LIBRO:
+
+                fileChooser = new JFileChooser();
+                seleccion = fileChooser.showSaveDialog(this.vista);
+
+                //Si selecciona un fichero y la ruta es valida, guarda el contenido de la tabla en un txt
+                if (seleccion == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        File fichero = fileChooser.getSelectedFile();
+                        io.exportarTxt(generarTxt(getContenidoTabla()), fichero.getAbsolutePath());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Debes seleccionar un archivo valido.");
                     }
@@ -508,4 +528,61 @@ public class LibroControlador implements ActionListener, MouseListener {
         return lista;
     }
 
+    /**
+     * Genera un String de datos con formato a partir de una coleccion
+     *
+     * @param lista La coleccion de Libro que se va a introducir
+     * @return El String con los datos de la coleccion
+     */
+    public String generarTxt(List<Libro> lista) {
+
+        //Inicializa el String vacio;
+        String contenido = "";
+
+        //Inicializa el String que servira para el salto de linea
+        String saltolinea = System.getProperty("line.separator");
+
+        //Por cada libro en la lista añade los datos requeridos al String
+        for (Libro libro : lista) {
+
+            List<Nota> notas = notaConn.selectPorLibro(libroConn.getId(libro.getISBN()));
+
+            contenido += libro.getTitulo();
+            contenido += ", ";
+            contenido += libro.getAutor();
+
+            if (libro.getEditorial().isEmpty()) {
+                contenido += ", ";
+                contenido += libro.getEditorial();
+            }
+            if (libro.getAnio() > 0) {
+                contenido += ", ";
+                contenido += libro.getAnio();
+            }
+            if (libro.getnPaginas() > 0) {
+                contenido += ", ";
+                contenido += libro.getnPaginas();
+            }
+
+            //Si la lista de notas no esta vacía la recorre
+            if (!notas.isEmpty()) {
+                contenido += saltolinea;
+
+                //Por cada nota en la lista añade los datos requeridos al String
+                for (Nota nota : notas) {
+
+                    contenido += "     " + nota.getTema();
+
+                    if (!nota.getContenido().isEmpty()) {
+                        contenido += ": ";
+                        contenido += nota.getContenido();
+                    }
+
+                    contenido += saltolinea;
+                }
+            }
+            contenido += saltolinea;
+        }
+        return contenido;
+    }
 }
